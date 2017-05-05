@@ -1,0 +1,170 @@
+html {
+    font-family: Arial;
+    background: #f8f8f8;
+    overflow-y: scroll;
+}
+
+body {
+    width: 960px;
+    margin: 0 auto;
+}
+
+header {
+    margin-top: 24px;
+}
+
+main {
+    min-height: 360px;
+    margin-top: -50px;
+    padding: 24px;
+    padding-top: 36px;
+    background: white;
+}
+
+footer {
+    margin-top: 24px;
+    background: white;
+    text-align: center;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 48px;
+    border-bottom: 3px solid #55b8ff;
+}
+
+h2 {
+    margin-top: 24px;
+    margin-bottom: 24px;
+    font-size: 24px;
+    border-bottom: 2px solid #55b8ff;
+}
+
+p {
+    padding: 24px;
+    line-height: 24px;
+}
+
+section h3 {
+    margin-left: 24px;
+}
+
+
+/*--- QUOTES ---*/
+blockquote {
+    margin-right: 60px;
+    margin-left: 600px;
+    margin-bottom: 24px;
+    border-left: 5px solid #55b8ff; /* #ccc*/
+}
+
+blockquote p {
+    padding-top: 6px;
+    padding-bottom: 0px;
+}
+
+blockquote p:before {
+    content: "\201C";
+    position: relative;
+    top: 12px;
+    font-size: 60px;
+    color: #ff9155; /*#7a7a7a;*/
+}
+
+blockquote p:after {
+    content: "\201D";
+    position: relative;
+    top: 12px;
+    font-size: 60px;
+    color: #ff9155;
+}
+
+blockquote b {
+    padding-bottom: 6px;
+    display: block;
+    line-height: 24px;
+    padding-left: 48px;
+}
+
+
+
+
+
+/* ---------------- Classes ---------------- */
+
+.innerTitle {
+    margin-left: 24px;
+}
+
+.firstPmargin {
+    margin-top: 12px;
+}
+
+.me {
+    margin-left: 124px;
+    padding-left: 0px;
+}
+
+.profile {
+    width: 72px;
+    height: 72px;
+    margin: 36px 24px;
+    border: 2px solid #ff9155;
+    border-radius: 50%;
+    float: left;
+}
+
+
+
+
+
+/* ---------------- Navbar ---------------- */
+.reviews {
+    padding: 24px;
+}
+
+.reviews h3, ul, li {
+    display: inline;
+}
+
+.reviews li {
+    padding-left: 24px;
+}
+
+.reviews li a:hover {
+    color: #ff9155;
+}
+.reviews li a:visited  {
+    color: #D64B00;
+}
+
+
+
+/* ---------------- Navbar ---------------- */
+.navbar {
+    position: absolute;
+    padding-left: 700px;
+    padding-top: 20px;
+}
+
+.navbar ul {
+    list-style-type: none;
+}
+
+ .navbar li {
+    padding: 10px;
+    display: inline;
+}
+
+.navbar li a {
+    padding: 7px;
+    color: black;
+    text-decoration: none;
+}
+
+.navbar li a:hover {
+    border-bottom: 5px solid #ff9155;
+}
