@@ -1,0 +1,36 @@
+h1 {
+	text-align: center;
+}
+
+h3 {
+	color: green;
+}
+
+.ul-simple {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.content {
+	background-color: #eee;
+    height: 500px;
+    width: 800px;
+	padding: 2em;
+	margin: 0 auto;
+    border: 1px solid black;
+	border-radius: 30px;
+}
+
+.letters {
+    width: 50%;
+}
+
+
+.button {
+
+}
+
+.left {
+    float: left;
+}
