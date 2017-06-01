@@ -32,17 +32,27 @@
     /*
     * Creates an HTML element and returns it.
     * @param element, the name of the elemnt tag.
-    * @param classList, the classes to be applied.
+    * @param attrObj, object with attributes: id, classList, text
     */
-    function createElem(element, classList) {
+    function createElem(element, attrObj) {
         // Create HTML node.
         var newElem = document.createElement(element);
 
-        if (typeof classList !== "undefined") {
-            // Apply classes.
-            classList.forEach(function (item) {
-                newElem.classList.add(item);
-            });
+        if (typeof attrObj !== "undefined") {
+            if (typeof attrObj.id !== "undefined") {
+                newElem.setAttribute("id", attrObj.id);
+            }
+
+            if (typeof attrObj.classList !== "undefined") {
+                // Apply classes.
+                attrObj.classList.forEach(function (item) {
+                    newElem.classList.add(item);
+                });
+            }
+
+            if (typeof attrObj.text !== "undefined") {
+                newElem.innerHTML = attrObj.text;
+            }
         }
 
         return newElem;
@@ -52,25 +62,32 @@
 
     // All possible letters.
     var letters = [
-        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
-        'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',
-        'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
+        'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+        'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
     ];
 
     // Create our list of letters.
     styleElem(".content", function (elem) {
         // Add a surrounding div for our list.
-        var newElem = createElem("div", ["letters"]);
+        var newElem = createElem("div", { classList: ["letters"] });
         elem.appendChild(newElem);
 
         // Create list element in div.letters.
-        var listElem = createElem("ul", ["ul-simple"]);
+        var listElem = createElem("ul", { classList: ["ul-simple"] });
         newElem.appendChild(listElem);
 
         // Add all elements.
-        letters.forEach(function (item) {
-            var liElem = createElem("li", ["button", "left"]);
-            liElem.innerHTML = item;
+        letters.forEach(function (item, index) {
+            var liElem = createElem("li", { classList: ["left"] });
+            var button = createElem("button", {
+                id: "button" + index,
+                classList: ["button"],
+                text: item
+            });
+            // Put button in li.
+            liElem.appendChild(button);
+            // Put li in list.
             listElem.appendChild(liElem);
         });
     });
