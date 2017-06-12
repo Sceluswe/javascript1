@@ -26,8 +26,12 @@ h3 {
     width: 50%;
 }
 
-.button {
+.selected {
+	background-color: gray;
+}
 
+.button {
+	margin:
 }
 
 .left {

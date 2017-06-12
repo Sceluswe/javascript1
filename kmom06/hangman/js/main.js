@@ -10,7 +10,7 @@
     function styleElem(target, callable) {
         // Get all targeted HTML elements using target.
         var selected = document.querySelectorAll(target);
-
+        
         // Make sure we have at least one element.
         if (selected.length > 0) {
             for (var i = 0; i < selected.length; i++) {
@@ -58,8 +58,6 @@
         return newElem;
     }
 
-    console.log('Sandbox is ready!');
-
     // All possible letters.
     var letters = [
         'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
@@ -85,6 +83,13 @@
                 classList: ["button"],
                 text: item
             });
+
+            button.addEventListener("click", function (event) {
+                button.classList.toggle("selected");
+                console.log(button);
+                console.log(event);
+            });
+
             // Put button in li.
             liElem.appendChild(button);
             // Put li in list.
@@ -92,4 +97,5 @@
         });
     });
 
+    console.log('Sandbox is ready!');
 })();
