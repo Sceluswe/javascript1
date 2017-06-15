@@ -10,7 +10,7 @@
     function styleElem(target, callable) {
         // Get all targeted HTML elements using target.
         var selected = document.querySelectorAll(target);
-        
+
         // Make sure we have at least one element.
         if (selected.length > 0) {
             for (var i = 0; i < selected.length; i++) {
