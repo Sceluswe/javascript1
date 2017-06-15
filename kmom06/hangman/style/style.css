@@ -1,9 +1,9 @@
 h1 {
-	text-align: center;
+    text-align: center;
 }
 
 h3 {
-	color: green;
+    color: green;
 }
 
 .ul-simple {
@@ -13,25 +13,39 @@ h3 {
 }
 
 .content {
-	background-color: #eee;
+    background-color: #eee;
     height: 500px;
     width: 800px;
-	padding: 2em;
-	margin: 0 auto;
+    padding: 2em;
+    margin: 0 auto;
     border: 1px solid black;
-	border-radius: 30px;
+    border-radius: 30px;
 }
 
 .letters {
-    width: 50%;
+    width: 30%;
 }
 
 .selected {
-	background-color: gray;
+    opacity: 0.2;
 }
 
 .button {
-	margin:
+    width: 48px;
+    height: 48px;
+    border: 1px solid black;
+}
+
+.button:hover {
+    background-color: gray;
+}
+
+.bgGreen {
+    background-color: green;
+}
+
+.bgRed {
+    background-color: red;
 }
 
 .left {
