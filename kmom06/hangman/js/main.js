@@ -85,7 +85,9 @@
             });
 
             button.addEventListener("click", function (event) {
-                button.classList.toggle("selected");
+                button.classList.add("selected");
+                // Remove the event handler from <div>
+                button.removeEventListener("click");
                 console.log(button);
                 console.log(event);
             });
