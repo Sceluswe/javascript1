@@ -23,9 +23,14 @@ h3 {
 }
 
 .letters {
+    float: left;
     width: 30%;
 }
 
+.hangman {
+    width: 65%;
+    float: right;
+}
 .selected {
     opacity: 0.2;
 }
