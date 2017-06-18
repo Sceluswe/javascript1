@@ -65,6 +65,8 @@
         'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
     ];
 
+    var pressedLetters = [];
+
     // Create our list of letters.
     styleElem(".content", function (elem) {
         // Add a surrounding div for our list.
@@ -85,11 +87,20 @@
             });
 
             button.addEventListener("click", function (event) {
+                // Mark button as selected with CSS class.
                 button.classList.add("selected");
+
                 // Remove the event handler from <div>
-                button.removeEventListener("click");
-                console.log(button);
+                button.removeEventListener("click", function () {});
+
+                // Report the letter as pressed.
+                var letter = button.textContent;
+                pressedLetters.push(letter);
+
+                // Log output.
+                console.log("Pressed button:" + button);
                 console.log(event);
+                console.log("Selected letter:" + letter);
             });
 
             // Put button in li.
