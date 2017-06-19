@@ -1,4 +1,4 @@
-window.Letters = (function(){
+window.Letters = (function () {
     'use strict';
 
     // All possible letters.
@@ -14,63 +14,6 @@ window.Letters = (function(){
     // Number of pressed buttons.
     var pressedCounter = 0;
 
-    /*
-    * High-order function executing callable on HTMLelements with target class.
-    * @param targetClass, the CSSclass used to target elements.
-    * @param callable, callable to be used on each targeted element.
-    * @param ...params, rest arguments used as arguments for callable.
-    */
-    function styleElem(target, callable) {
-        // Get all targeted HTML elements using target.
-        var selected = document.querySelectorAll(target);
-
-        // Make sure we have at least one element.
-        if (selected.length > 0) {
-            for (var i = 0; i < selected.length; i++) {
-                // Remove callable from args, keep target as formal parameter.
-                var args = Array.prototype.slice.call(arguments, 2);
-                // Add target element obj as first formal parameter.
-                args.unshift(selected[i]);
-                // Execute the callable, using spread syntax.
-                callable.apply(null, args);
-            }
-
-            console.log("Nr of Elements: " + selected.length);
-        }
-        else {
-            console.log("No elements with the class: " + target);
-        }
-    }
-
-    /*
-    * Creates an HTML element and returns it.
-    * @param element, the name of the elemnt tag.
-    * @param attrObj, object with attributes: id, classList, text
-    */
-    function createElem(element, attrObj) {
-        // Create HTML node.
-        var newElem = document.createElement(element);
-
-        if (typeof attrObj !== "undefined") {
-            if (typeof attrObj.id !== "undefined") {
-                newElem.setAttribute("id", attrObj.id);
-            }
-
-            if (typeof attrObj.classList !== "undefined") {
-                // Apply classes.
-                attrObj.classList.forEach(function (item) {
-                    newElem.classList.add(item);
-                });
-            }
-
-            if (typeof attrObj.text !== "undefined") {
-                newElem.innerHTML = attrObj.text;
-            }
-        }
-
-        return newElem;
-    }
-
     function showPressed() {
         // Sort the array.
         pressedLetters.sort();
@@ -85,19 +28,20 @@ window.Letters = (function(){
     }
 
     // Create our HTML-list of letters.
-    styleElem(".content", function (elem) {
+    Elemu.select(".content", function (elem) {
         // Add a surrounding div for our list.
-        var newElem = createElem("div", { classList: ["letters"] });
-        elem.appendChild(newElem);
+        var divElem = Elemu.create("div", { classList: ["letters"] });
+        // Append the div to .content.
+        elem.appendChild(divElem);
 
         // Create list element in div.letters.
-        var listElem = createElem("ul", { classList: ["ul-simple"] });
-        newElem.appendChild(listElem);
+        var listElem = Elemu.create("ul", { classList: ["ul-simple"] });
+        divElem.appendChild(listElem);
 
-        // Add all elements.
+        // Add all list elements.
         letters.forEach(function (item, index) {
-            var liElem = createElem("li", { classList: ["left"] });
-            var button = createElem("button", {
+            var liElem = Elemu.create("li", { classList: ["left"] });
+            var button = Elemu.create("button", {
                 id: "button" + index,
                 classList: ["button"],
                 text: item
