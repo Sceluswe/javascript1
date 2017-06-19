@@ -1,5 +1,18 @@
-(function(){
+window.Letters = (function(){
     'use strict';
+
+    // All possible letters.
+    var letters = [
+        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
+        'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+        'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+    ];
+
+    // All the letters of the pressed buttons.
+    var pressedLetters = [];
+
+    // Number of pressed buttons.
+    var pressedCounter = 0;
 
     /*
     * High-order function executing callable on HTMLelements with target class.
@@ -58,16 +71,20 @@
         return newElem;
     }
 
-    // All possible letters.
-    var letters = [
-        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
-        'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
-        'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
-    ];
+    function showPressed() {
+        // Sort the array.
+        pressedLetters.sort();
+        // Join all letters and uppercase string.
+        var result = pressedLetters.join().toUpperCase();
+        // Return a alphabetically ordered string.
+        return result;
+    }
 
-    var pressedLetters = [];
+    function showPressedCounter() {
+        return pressedCounter; 
+    }
 
-    // Create our list of letters.
+    // Create our HTML-list of letters.
     styleElem(".content", function (elem) {
         // Add a surrounding div for our list.
         var newElem = createElem("div", { classList: ["letters"] });
@@ -110,13 +127,5 @@
         });
     });
 
-    function showPressed() {
-        // Sort the array.
-        pressedLetters.sort();
-        // Join all letters and uppercase string.
-        var result = pressedLetters.join().toUpperCase();
-        // Return a alphabetically ordered string.
-        return result;
-    }
     console.log('Sandbox is ready!');
 })();
