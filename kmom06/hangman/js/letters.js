@@ -17,8 +17,10 @@ window.Letters = (function () {
     function showPressed() {
         // Sort the array.
         pressedLetters.sort();
+
         // Join all letters and uppercase string.
         var result = pressedLetters.join().toUpperCase();
+
         // Return a alphabetically ordered string.
         return result;
     }
