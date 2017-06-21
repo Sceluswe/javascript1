@@ -21,8 +21,24 @@ window.Letters = (function () {
         // Join all letters and uppercase string.
         var result = pressedLetters.join().toUpperCase();
 
-        // Return a alphabetically ordered string.
-        return result;
+        Elemu.select(".content", function (elem) {
+            var textElem = Elemu.create("p", {
+                id: "gameText",
+                text: result
+            });
+
+            console.log(result);
+
+            elem.appendChild(textElem);
+
+
+            var textElem = Elemu.create("p", {
+                id: "gameText",
+                text: Letters.showPressedCounter()
+            });
+
+            console.log(Letters.showPressedCounter());
+        });
     }
 
     function showPressedCounter() {
@@ -52,7 +68,8 @@ window.Letters = (function () {
             button.addEventListener("click", function (event) {
                 // Mark button as selected with CSS class.
                 button.classList.add("selected");
-
+                
+                showPressed();
                 // Remove the event handler from <div>
                 button.removeEventListener("click", function () {});
 
