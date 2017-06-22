@@ -21,7 +21,7 @@ window.Letters = (function () {
         // Join all letters and uppercase string.
         var result = pressedLetters.join("").toUpperCase();
 
-        Elemu.select("#gameText", function (elem) {
+        Elemu.select(".pressedKeys", function (elem) {
             elem.innerHTML = "(-" + result + "-)";
         });
     }
@@ -60,9 +60,6 @@ window.Letters = (function () {
 
                 showPressed();
 
-                // Remove the event handler from <div>
-                button.removeEventListener("click", function () {});
-
                 // Log output.
                 console.log("Pressed button:" + button);
                 console.log(event);
@@ -76,10 +73,10 @@ window.Letters = (function () {
         });
     });
 
-    // Write out the pressed buttons.
+    // Create node for the pressed keys.
     Elemu.select(".content", function (elem) {
         var pressed = Elemu.create("p", {
-            id: "gameText",
+            classList: ["pressedKeys"],
             text: "(-)"
         });
 

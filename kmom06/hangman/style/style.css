@@ -25,12 +25,19 @@ h3 {
 .letters {
     float: left;
     width: 30%;
+    margin-bottom: 24px;
 }
 
 .hangman {
-    width: 65%;
     float: right;
+    width: 55%;
 }
+
+.pressedKeys {
+    clear: left;
+    width 30%;
+}
+
 .selected {
     opacity: 0.2;
 }
