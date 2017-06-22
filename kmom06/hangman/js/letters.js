@@ -19,25 +19,10 @@ window.Letters = (function () {
         pressedLetters.sort();
 
         // Join all letters and uppercase string.
-        var result = pressedLetters.join().toUpperCase();
+        var result = pressedLetters.join("").toUpperCase();
 
-        Elemu.select(".content", function (elem) {
-            var textElem = Elemu.create("p", {
-                id: "gameText",
-                text: result
-            });
-
-            console.log(result);
-
-            elem.appendChild(textElem);
-
-
-            var textElem = Elemu.create("p", {
-                id: "gameText",
-                text: Letters.showPressedCounter()
-            });
-
-            console.log(Letters.showPressedCounter());
+        Elemu.select("#gameText", function (elem) {
+            elem.innerHTML = "(-" + result + "-)";
         });
     }
 
@@ -68,14 +53,15 @@ window.Letters = (function () {
             button.addEventListener("click", function (event) {
                 // Mark button as selected with CSS class.
                 button.classList.add("selected");
-                
-                showPressed();
-                // Remove the event handler from <div>
-                button.removeEventListener("click", function () {});
 
                 // Report the letter as pressed.
                 var letter = button.textContent;
                 pressedLetters.push(letter);
+
+                showPressed();
+
+                // Remove the event handler from <div>
+                button.removeEventListener("click", function () {});
 
                 // Log output.
                 console.log("Pressed button:" + button);
@@ -88,6 +74,16 @@ window.Letters = (function () {
             // Put li in list.
             listElem.appendChild(liElem);
         });
+    });
+
+    // Write out the pressed buttons.
+    Elemu.select(".content", function (elem) {
+        var pressed = Elemu.create("p", {
+            id: "gameText",
+            text: "(-)"
+        });
+
+        elem.appendChild(pressed);
     });
 
     return {
