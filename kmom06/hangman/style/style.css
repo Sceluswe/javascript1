@@ -36,6 +36,7 @@ h3 {
 .pressedKeys {
     clear: left;
     width 30%;
+    font-size: 16px;
 }
 
 .selected {
