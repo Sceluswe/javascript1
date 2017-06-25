@@ -75,6 +75,13 @@ window.Letters = (function () {
 
     // Create node for the pressed keys.
     Elemu.select(".content", function (elem) {
+        var pressedText = Elemu.create("p", {
+            classList: ["pressedKeys"],
+            text: "Used letters:" 
+        });
+
+        elem.appendChild(pressedText);
+
         var pressed = Elemu.create("p", {
             classList: ["pressedKeys"],
             text: "(-)"
