@@ -14,7 +14,7 @@ window.Letters = (function () {
     // Number of pressed buttons.
     var pressedCounter = 0;
 
-    function showPressed() {
+    function updatePressed() {
         // Sort the array.
         pressedLetters.sort();
 
@@ -26,7 +26,18 @@ window.Letters = (function () {
         });
     }
 
-    function showPressedCounter() {
+    function getPressedKeys() {
+        // Sort the array.
+        pressedLetters.sort();
+
+        // Join all letters and uppercase string.
+        var result = pressedLetters.join("").toUpperCase();
+
+        console.log(result);
+        return result; 
+    }
+
+    function getPressedCounter() {
         return pressedCounter;
     }
 
@@ -59,14 +70,16 @@ window.Letters = (function () {
                 if (pressedLetters.indexOf(letter) < 0) {
                     // Report the letter as pressed.
                     pressedLetters.push(letter);
+                    updatePressed();
+
+                    // Update counter.
+                    pressedCounter++;
+
+                    // Log output.
+                    console.log("Pressed button:" + button);
+                    console.log(event);
+                    console.log("Selected letter:" + letter);
                 }
-
-                showPressed();
-
-                // Log output.
-                console.log("Pressed button:" + button);
-                console.log(event);
-                console.log("Selected letter:" + letter);
             });
 
             // Put button in li.
@@ -94,7 +107,7 @@ window.Letters = (function () {
     });
 
     return {
-        showPressed: showPressed,
-        showPressedCounter: showPressedCounter
+        getPressedKeys: getPressedKeys,
+        getPressedCounter: getPressedCounter
     };
 })();
