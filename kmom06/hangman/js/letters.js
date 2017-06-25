@@ -14,7 +14,7 @@ window.Letters = (function () {
     // Number of pressed buttons.
     var pressedCounter = 0;
 
-    function updatePressed() {
+    function updatePressedKeys() {
         // Sort the array.
         pressedLetters.sort();
 
@@ -70,7 +70,7 @@ window.Letters = (function () {
                 if (pressedLetters.indexOf(letter) < 0) {
                     // Report the letter as pressed.
                     pressedLetters.push(letter);
-                    updatePressed();
+                    updatePressedKeys();
 
                     // Update counter.
                     pressedCounter++;
