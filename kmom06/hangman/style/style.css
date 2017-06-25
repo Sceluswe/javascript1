@@ -33,7 +33,7 @@ h3 {
     width: 50%;
 }
 
-.pressedKeys {
+.pressedKeys, .pressedKeysText {
     clear: left;
     width 30%;
     font-size: 16px;

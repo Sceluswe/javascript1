@@ -54,9 +54,12 @@ window.Letters = (function () {
                 // Mark button as selected with CSS class.
                 button.classList.add("selected");
 
-                // Report the letter as pressed.
+                // Check if letter has already been pressed.
                 var letter = button.textContent;
-                pressedLetters.push(letter);
+                if (pressedLetters.indexOf(letter) < 0) {
+                    // Report the letter as pressed.
+                    pressedLetters.push(letter);
+                }
 
                 showPressed();
 
@@ -76,7 +79,7 @@ window.Letters = (function () {
     // Create node for the pressed keys.
     Elemu.select(".content", function (elem) {
         var pressedText = Elemu.create("p", {
-            classList: ["pressedKeys"],
+            classList: ["pressedKeysText"],
             text: "Used letters:" 
         });
 
