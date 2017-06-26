@@ -32,6 +32,7 @@ window.Hangman = (function() {
             "head"
         ],
 
+        // Create an array with 5 words.
         "words": [
             "quality",
             "stability",
@@ -92,9 +93,23 @@ window.Hangman = (function() {
 
         },
 
+        /**
+         * Return the list of words.
+         *
+         * @returns array.
+         */
         "wordList": function () {
-            return this.words; 
-        } 
+            return this.words;
+        },
+
+        /**
+         * Returns a random word from the array "words".
+         *
+         * @returns string.
+         */
+        "peek": function () {
+            return this.words[Math.floor(Math.random()*this.words.length)];
+        }
     };
 
     console.log("You can now use the hangman object as a part of the window-object. Try\n\nwindow.Hangman.hide('gallow')\nwindow.Hangman.show('gallow')\n\nHere are all the parts you can work on.");
