@@ -32,6 +32,18 @@ window.Hangman = (function() {
             "head"
         ],
 
+        "shownParts": {
+            "hill": false,
+            "gallow": false,
+            "body": false,
+            "rightarm": false,
+            "leftarm": false,
+            "rightleg": false,
+            "leftleg": false,
+            "rope": false,
+            "head": false
+        },
+
         // Create an array with 5 words.
         "words": [
             "quality",
@@ -75,6 +87,7 @@ window.Hangman = (function() {
             if (this.isValid(part)) {
                 console.log("Hiding part: " + part);
                 this.partAsElement[part].style.display = "none";
+                this.shownParts[part] = false;
             }
 
         },
@@ -92,8 +105,22 @@ window.Hangman = (function() {
             if (this.isValid(part)) {
                 console.log("Showing part: " + part);
                 this.partAsElement[part].style.display = "inline";
+                this.shownParts[part] = true;
             }
 
+        },
+
+        "showNextPart": function () {
+            // Loop through the shownParts array and display 1 more part.
+            for (var property in this.shownParts) {
+                if (this.shownParts.hasOwnProperty(property)) {
+                    if (!this.shownParts[property]) {
+                        console.log("property: " + property);
+                        this.show(property);
+                        break;
+                    }
+                }
+            }
         },
 
         /**
@@ -106,14 +133,17 @@ window.Hangman = (function() {
         },
 
         /**
-         * Returns a random word from the array "words".
-         *
-         * @returns string.
+         * Sets a random word from the array "words" as active, (the word to guess).
          */
         "randWord": function () {
             this.activeWord = this.words[Math.floor(Math.random()*this.words.length)];
         },
 
+        /**
+         * Returns the currently active word.
+         *
+         * @returns string.
+         */
         "peek": function () {
             return this.activeWord;
         }

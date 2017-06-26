@@ -27,7 +27,7 @@ window.Letters = (function () {
     }
 
     function getPressedButtons() {
-        return pressedLetters; 
+        return pressedLetters;
     }
 
     function getPressedCounter() {
@@ -68,6 +68,13 @@ window.Letters = (function () {
                     // Update counter.
                     pressedCounter++;
 
+                    // Check if the letter exists in the word.
+                    var letterExists = Hangman.peek().indexOf(letter);
+
+                    if (!letterExists) {
+                        // Show one more hangman part.
+                    }
+
                     // Log output.
                     console.log("Pressed button:" + button);
                     console.log(event);
@@ -86,7 +93,7 @@ window.Letters = (function () {
     Elemu.select(".content", function (elem) {
         var pressedText = Elemu.create("p", {
             classList: ["pressedKeysText"],
-            text: "Used letters:" 
+            text: "Used letters:"
         });
 
         elem.appendChild(pressedText);
