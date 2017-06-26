@@ -41,6 +41,9 @@ window.Hangman = (function() {
             "collection"
         ],
 
+        // The word the player must guess in order to win.
+        "activeWord": undefined,
+
         /**
          * Check if part a valid part, writes error message to console if the part is invalid.
          *
@@ -107,8 +110,12 @@ window.Hangman = (function() {
          *
          * @returns string.
          */
+        "randWord": function () {
+            this.activeWord = this.words[Math.floor(Math.random()*this.words.length)];
+        },
+
         "peek": function () {
-            return this.words[Math.floor(Math.random()*this.words.length)];
+            return this.activeWord;
         }
     };
 
