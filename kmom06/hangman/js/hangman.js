@@ -32,6 +32,13 @@ window.Hangman = (function() {
             "head"
         ],
 
+        "words": [
+            "quality",
+            "stability",
+            "stars",
+            "online",
+            "collection"
+        ],
 
         /**
          * Check if part a valid part, writes error message to console if the part is invalid.
@@ -83,7 +90,11 @@ window.Hangman = (function() {
                 this.partAsElement[part].style.display = "inline";
             }
 
-        }
+        },
+
+        "wordList": function () {
+            return this.words; 
+        } 
     };
 
     console.log("You can now use the hangman object as a part of the window-object. Try\n\nwindow.Hangman.hide('gallow')\nwindow.Hangman.show('gallow')\n\nHere are all the parts you can work on.");
