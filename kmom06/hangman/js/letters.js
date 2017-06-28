@@ -69,10 +69,12 @@ window.Letters = (function () {
                     pressedCounter++;
 
                     // Check if the letter exists in the word.
-                    var letterExists = Hangman.peek().indexOf(letter);
+                    var letterExists = Hangman.peek().toUpperCase().indexOf(letter);
 
-                    if (!letterExists) {
+                    // If the letter doesn't exist. Show another part.
+                    if (letterExists === -1) {
                         // Show one more hangman part.
+                        Hangman.showNextPart();
                     }
 
                     // Log output.
