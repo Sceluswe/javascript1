@@ -130,6 +130,21 @@ window.Hangman = (function() {
             }
         },
 
+        "hangmanIsShown": function () {
+            var answer = true;
+
+            // Check if all parts are shown.
+            for (var property in this.shownParts) {
+                if (this.shownParts.hasOwnProperty(property)) {
+                    // If an unshown part is found answer is false.
+                    if (!this.shownParts[property]) {
+                        answer = false;
+                    }
+                }
+            }
+
+            return answer;
+        },
         /**
          * Return the list of words.
          *
