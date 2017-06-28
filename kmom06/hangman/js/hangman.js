@@ -93,6 +93,13 @@ window.Hangman = (function() {
         },
 
 
+        "hideAll": function () {
+            var that = this;
+            this.validParts.forEach(function (item) {
+                that.hide(item);
+            });
+        },
+
         /**
          * Show a part.
          *
