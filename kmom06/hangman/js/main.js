@@ -9,9 +9,9 @@
         var gameWord = Hangman.peek();
 
         // Check if any button has been pressed.
-        if (Letters.getPressedCounter() > 0) {
+        if (Game.getPressedCounter() > 0) {
             // Get pressed letters.
-            var pressedLetters = Letters.getPressedButtons();
+            var pressedLetters = Game.getPressedButtons();
 
             // Check if the pressed letters exist in gameWord.
             pressedLetters.forEach(function (item, index, array) {

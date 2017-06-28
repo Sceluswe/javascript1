@@ -1,6 +1,7 @@
-window.Letters = (function () {
+window.Game = (function () {
     'use strict';
 
+    // Declare private variables:
     // All possible letters.
     var letters = [
         'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
@@ -9,39 +10,60 @@ window.Letters = (function () {
     ];
 
     // All the letters of the pressed buttons.
-    var pressedLetters = [];
+    var pressedButtons = [];
 
     // Number of pressed buttons.
     var pressedCounter = 0;
 
+    // Declare public functions of the Game module.
+    var Game = {
+
+        /**
+        * Reset Hangman and the gamebuttons.
+        *
+        * @return void.
+        */
+        "reset": function () {
+            // Reset gamebuttons.
+            Elemu.select(".button", function (elem) {
+                elem.classList.remove("selected");
+            });
+
+            Elemu.select(".pressedKeys", function (elem) {
+                elem.innerHTML = "(--)";
+            });
+
+            // Reset hangman.
+            Hangman.hideAll();
+        }
+    };
+
+    /**
+     * Update the displayed text of the pressed buttons.
+     *
+     * @return void.
+     */
     function updatePressedButtons() {
         // Sort the array.
-        pressedLetters.sort();
+        pressedButtons.sort();
 
         // Join all letters and uppercase string.
-        var result = pressedLetters.join("").toUpperCase();
+        var result = pressedButtons.join("").toUpperCase();
 
         Elemu.select(".pressedKeys", function (elem) {
             elem.innerHTML = "(-" + result + "-)";
         });
     }
 
-    function getPressedButtons() {
-        return pressedLetters;
-    }
 
-    function getPressedCounter() {
-        return pressedCounter;
-    }
-
-    // Create our HTML-list of letters.
+    // Create our HTML-list of buttons.
     Elemu.select(".content", function (elem) {
         // Add a surrounding div for our list.
-        var divElem = Elemu.create("div", { classList: ["letters"] });
+        var divElem = Elemu.create("div", { classList: ["gameButtons"] });
         // Append the div to .content.
         elem.appendChild(divElem);
 
-        // Create list element in div.letters.
+        // Create list element in div.gameButtons.
         var listElem = Elemu.create("ul", { classList: ["ul-simple"] });
         divElem.appendChild(listElem);
 
@@ -60,9 +82,9 @@ window.Letters = (function () {
 
                 // Check if letter has already been pressed.
                 var letter = button.textContent;
-                if (pressedLetters.indexOf(letter) < 0) {
+                if (pressedButtons.indexOf(letter) < 0) {
                     // Report the letter as pressed.
-                    pressedLetters.push(letter);
+                    pressedButtons.push(letter);
                     updatePressedButtons();
 
                     // Update counter.
@@ -70,11 +92,10 @@ window.Letters = (function () {
 
                     // Check if the letter exists in the word.
                     var letterExists = Hangman.peek().toUpperCase().indexOf(letter);
-
                     // If the letter doesn't exist. Show another part.
                     if (letterExists === -1) {
-                        // Show one more hangman part.
                         Hangman.showNextPart();
+                        console.log("Wrong letter!");
                     }
 
                     // Log output.
@@ -102,14 +123,11 @@ window.Letters = (function () {
 
         var pressed = Elemu.create("p", {
             classList: ["pressedKeys"],
-            text: "(-)"
+            text: "(--)"
         });
 
         elem.appendChild(pressed);
     });
 
-    return {
-        getPressedButtons: getPressedButtons,
-        getPressedCounter: getPressedCounter
-    };
+    return Game;
 })();
