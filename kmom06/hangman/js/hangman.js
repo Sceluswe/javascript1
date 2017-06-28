@@ -92,7 +92,11 @@ window.Hangman = (function() {
 
         },
 
-
+        /**
+         * Hides all hangman parts.
+         *
+         * @returns void.
+         */
         "hideAll": function () {
             var that = this;
             this.validParts.forEach(function (item) {
@@ -117,6 +121,12 @@ window.Hangman = (function() {
 
         },
 
+        /**
+         * Goes through all parts from smallest index to highest
+         * and displays the first one that isn't already shown.
+         *
+         * @returns void.
+         */
         "showNextPart": function () {
             // Loop through the shownParts array and display 1 more part.
             for (var property in this.shownParts) {
@@ -130,6 +140,11 @@ window.Hangman = (function() {
             }
         },
 
+        /**
+         * Check if all parts of hangman are shown or not.
+         *
+         * $returns boolean.
+         */
         "hangmanIsShown": function () {
             var answer = true;
 
@@ -145,6 +160,7 @@ window.Hangman = (function() {
 
             return answer;
         },
+
         /**
          * Return the list of words.
          *
