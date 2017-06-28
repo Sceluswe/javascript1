@@ -17,9 +17,43 @@ window.Game = (function () {
 
     // Declare public functions of the Game module.
     var Game = {
+        /**
+         * Restart the game and pick a new random word.
+         *
+         * @returns void.
+         */
+        "start": function () {
+            this.reset();
+
+            Hangman.randWord();
+
+            var hiddenWord = "";
+            // Get the current word and use its length.
+            var wordLength = Hangman.peek().length;
+            for (var i = 0; i < wordLength; i++) {
+                hiddenWord += "_";
+            }
+
+            // Display the hiddenWord.
+            Elemu.select(".content", function (elem) {
+                var wordToGuess = Elemu.create("p", {
+                    classList: ["hiddenWordText"],
+                    text: "Guess the word:"
+                });
+
+                elem.appendChild(wordToGuess);
+
+                var hiddenWordElem = Elemu.create("p", {
+                    classList: ["hiddenWord"],
+                    text: hiddenWord
+                });
+
+                elem.appendChild(hiddenWordElem);
+            });
+        },
 
         /**
-        * Reset Hangman and the gamebuttons.
+        * Reset Hangman and the gamebuttons, but keep the old word.
         *
         * @return void.
         */
@@ -112,7 +146,7 @@ window.Game = (function () {
         });
     });
 
-    // Create node for the pressed keys.
+    // Create text-node for the pressed keys.
     Elemu.select(".content", function (elem) {
         var pressedText = Elemu.create("p", {
             classList: ["pressedKeysText"],
