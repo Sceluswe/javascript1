@@ -15,6 +15,9 @@ window.Game = (function () {
     // Number of pressed buttons.
     var pressedCounter = 0;
 
+    // The hidden word.
+    var hiddenWord = "";
+
     // Declare public functions of the Game module.
     var Game = {
         /**
@@ -27,7 +30,6 @@ window.Game = (function () {
 
             Hangman.randWord();
 
-            var hiddenWord = "";
             // Get the current word and use its length.
             var wordLength = Hangman.peek().length;
             for (var i = 0; i < wordLength; i++) {
@@ -67,6 +69,9 @@ window.Game = (function () {
                 elem.innerHTML = "(--)";
             });
 
+            // Reset array.
+            pressedButtons = [];
+
             // Reset hangman.
             Hangman.hideAll();
         }
@@ -88,7 +93,6 @@ window.Game = (function () {
             elem.innerHTML = "(-" + result + "-)";
         });
     }
-
 
     // Create our HTML-list of buttons.
     Elemu.select(".content", function (elem) {
@@ -119,17 +123,32 @@ window.Game = (function () {
                 if (pressedButtons.indexOf(letter) < 0) {
                     // Report the letter as pressed.
                     pressedButtons.push(letter);
+                    // Show it in the GUI/browser.
                     updatePressedButtons();
 
                     // Update counter.
                     pressedCounter++;
 
+                    // Get the word from Hangman.
+                    var currentWord = Hangman.peek().toUpperCase();
                     // Check if the letter exists in the word.
-                    var letterExists = Hangman.peek().toUpperCase().indexOf(letter);
+                    var letterExists = currentWord.indexOf(letter);
                     // If the letter doesn't exist. Show another part.
                     if (letterExists === -1) {
                         Hangman.showNextPart();
                         console.log("Wrong letter!");
+                    }
+                    else {
+                        // If it exists, find where and update.
+                        for (var i = 0; i < currentWord.length; i++) {
+                            if (currentWord.charAt(i) === letter) {
+                                hiddenWord = Elemu.replaceChar(hiddenWord, i, letter);
+                            }
+                        }
+
+                        Elemu.select(".hiddenWord", function (elem) {
+                            elem.innerHTML = hiddenWord;
+                        });
                     }
 
                     // Log output.
