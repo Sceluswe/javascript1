@@ -151,6 +151,13 @@ window.Game = (function () {
                         });
                     }
 
+                    if (Hangman.isShown()) {
+                        // Make all buttons unclickable.
+                        Elemu.select(".button", function (elem) {
+                            elem.classList.add("selected");
+                        });
+                        // Display gameover text.
+                    }
                     // Log output.
                     console.log("Pressed button:" + button);
                     console.log(event);

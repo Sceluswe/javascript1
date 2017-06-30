@@ -145,7 +145,7 @@ window.Hangman = (function() {
          *
          * $returns boolean.
          */
-        "hangmanIsShown": function () {
+        "isShown": function () {
             var answer = true;
 
             // Check if all parts are shown.
