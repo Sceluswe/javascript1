@@ -133,8 +133,9 @@ window.Game = (function () {
                     var currentWord = Hangman.peek().toUpperCase();
                     // Check if the letter exists in the word.
                     var letterExists = currentWord.indexOf(letter);
-                    // If the letter doesn't exist. Show another part.
+
                     if (letterExists === -1) {
+                        // If the letter doesn't exist. Show another part.
                         Hangman.showNextPart();
                         console.log("Wrong letter!");
                     }
@@ -151,17 +152,21 @@ window.Game = (function () {
                         });
                     }
 
-                    if (Hangman.isShown()) {
-                        // Make all buttons unclickable.
-                        Elemu.select(".button", function (elem) {
-                            elem.classList.add("selected");
-                        });
-                        // Display gameover text.
-                    }
                     // Log output.
                     console.log("Pressed button:" + button);
                     console.log(event);
                     console.log("Selected letter:" + letter);
+                }
+
+                // Check if the player has lost.
+                if (Hangman.isShown()) {
+                    // Make all buttons unclickable.
+                    Elemu.select(".button", function (elem) {
+                        elem.classList.add("selected");
+                    });
+                    // Make all buttons pressed. 
+                    pressedButtons = letters;
+                    // Display gameover text.
                 }
             });
 
