@@ -37,9 +37,9 @@ window.Game = (function () {
             }
 
             // Display the hiddenWord.
-            Elemu.select(".gameText", function (elem) {
+            Elemu.select(".gameInfo", function (elem) {
                 var wordToGuess = Elemu.create("p", {
-                    classList: ["hiddenWordText"],
+                    classList: ["hiddenWordInfo"],
                     text: "Guess the word:"
                 });
 
@@ -78,7 +78,7 @@ window.Game = (function () {
     };
 
     /**
-     * Update the displayed text of the pressed buttons.
+     * Update the displayed Info of the pressed buttons.
      *
      * @return void.
      */
@@ -162,7 +162,7 @@ window.Game = (function () {
                     // Make all buttons pressed.
                     pressedButtons = letters;
 
-                    // Display gameover text.
+                    // Display gameover Info.
                     Elemu.create("p", {
                         classList: [""],
                         text: "GAME OVER! Hangman is dead :("
@@ -176,26 +176,24 @@ window.Game = (function () {
             listElem.appendChild(liElem);
         });
 
-            // Create text-node for the pressed keys.
-            var gameText = Elemu.create("div", {
-                classList: ["gameText"]
+            // Create Info-node for the pressed keys.
+            var gameInfo = Elemu.create("div", {
+                classList: ["gameInfo"]
             });
 
-            elem.appendChild(gameText);
+            elem.appendChild(gameInfo);
 
-            var pressedText = Elemu.create("p", {
-                classList: ["pressedKeysText"],
+            var pressedInfo = Elemu.create("p", {
                 text: "Used letters:"
             });
 
-            gameText.appendChild(pressedText);
+            gameInfo.appendChild(pressedInfo);
 
             var pressed = Elemu.create("p", {
-                classList: ["pressedKeys"],
                 text: "(--)"
             });
 
-            gameText.appendChild(pressed);
+            gameInfo.appendChild(pressed);
         });
 
 

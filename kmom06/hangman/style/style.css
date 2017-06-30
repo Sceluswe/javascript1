@@ -6,7 +6,13 @@ h3 {
     color: green;
 }
 
+p {
+    font-size: 18px;
+    font-weight: bold;
+}
+
 .ul-simple {
+    overflow: auto;
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -22,41 +28,22 @@ h3 {
     border-radius: 30px;
 }
 
-.gameButtons {
+.leftLane {
     float: left;
-    width: 30%;
-    margin-bottom: 24px;
+    width: 50%;
 }
 
-.hangman {
+.rightLane {
     float: right;
     width: 50%;
 }
 
-.pressedKeys, .pressedKeysText {
-    clear: left;
-    width: 40%;
-    font-size: 16px;
-    font-weight: bold;
-}
-
-
-.hiddenWordText, .hiddenWord {
-    clear:left;
-    width: 30%;
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.hiddenWord {
-    letter-spacing: 2px;
-}
-
-.selected {
-    opacity: 0.2;
+.gameButtons {
+    margin-bottom: 24px;
 }
 
 .button {
+    float: left;
     width: 48px;
     height: 48px;
     border: 1px solid black;
@@ -66,14 +53,27 @@ h3 {
     background-color: gray;
 }
 
+.gameInfo {
+    clear: both;
+}
+
+.pressedKeys {
+    margin-bottom: 24px;
+}
+
+.hiddenWord {
+    font-size: 24px;
+    letter-spacing: 2px;
+}
+
+.selected {
+    opacity: 0.2;
+}
+
 .bgGreen {
     background-color: green;
 }
 
 .bgRed {
     background-color: red;
-}
-
-.left {
-    float: left;
 }
