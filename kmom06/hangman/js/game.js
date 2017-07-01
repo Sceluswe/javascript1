@@ -35,7 +35,17 @@ window.Game = (function () {
         });
     }
 
-    // Create our HTML-list of buttons.
+    function disableButtons() {
+        // Make all buttons unclickable.
+        Elemu.select(".button", function (elem) {
+            elem.classList.add("selected");
+        });
+
+        // Make all buttons pressed.
+        pressedButtons = letters;
+    }
+
+    // Create our HTML-list of buttons inside the leftLane part of the grid.
     Elemu.select(".leftLane", function (leftLane) {
         // Create list element.
         var listElem = Elemu.create("ul", { classList: ["gameButtons", "ul-simple"] });
@@ -95,12 +105,8 @@ window.Game = (function () {
 
                     // Check if the player has lost.
                     if (Hangman.isShown()) {
-                        // Make all buttons unclickable.
-                        Elemu.select(".button", function (elem) {
-                            elem.classList.add("selected");
-                        });
-                        // Make all buttons pressed.
-                        pressedButtons = letters;
+                        // Disable all buttons.
+                        disableButtons();
 
                         // Display gameover text.
                         var gameOver = Elemu.create("p", {
@@ -108,6 +114,16 @@ window.Game = (function () {
                         });
 
                         leftLane.appendChild(gameOver);
+                    }
+                    else if (hiddenWord === currentWord) {
+                        // Disable all buttons.
+                        disableButtons()
+
+                        var winnersPraise = Elemu.create("p", {
+                            text: "CONGRATULATIONS! You've saved Hangman! :D" 
+                        });
+
+                        leftLane.appendChild(winnersPraise);
                     }
                 }
             });
@@ -122,7 +138,7 @@ window.Game = (function () {
             var gameText = Elemu.create("div", {
                 classList: ["gameText"]
             });
-
+            // Add it to leftLane.
             leftLane.appendChild(gameText);
 
             var pressedText = Elemu.create("p", {
