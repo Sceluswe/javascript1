@@ -92,23 +92,23 @@ window.Game = (function () {
                     console.log("Pressed button:" + button);
                     console.log(event);
                     console.log("Selected letter:" + letter);
-                }
 
-                // Check if the player has lost.
-                if (Hangman.isShown()) {
-                    // Make all buttons unclickable.
-                    Elemu.select(".button", function (elem) {
-                        elem.classList.add("selected");
-                    });
-                    // Make all buttons pressed.
-                    pressedButtons = letters;
+                    // Check if the player has lost.
+                    if (Hangman.isShown()) {
+                        // Make all buttons unclickable.
+                        Elemu.select(".button", function (elem) {
+                            elem.classList.add("selected");
+                        });
+                        // Make all buttons pressed.
+                        pressedButtons = letters;
 
-                    // Display gameover text.
-                    var gameOver = Elemu.create("p", {
-                        text: "GAME OVER! Hangman is dead :("
-                    });
+                        // Display gameover text.
+                        var gameOver = Elemu.create("p", {
+                            text: "GAME OVER! Hangman is dead :("
+                        });
 
-                    leftLane.appendChild(gameOver);
+                        leftLane.appendChild(gameOver);
+                    }
                 }
             });
 
