@@ -39,7 +39,7 @@ p {
 }
 
 .gameButtons {
-    margin-bottom: 24px;
+    margin-bottom: 48px;
 }
 
 .button {
@@ -58,7 +58,7 @@ p {
 }
 
 .pressedKeys {
-    margin-bottom: 24px;
+    margin-bottom: 48px;
 }
 
 .hiddenWord {

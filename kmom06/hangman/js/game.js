@@ -18,64 +18,6 @@ window.Game = (function () {
     // The hidden word.
     var hiddenWord = "";
 
-    // Declare public functions of the Game module.
-    var Game = {
-        /**
-         * Restart the game and pick a new random word.
-         *
-         * @returns void.
-         */
-        "start": function () {
-            this.reset();
-
-            Hangman.randWord();
-
-            // Get the current word and use its length.
-            var wordLength = Hangman.peek().length;
-            for (var i = 0; i < wordLength; i++) {
-                hiddenWord += "_";
-            }
-
-            // Display the hiddenWord.
-            Elemu.select(".gameText", function (elem) {
-                var wordToGuess = Elemu.create("p", {
-                    classList: ["hiddenWordText"],
-                    text: "Guess the word:"
-                });
-
-                elem.appendChild(wordToGuess);
-
-                var hiddenWordElem = Elemu.create("p", {
-                    classList: ["hiddenWord"],
-                    text: hiddenWord
-                });
-
-                elem.appendChild(hiddenWordElem);
-            });
-        },
-
-        /**
-        * Reset Hangman and the gamebuttons, but keep the old word.
-        *
-        * @return void.
-        */
-        "reset": function () {
-            // Reset gamebuttons.
-            Elemu.select(".button", function (elem) {
-                elem.classList.remove("selected");
-            });
-
-            Elemu.select(".pressedKeys", function (elem) {
-                elem.innerHTML = "(--)";
-            });
-
-            // Reset array.
-            pressedButtons = [];
-
-            // Reset hangman.
-            Hangman.hideAll();
-        }
-    };
 
     /**
      * Update the displayed text of the pressed buttons.
@@ -198,6 +140,62 @@ window.Game = (function () {
             gameText.appendChild(pressed);
         });
 
+    // Declare and return public functions of the Game module.
+    return {
+        /**
+         * Restart the game and pick a new random word.
+         *
+         * @returns void.
+         */
+        "start": function () {
+            this.reset();
 
-    return Game;
+            Hangman.randWord();
+
+            // Get the current word and use its length.
+            var wordLength = Hangman.peek().length;
+            for (var i = 0; i < wordLength; i++) {
+                hiddenWord += "_";
+            }
+
+            // Display the hiddenWord.
+            Elemu.select(".gameText", function (elem) {
+                var wordToGuess = Elemu.create("p", {
+                    classList: ["hiddenWordText"],
+                    text: "Guess the word:"
+                });
+
+                elem.appendChild(wordToGuess);
+
+                var hiddenWordElem = Elemu.create("p", {
+                    classList: ["hiddenWord"],
+                    text: hiddenWord
+                });
+
+                elem.appendChild(hiddenWordElem);
+            });
+        },
+
+        /**
+        * Reset Hangman and the gamebuttons, but keep the old word.
+        *
+        * @return void.
+        */
+        "reset": function () {
+            // Reset gamebuttons.
+            Elemu.select(".button", function (elem) {
+                elem.classList.remove("selected");
+            });
+
+            Elemu.select(".pressedKeys", function (elem) {
+                elem.innerHTML = "(--)";
+            });
+
+            // Reset array.
+            pressedButtons = [];
+
+            // Reset hangman.
+            Hangman.hideAll();
+        }
+    };
 })();
