@@ -18,7 +18,6 @@ window.Game = (function () {
     // The hidden word.
     var hiddenWord = "";
 
-
     /**
      * Update the displayed text of the pressed buttons.
      *
@@ -37,10 +36,10 @@ window.Game = (function () {
     }
 
     // Create our HTML-list of buttons.
-    Elemu.select(".leftLane", function (elem) {
+    Elemu.select(".leftLane", function (leftLane) {
         // Create list element.
         var listElem = Elemu.create("ul", { classList: ["gameButtons", "ul-simple"] });
-        elem.appendChild(listElem);
+        leftLane.appendChild(listElem);
 
         // Add all list elements.
         letters.forEach(function (item, index) {
@@ -105,10 +104,11 @@ window.Game = (function () {
                     pressedButtons = letters;
 
                     // Display gameover text.
-                    Elemu.create("p", {
-                        classList: [""],
+                    var gameOver = Elemu.create("p", {
                         text: "GAME OVER! Hangman is dead :("
                     });
+
+                    leftLane.appendChild(gameOver);
                 }
             });
 
@@ -123,7 +123,7 @@ window.Game = (function () {
                 classList: ["gameText"]
             });
 
-            elem.appendChild(gameText);
+            leftLane.appendChild(gameText);
 
             var pressedText = Elemu.create("p", {
                 classList: ["pressedKeysText"],
