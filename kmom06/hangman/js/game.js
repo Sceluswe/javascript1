@@ -110,7 +110,12 @@ window.Game = (function () {
 
                         // Display gameover text.
                         var gameOver = Elemu.create("p", {
-                            text: "GAME OVER! Hangman is dead :("
+                            classList: ["red"],
+                            text: "GAME OVER!"
+                        });
+
+                        var flavorText = Elemu.create("p", {
+                            text: "Hangman is dead :("
                         });
 
                         leftLane.appendChild(gameOver);
@@ -120,10 +125,17 @@ window.Game = (function () {
                         disableButtons()
 
                         var winnersPraise = Elemu.create("p", {
-                            text: "CONGRATULATIONS! You've saved Hangman! :D" 
+                            classList: ["green"],
+                            text: "CONGRATULATIONS!" 
                         });
 
                         leftLane.appendChild(winnersPraise);
+
+                        var flavorText = Elemu.create("p", {
+                            text: "You've saved Hangman! :D" 
+                        });
+
+                        leftLane.appendChild(flavorText);
                     }
                 }
             });

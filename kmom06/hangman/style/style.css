@@ -9,6 +9,7 @@ h3 {
 p {
     font-size: 18px;
     font-weight: bold;
+    margin: 0 0 24px 0;
 }
 
 .ul-simple {
@@ -64,6 +65,7 @@ p {
 .hiddenWord {
     font-size: 24px;
     letter-spacing: 2px;
+    margin-bottom: 48px;
 }
 
 .selected {
@@ -72,8 +74,10 @@ p {
 
 .green {
     color: green;
+    margin-bottom: 12px;
 }
 
 .red {
     color: red;
+    margin-bottom: 12px;
 }
