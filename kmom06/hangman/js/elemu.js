@@ -53,6 +53,14 @@ window.Elemu = (function () {
             if (typeof attrObj.text !== "undefined") {
                 newElem.innerHTML = attrObj.text;
             }
+
+            if (typeof attrObj.attrs !== "undefined") {
+                var properties = Object.keys(attrObj.attrs);
+
+                properties.forEach(function (property) {
+                    newElem.setAttribute(property, attrObj.attrs[property]);
+                });
+            }
         }
 
         return newElem;

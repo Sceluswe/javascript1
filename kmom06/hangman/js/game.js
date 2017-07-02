@@ -114,15 +114,25 @@ window.Game = (function () {
                             text: "GAME OVER!"
                         });
 
+                        leftLane.appendChild(gameOver);
+
                         var flavorText = Elemu.create("p", {
                             text: "Hangman is dead :("
                         });
 
-                        leftLane.appendChild(gameOver);
+                        leftLane.appendChild(flavorText);
+
+                        var playAgain = Elemu.create("a", {
+                            classList: ["underline"],
+                            text: "Play again?",
+                            attrs: {"href": ""}
+                        });
+
+                        leftLane.appendChild(playAgain);
                     }
                     else if (hiddenWord === currentWord) {
                         // Disable all buttons.
-                        disableButtons()
+                        disableButtons();
 
                         var winnersPraise = Elemu.create("p", {
                             classList: ["green"],
@@ -136,6 +146,14 @@ window.Game = (function () {
                         });
 
                         leftLane.appendChild(flavorText);
+                       
+                        var playAgain = Elemu.create("a", {
+                            classList: ["underline"],
+                            text: "Play again?",
+                            attrs: {"href": ""}
+                        });
+
+                        leftLane.appendChild(playAgain);
                     }
                 }
             });
@@ -146,27 +164,27 @@ window.Game = (function () {
             listElem.appendChild(liElem);
         });
 
-            // Create text-node for the pressed keys.
-            var gameText = Elemu.create("div", {
-                classList: ["gameText"]
-            });
-            // Add it to leftLane.
-            leftLane.appendChild(gameText);
-
-            var pressedText = Elemu.create("p", {
-                classList: ["pressedKeysText"],
-                text: "Used letters:"
-            });
-
-            gameText.appendChild(pressedText);
-
-            var pressed = Elemu.create("p", {
-                classList: ["pressedKeys"],
-                text: "(--)"
-            });
-
-            gameText.appendChild(pressed);
+        // Create text-node for the pressed keys.
+        var gameText = Elemu.create("div", {
+            classList: ["gameText"]
         });
+        // Add it to leftLane.
+        leftLane.appendChild(gameText);
+
+        var pressedText = Elemu.create("p", {
+            classList: ["pressedKeysText"],
+            text: "Used letters:"
+        });
+
+        gameText.appendChild(pressedText);
+
+        var pressed = Elemu.create("p", {
+            classList: ["pressedKeys"],
+            text: "(--)"
+        });
+
+        gameText.appendChild(pressed);
+    });
 
     // Declare and return public functions of the Game module.
     return {
