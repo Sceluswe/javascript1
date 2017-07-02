@@ -134,19 +134,20 @@ window.Game = (function () {
                         // Disable all buttons.
                         disableButtons();
 
+                        // Let the player know he has won.
                         var winnersPraise = Elemu.create("p", {
                             classList: ["green"],
-                            text: "CONGRATULATIONS!" 
+                            text: "CONGRATULATIONS!"
                         });
 
                         leftLane.appendChild(winnersPraise);
 
                         var flavorText = Elemu.create("p", {
-                            text: "You've saved Hangman! :D" 
+                            text: "You've saved Hangman! :D"
                         });
 
                         leftLane.appendChild(flavorText);
-                       
+
                         var playAgain = Elemu.create("a", {
                             classList: ["underline"],
                             text: "Play again?",

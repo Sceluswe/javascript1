@@ -32,7 +32,9 @@ window.Elemu = (function () {
     /*
     * Creates an HTML element and returns it.
     * @param element, the name of the element tag.
-    * @param attrObj, object with attributes: id, classList, text
+    * @param attrObj, object with attributes: id, classList (array), text, attrs (obj)
+    * attrs is an object and the property names are used as HTMLnode attributes
+    * the contents of the properties becomes the value of the attribute.
     */
     function createElem(element, attrObj) {
         // Create HTML node.
@@ -55,6 +57,7 @@ window.Elemu = (function () {
             }
 
             if (typeof attrObj.attrs !== "undefined") {
+                // Get the objects attributes/properties.
                 var properties = Object.keys(attrObj.attrs);
 
                 properties.forEach(function (property) {
