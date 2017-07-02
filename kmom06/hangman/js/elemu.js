@@ -131,6 +131,15 @@ window.Elemu = (function () {
         };
     }
 
+    /**
+     * Replace a character inside a string with another substring.
+     *
+     * @target, the string to replace.
+     * @index, the index of the character to replace. 
+     * @replacement, the substring to replace the character in target.
+     *
+     * @returns, string, the resulting string.
+     */
     function replaceChar(target, index, replacement) {
         return target.substring(0, index) + replacement + target.substring(index+1, target.length);
     }
