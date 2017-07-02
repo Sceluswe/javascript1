@@ -70,10 +70,10 @@ p {
     opacity: 0.2;
 }
 
-.bgGreen {
-    background-color: green;
+.green {
+    color: green;
 }
 
-.bgRed {
-    background-color: red;
+.red {
+    color: red;
 }
