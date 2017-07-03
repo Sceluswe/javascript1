@@ -1,0 +1,3 @@
+window.Test = (function () {
+
+})();
