@@ -30,14 +30,14 @@ window.Game = (function () {
         // Join all letters and uppercase string.
         var result = pressedButtons.join("").toUpperCase();
 
-        Elemu.select(".pressedKeys", function (elem) {
+        window.Elemu.select(".pressedKeys", function (elem) {
             elem.innerHTML = "(-" + result + "-)";
         });
     }
 
     function disableButtons() {
         // Make all buttons unclickable.
-        Elemu.select(".button", function (elem) {
+        window.Elemu.select(".button", function (elem) {
             elem.classList.add("selected");
         });
 
@@ -46,15 +46,15 @@ window.Game = (function () {
     }
 
     // Create our HTML-list of buttons inside the leftLane part of the grid.
-    Elemu.select(".leftLane", function (leftLane) {
+    window.Elemu.select(".leftLane", function (leftLane) {
         // Create list element.
-        var listElem = Elemu.create("ul", { classList: ["gameButtons", "ul-simple"] });
+        var listElem = window.Elemu.create("ul", { classList: ["gameButtons", "ul-simple"] });
         leftLane.appendChild(listElem);
 
         // Add all list elements.
         letters.forEach(function (item, index) {
-            var liElem = Elemu.create("li", { classList: ["left"] });
-            var button = Elemu.create("button", {
+            var liElem = window.Elemu.create("li", { classList: ["left"] });
+            var button = window.Elemu.create("button", {
                 id: "button" + index,
                 classList: ["button"],
                 text: item
@@ -76,24 +76,24 @@ window.Game = (function () {
                     pressedCounter++;
 
                     // Get the word from Hangman.
-                    var currentWord = Hangman.peek().toUpperCase();
+                    var currentWord = window.Hangman.peek().toUpperCase();
                     // Check if the letter exists in the word.
                     var letterExists = currentWord.indexOf(letter);
 
                     if (letterExists === -1) {
                         // If the letter doesn't exist. Show another part.
-                        Hangman.showNextPart();
+                        window.Hangman.showNextPart();
                         console.log("Wrong letter!");
                     }
                     else {
                         // If it exists, find where and update.
                         for (var i = 0; i < currentWord.length; i++) {
                             if (currentWord.charAt(i) === letter) {
-                                hiddenWord = Elemu.replaceChar(hiddenWord, i, letter);
+                                hiddenWord = window.Elemu.replaceChar(hiddenWord, i, letter);
                             }
                         }
 
-                        Elemu.select(".hiddenWord", function (elem) {
+                        window.Elemu.select(".hiddenWord", function (elem) {
                             elem.innerHTML = hiddenWord;
                         });
                     }
@@ -104,25 +104,25 @@ window.Game = (function () {
                     console.log("Selected letter:" + letter);
 
                     // Check if the player has lost.
-                    if (Hangman.isShown()) {
+                    if (window.Hangman.isShown()) {
                         // Disable all buttons.
                         disableButtons();
 
                         // Display gameover text.
-                        var gameOver = Elemu.create("p", {
+                        var gameOver = window.Elemu.create("p", {
                             classList: ["red"],
                             text: "GAME OVER!"
                         });
 
                         leftLane.appendChild(gameOver);
 
-                        var flavorText = Elemu.create("p", {
+                        var flavorText = window.Elemu.create("p", {
                             text: "Hangman is dead :("
                         });
 
                         leftLane.appendChild(flavorText);
 
-                        var playAgain = Elemu.create("a", {
+                        var playAgain = window.Elemu.create("a", {
                             classList: ["underline"],
                             text: "Play again?",
                             attrs: {"href": ""}
@@ -135,26 +135,27 @@ window.Game = (function () {
                         disableButtons();
 
                         // Let the player know he has won.
-                        var winnersPraise = Elemu.create("p", {
+                        var winnersPraise = window.Elemu.create("p", {
                             classList: ["green"],
                             text: "CONGRATULATIONS!"
                         });
 
                         leftLane.appendChild(winnersPraise);
 
-                        var flavorText = Elemu.create("p", {
+                        var winnersFlavorText = window.Elemu.create("p", {
                             text: "You've saved Hangman! :D"
                         });
 
-                        leftLane.appendChild(flavorText);
+                        leftLane.appendChild(winnersFlavorText);
 
-                        var playAgain = Elemu.create("a", {
+
+                        var PlayAgain = window.Elemu.create("a", {
                             classList: ["underline"],
                             text: "Play again?",
                             attrs: {"href": ""}
                         });
 
-                        leftLane.appendChild(playAgain);
+                        leftLane.appendChild(PlayAgain);
                     }
                 }
             });
@@ -166,20 +167,20 @@ window.Game = (function () {
         });
 
         // Create text-node for the pressed keys.
-        var gameText = Elemu.create("div", {
+        var gameText = window.Elemu.create("div", {
             classList: ["gameText"]
         });
         // Add it to leftLane.
         leftLane.appendChild(gameText);
 
-        var pressedText = Elemu.create("p", {
+        var pressedText = window.Elemu.create("p", {
             classList: ["pressedKeysText"],
             text: "Used letters:"
         });
 
         gameText.appendChild(pressedText);
 
-        var pressed = Elemu.create("p", {
+        var pressed = window.Elemu.create("p", {
             classList: ["pressedKeys"],
             text: "(--)"
         });
@@ -197,24 +198,24 @@ window.Game = (function () {
         "start": function () {
             this.reset();
 
-            Hangman.randWord();
+            window.Hangman.randWord();
 
             // Get the current word and use its length.
-            var wordLength = Hangman.peek().length;
+            var wordLength = window.Hangman.peek().length;
             for (var i = 0; i < wordLength; i++) {
                 hiddenWord += "_";
             }
 
             // Display the hiddenWord.
-            Elemu.select(".gameText", function (elem) {
-                var wordToGuess = Elemu.create("p", {
+            window.Elemu.select(".gameText", function (elem) {
+                var wordToGuess = window.Elemu.create("p", {
                     classList: ["hiddenWordText"],
                     text: "Guess the word:"
                 });
 
                 elem.appendChild(wordToGuess);
 
-                var hiddenWordElem = Elemu.create("p", {
+                var hiddenWordElem = window.Elemu.create("p", {
                     classList: ["hiddenWord"],
                     text: hiddenWord
                 });
@@ -230,11 +231,11 @@ window.Game = (function () {
         */
         "reset": function () {
             // Reset gamebuttons.
-            Elemu.select(".button", function (elem) {
+            window.Elemu.select(".button", function (elem) {
                 elem.classList.remove("selected");
             });
 
-            Elemu.select(".pressedKeys", function (elem) {
+            window.Elemu.select(".pressedKeys", function (elem) {
                 elem.innerHTML = "(--)";
             });
 
@@ -242,7 +243,7 @@ window.Game = (function () {
             pressedButtons = [];
 
             // Reset hangman.
-            Hangman.hideAll();
+            window.Hangman.hideAll();
         }
     };
 })();
