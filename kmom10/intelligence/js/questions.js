@@ -2,9 +2,9 @@ window.Questions = (function () {
     // 1x2 module.
 
     function createQuestion(question, answers, correctAnswer) {
-        Elemu.select(".content", function (elem) {
+        window.Elemu.select(".content", function (elem) {
             //  Create question node.
-            var questionNode = Elemu.create("p", {
+            var questionNode = window.Elemu.create("p", {
                 classList: ["question"],
                 text: question
             });

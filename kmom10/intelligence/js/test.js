@@ -1,3 +1,3 @@
 window.Test = (function () {
-    Questions.start();    
+    window.Questions.start();    
 })();
