@@ -10,6 +10,16 @@ window.Questions = (function () {
             });
 
             elem.appendChild(questionNode);
+
+            answers.forEach(function (item, index) {
+                var answerNode = window.Elemu.create("p", {
+                    classList: [("answer" + index)],
+                    text: item
+                });
+
+                elem.appendChild(answerNode);
+            });
+
         });
     }
 
@@ -17,7 +27,7 @@ window.Questions = (function () {
         "start": function () {
             createQuestion(
                 "Vad händer med ett russin om du lägger det i ett glas med Champagne?",
-                ["Det flyter", "Det sjunker", "Det åker upp och ner"],
+                ["1. Det flyter", "X. Det sjunker", "2. Det åker upp och ner"],
                 2
             );
         },
