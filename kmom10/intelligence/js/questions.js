@@ -1,6 +1,13 @@
 window.Questions = (function () {
     // 1x2 module.
 
+	/**
+	 * Displays a question in the DOM by creating the DOM-elements.
+	 *
+	 * @question string, the question to answer.
+	 * @answers array of strings, the 1x2 answers to the question.
+	 * @correctAnswer, the index of the correct answer in the answers array.
+	 */
     function createQuestion(question, answers, correctAnswer) {
         window.Elemu.select(".content", function (elem) {
             //  Create question node.
