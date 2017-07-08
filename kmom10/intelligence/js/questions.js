@@ -25,12 +25,17 @@ window.Questions = (function () {
 				text: item
 			});
 
-			elem.appendChild(answerNode);
+			questionDiv.appendChild(answerNode);
 		});
 
 		return questionDiv;
 	}
 
+	function displayQuestion(question) {
+		window.Elemu.select(".content", function (elem) {
+			elem.appendChild(question);
+		});
+	}
 	// Create questions and make them private.
 	var questions = [
 		createQuestion(
@@ -46,7 +51,7 @@ window.Questions = (function () {
 	return {
 		"start": function () {
 			// Use the display function to display the question in the DOM.
-			display(questions[0]);
+			displayQuestion(questions[0]);
 		},
 	};
 })();
