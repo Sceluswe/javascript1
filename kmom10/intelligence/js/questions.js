@@ -42,6 +42,7 @@ window.Questions = (function () {
 			elem.appendChild(question);
 		});
 	}
+
 	// Create questions and make them private.
 	var questions = [
 		createQuestion(
@@ -61,10 +62,11 @@ window.Questions = (function () {
 		),
 	];
 
+	// Return object with public functionality.
 	return {
 		"start": function () {
 			// Use the display function to display the question in the DOM.
 			displayQuestion(questions[0]);
 		},
 	};
-})();
+})()
