@@ -43,10 +43,18 @@ window.Questions = (function () {
 			["1. Det flyter", "X. Det sjunker", "2. Det åker upp och ner"],
 			2
 		),
-		// createQuestion(
-			// "V"
-		// )
+		createQuestion(
+			"Vilket land har ett skjutvapen avbildat på flaggan?",
+			["1. Mocambique", "X. Nigeria", "2. Liberia"],
+			0
+		),
+		createQuestion(
+			"Vad är den romerska siffran för 100?",
+			["1. M", "X. C", "2. D"],
+			1
+		),
 	];
+	var currentQuestion = 0;
 
 	return {
 		"start": function () {
