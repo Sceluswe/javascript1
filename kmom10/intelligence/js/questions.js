@@ -6,6 +6,7 @@ window.Questions = (function () {
 	* @question string, the question to answer.
 	* @answers array of strings, the 1x2 answers to the question.
 	* @correctAnswer, the index of the correct answer in the answers array.
+	* @returns void.
 	*/
 	function createQuestion(question, answers, correctAnswer) {
 		var questionDiv = window.Elemu.create("div", {
@@ -31,6 +32,11 @@ window.Questions = (function () {
 		return questionDiv;
 	}
 
+	/*
+	* Display a supplied DOM element inside the .content div.
+	* @question dom-element, the dom element of the question to display.
+	* @returns void.
+	*/
 	function displayQuestion(question) {
 		window.Elemu.select(".content", function (elem) {
 			elem.appendChild(question);
@@ -54,7 +60,6 @@ window.Questions = (function () {
 			1
 		),
 	];
-	var currentQuestion = 0;
 
 	return {
 		"start": function () {
