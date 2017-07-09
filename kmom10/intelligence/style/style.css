@@ -35,3 +35,7 @@ body {
 	padding: 2em;
 	border-radius: 30px;
 }
+
+.answer {
+	clear: both;
+}

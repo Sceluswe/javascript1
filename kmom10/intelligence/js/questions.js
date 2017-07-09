@@ -21,9 +21,23 @@ window.Questions = (function () {
 		questionDiv.appendChild(questionNode);
 
 		answers.forEach(function (item, index) {
-			var answerNode = window.Elemu.create("p", {
-				classList: [("answer" + index)],
+			var answerNode = window.Elemu.create("button", {
+				id: "answer" + index,
+				classList: [("answer")],
 				text: item
+			});
+
+			// Add eventListener to the node.
+			answerNode.addEventListener("click", function () {
+				if (currentQuestion < questions.length) {
+					// Change to the next question if there is one.
+					displayQuestion(questions[currentQuestion]);
+
+					// Increase counter size.
+					currentQuestion++;
+
+					console.log("Answered the question with: " + item);
+				}
 			});
 
 			questionDiv.appendChild(answerNode);
@@ -41,6 +55,8 @@ window.Questions = (function () {
 		window.Elemu.select(".content", function (elem) {
 			elem.appendChild(question);
 		});
+
+		console.log("Displaying question");
 	}
 
 	// Create questions and make them private.
@@ -62,11 +78,14 @@ window.Questions = (function () {
 		),
 	];
 
+	var currentQuestion = 0;
+
 	// Return object with public functionality.
 	return {
 		"start": function () {
 			// Use the display function to display the question in the DOM.
 			displayQuestion(questions[0]);
+			currentQuestion++;
 		},
 	};
 })()
