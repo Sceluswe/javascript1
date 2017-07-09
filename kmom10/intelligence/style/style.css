@@ -37,5 +37,6 @@ body {
 }
 
 .answer {
-	clear: both;
+	display: block;
+	margin-bottom: 24px;
 }

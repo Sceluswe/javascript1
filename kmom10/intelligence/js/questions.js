@@ -1,6 +1,27 @@
 window.Questions = (function () {
 	// 1x2 module.
 
+	function removeQuestion(question) {
+		// Remove all children of the question.
+		// while (question.firstChild) {
+			// question.removeChild(question.firstChild);
+		// }
+		question.remove();
+	}
+
+	/*
+	* Display a supplied DOM element inside the .content div.
+	* @question dom-element, the dom element of the question to display.
+	* @returns void.
+	*/
+	function displayQuestion(question) {
+		window.Elemu.select(".content", function (elem) {
+			elem.appendChild(question);
+		});
+
+		console.log("Displaying question");
+	}
+
 	/**
 	* Returns a DOM-node question.
 	* @question string, the question to answer.
@@ -29,34 +50,24 @@ window.Questions = (function () {
 
 			// Add eventListener to the node.
 			answerNode.addEventListener("click", function () {
+				// Remove the previous question.
+				removeQuestion(questions[currentQuestion]);
+
+				// Increase counter size.
+				currentQuestion++;
+
 				if (currentQuestion < questions.length) {
 					// Change to the next question if there is one.
 					displayQuestion(questions[currentQuestion]);
-
-					// Increase counter size.
-					currentQuestion++;
-
-					console.log("Answered the question with: " + item);
 				}
+
+				console.log("Answered the question with: " + item);
 			});
 
 			questionDiv.appendChild(answerNode);
 		});
 
 		return questionDiv;
-	}
-
-	/*
-	* Display a supplied DOM element inside the .content div.
-	* @question dom-element, the dom element of the question to display.
-	* @returns void.
-	*/
-	function displayQuestion(question) {
-		window.Elemu.select(".content", function (elem) {
-			elem.appendChild(question);
-		});
-
-		console.log("Displaying question");
 	}
 
 	// Create questions and make them private.
@@ -85,7 +96,6 @@ window.Questions = (function () {
 		"start": function () {
 			// Use the display function to display the question in the DOM.
 			displayQuestion(questions[0]);
-			currentQuestion++;
 		},
 	};
 })()
