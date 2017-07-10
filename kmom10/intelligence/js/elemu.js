@@ -22,7 +22,7 @@ window.Elemu = (function () {
                 callable.apply(null, args);
             }
 
-            console.log("Nr of Elements: " + selected.length);
+            // console.log("Nr of Elements selected: " + selected.length);
         }
         else {
             console.log("No elements with the class: " + target);
