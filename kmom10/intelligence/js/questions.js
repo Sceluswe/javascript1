@@ -1,22 +1,20 @@
 window.Questions = (function () {
 	// 1x2 module.
 
-	// Create counter for the current question.
-	var currentQuestion = 0;
-
-	// The array that stores the questions.
-	var questions = [];
 	/**
 	* Display a supplied DOM element inside the .content div.
 	* @question dom-element, the dom element of the question to display.
 	* @returns void.
 	*/
 	function displayQuestion(question) {
+		console.log("starting displayQuestion");
+
 		window.Elemu.select(".content", function (elem) {
+			console.log("attempting to display: " + typeof question);
 			elem.appendChild(question);
 		});
 
-		console.log("Displaying question");
+		console.log("exiting displayQuestion");
 	}
 
 	/**
@@ -25,7 +23,11 @@ window.Questions = (function () {
 	* returns void.
 	*/
 	function removeQuestion(question) {
-		question.remove();
+		if (question !== undefined) {
+			while (question.firstChild) {
+				question.removeChild(question.firstChild);
+			}
+		}
 	}
 
 	/**
@@ -85,16 +87,8 @@ window.Questions = (function () {
 				}
 
 				if (currentQuestion < (questions.length -1)) {
-					// Increase counter.
-					currentQuestion++;
-
-					// Display next question.
-					console.log(questions[currentQuestion]);
-					displayQuestion(questions[currentQuestion]);
-
-					// Debugging.
-					console.log("questions.lenght: " + questions.length);
-					console.log("currentQuestion: " + currentQuestion);
+					// Display question.
+					displayNextQuestion(questions[currentQuestion]);
 				}
 			});
 
@@ -104,8 +98,12 @@ window.Questions = (function () {
 		return questionDiv;
 	}
 
+	// Declare private attributes.
+	// Create counter for the current question.
+	var currentQuestion = 0;
+
 	// Create Questions attributes.
-	questions = [
+	var questions = [
 		createQuestion(
 			"Vad händer med ett russin om du lägger det i ett glas med Champagne?",
 			["1. Det flyter", "X. Det sjunker", "2. Det åker upp och ner"],
@@ -125,6 +123,10 @@ window.Questions = (function () {
 
 	var Questions = {
 		"start": function () {
+			console.log(questions);
+			console.log(questions[currentQuestion]);
+
+			console.log(typeof questions[currentQuestion]);
 			// Display first question.
 			displayQuestion(questions[currentQuestion]);
 		},
