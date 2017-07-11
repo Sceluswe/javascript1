@@ -121,6 +121,7 @@ window.Questions = (function () {
 		)
 	];
 
+	// Create object module with the public functions for the object.
 	var Questions = {
 		"start": function () {
 			console.log(questions);
