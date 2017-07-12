@@ -1,6 +1,11 @@
 window.Questions = (function () {
 	// 1x2 module.
 
+	// Declare private attributes.
+	var nrOfPoints = 0;
+	// Create counter for the current question.
+	var currentQuestion = 0;
+
 	/**
 	* Display a supplied DOM element inside the .content div.
 	* @question dom-element, the dom element of the question to display.
@@ -70,8 +75,10 @@ window.Questions = (function () {
 
 			// Add eventListener to the node.
 			answerNode.addEventListener("click", function () {
-				if (index === correctAnswer) {
+				if (index === correctAnswer && (nrOfPoints < 15)) {
+					nrOfPoints += 5;
 					console.log("Answered the question with: " + item);
+					console.log("You earned 5 points, you now have: " + nrOfPoints);
 				}
 
 				if (currentQuestion < (questions.length -1)) {
@@ -85,10 +92,6 @@ window.Questions = (function () {
 
 		return questionDiv;
 	}
-
-	// Declare private attributes.
-	// Create counter for the current question.
-	var currentQuestion = 0;
 
 	// Create Questions attributes.
 	var questions = [
@@ -111,6 +114,10 @@ window.Questions = (function () {
 
 	// Create object module with the public functions for the object.
 	var Questions = {
+		"getPoints": function () {
+			return nrOfPoints;
+		},
+
 		"start": function () {
 			// Save currentQuestion for readability.
 			var question = questions[currentQuestion];
