@@ -128,6 +128,14 @@ window.Questions = (function () {
 			// Display first question.
 			displayQuestion(question);
 		},
+
+		"reset": function () {
+			// Reset everything in the subtest and start over.
+			window.Elemu.remove(questions[currentQuestion]);
+			nrOfPoints = 0;
+			currentQuestion = 0;
+			displayQuestion(questions[currentQuestion]);
+		}
 	};
 
 	// Return object with public functionality.

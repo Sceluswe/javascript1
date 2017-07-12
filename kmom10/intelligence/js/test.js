@@ -31,6 +31,10 @@ window.Test = (function () {
 	var Test = {
 		"test": function () {
 			tests[0].start();
+		},
+
+		"reset": function () {
+			tests[0].reset();
 		}
 	};
 
