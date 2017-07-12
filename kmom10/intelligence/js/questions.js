@@ -35,23 +35,28 @@ window.Questions = (function () {
 	* @question dom-element, the dom element of the question to display.
 	* @returns void.
 	*/
-	function displayNextQuestion(question) {
+	function displayNextQuestion() {
+		console.log("start displayNextQuestion()");
+
 		// Remove the previous question.
 		removeQuestion(questions[currentQuestion]);
 
-		// Increase counter size.
-		currentQuestion++;
-
 		if (currentQuestion < questions.length) {
+			// Increase counter size.
+			currentQuestion++;
+
+			// Save the question to be displayed for readability.
+			var question = questions[currentQuestion];
+
 			// Change to the next question if there is one.
-			displayQuestion(questions[currentQuestion]);
+			displayQuestion(question);
+
+			window.Elemu.select(".content", function (elem) {
+				elem.appendChild(question);
+			});
 		}
 
-		window.Elemu.select(".content", function (elem) {
-			elem.appendChild(question);
-		});
-
-		console.log("Displaying NEXT question");
+		console.log("exit displayNextQuestion()");
 	}
 
 	/**
@@ -88,7 +93,7 @@ window.Questions = (function () {
 
 				if (currentQuestion < (questions.length -1)) {
 					// Display question.
-					displayNextQuestion(questions[currentQuestion]);
+					displayNextQuestion();
 				}
 			});
 
@@ -124,12 +129,14 @@ window.Questions = (function () {
 	// Create object module with the public functions for the object.
 	var Questions = {
 		"start": function () {
-			console.log(questions);
-			console.log(questions[currentQuestion]);
+			// Save currentQuestion for readability.
+			var question = questions[currentQuestion];
 
-			console.log(typeof questions[currentQuestion]);
+			console.log(question);
+			console.log(typeof question);
+
 			// Display first question.
-			displayQuestion(questions[currentQuestion]);
+			displayQuestion(question);
 		},
 	};
 
