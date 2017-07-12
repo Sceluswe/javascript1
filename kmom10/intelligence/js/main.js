@@ -1,13 +1,12 @@
 (function(){
-    'use strict';
+	'use strict';
 
-    // var myContent = document.getElementById('content');
-    window.Elemu.select(".startbutton", function (elem) {
-        elem.addEventListener("click", function () {
-            // Start the test. 
-            console.log("starting test!");
-        });
-    });
+	// Add eventListener that starts the test if the user presses the button.
+	window.Elemu.select(".startButton", function (elem) {
+		elem.addEventListener("click", function () {
+			window.Test.test();
+		});
+	});
 
-    console.log('Sandbox is ready!');
+	console.log('Sandbox is ready!');
 })();

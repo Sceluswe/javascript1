@@ -18,35 +18,18 @@ window.Questions = (function () {
 	}
 
 	/**
-	* Remove a question from the DOM.
-	* @question the DOM element to remove.
-	* returns void.
-	*/
-	function removeQuestion(question) {
-		if (question !== undefined) {
-			while (question.firstChild) {
-				question.removeChild(question.firstChild);
-			}
-		}
-	}
-
-	/**
 	* Display a supplied DOM element inside the .content div.
-	* @question dom-element, the dom element of the question to display.
 	* @returns void.
 	*/
 	function displayNextQuestion() {
 		console.log("start displayNextQuestion()");
 
 		// Remove the previous question.
-		removeQuestion(questions[currentQuestion]);
+		window.Elemu.remove(questions[currentQuestion]);
 
 		if (currentQuestion < questions.length) {
-			// Increase counter size.
-			currentQuestion++;
-
 			// Save the question to be displayed for readability.
-			var question = questions[currentQuestion];
+			var question = questions[++currentQuestion];
 
 			// Change to the next question if there is one.
 			displayQuestion(question);

@@ -11,7 +11,6 @@ window.Test = (function () {
 
 			// Start sub-test 1.
 			// window.Questions.start();
-			window.Questions.start();
 
 			// Start sub-test 2. Placeholder for now:
 			// window.Elemu.select(".content", function (elem) {
@@ -24,4 +23,16 @@ window.Test = (function () {
 			// })
 		});
 	});
+
+	var tests = [
+		window.Questions,
+	];
+
+	var Test = {
+		"test": function () {
+			tests[0].start();
+		}
+	};
+
+	return Test;
 })();
