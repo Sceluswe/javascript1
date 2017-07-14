@@ -18,12 +18,12 @@ window.Test = (function () {
 	var Test = {
 		"currentTest": 0,
 
-		"startNextTest": function () {
-			tests[currentTest].start();
+		"startTest": function () {
+			tests[this.currentTest].start();
 		},
 
 		"reset": function () {
-			tests[currentTest].reset();
+			tests[this.currentTest].reset();
 		}
 	};
 
