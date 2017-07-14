@@ -8,19 +8,6 @@ window.Test = (function () {
 					elem.removeChild(elem.firstChild);
 				}
 			});
-
-			// Start sub-test 1.
-			// window.Questions.start();
-
-			// Start sub-test 2. Placeholder for now:
-			// window.Elemu.select(".content", function (elem) {
-				// var placeHolder = window.Elemu.create("p", {
-					// id: "placeholder",
-					// text: "Hello! You just finished the first test module. I'm a placeholder!"
-				// });
-
-				// elem.appendChild(placeHolder);
-			// })
 		});
 	});
 
@@ -31,13 +18,12 @@ window.Test = (function () {
 	var Test = {
 		"currentTest": 0,
 
-		"start": function () {
-			tests[0].start();
-			currentTest++;
+		"startNextTest": function () {
+			tests[currentTest].start();
 		},
 
 		"reset": function () {
-			tests[0].reset();
+			tests[currentTest].reset();
 		}
 	};
 
