@@ -75,15 +75,19 @@ window.Questions = (function () {
 
 			// Add eventListener to the node.
 			answerNode.addEventListener("click", function () {
-				if (index === correctAnswer && (nrOfPoints < 15)) {
+				if (index === correctAnswer) {
 					nrOfPoints += 5;
 					console.log("Answered the question with: " + item);
 					console.log("You earned 5 points, you now have: " + nrOfPoints);
 				}
 
 				if (currentQuestion < (questions.length -1)) {
-					// Display question.
-					displayNextQuestion();
+					// Display the next question.
+					// displayNextQuestion();
+					currentQuestion++;
+				}
+				else if (currentQuestion === (questions.length -1)) {
+					window.Elemu.remove(questions[currentQuestion]);
 				}
 			});
 
@@ -114,18 +118,19 @@ window.Questions = (function () {
 
 	// Create object module with the public functions for the object.
 	var Questions = {
+		nrOfQuestions: questions.length,
 		"getPoints": function () {
 			return nrOfPoints;
 		},
 
 		"start": function () {
-			// Save currentQuestion for readability.
+			Save currentQuestion for readability.
 			var question = questions[currentQuestion];
 
 			console.log(question);
 			console.log(typeof question);
 
-			// Display first question.
+			Display first question.
 			displayQuestion(question);
 		},
 
