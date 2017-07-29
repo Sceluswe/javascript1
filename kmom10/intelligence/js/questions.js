@@ -124,13 +124,13 @@ window.Questions = (function () {
 		},
 
 		"start": function () {
-			Save currentQuestion for readability.
+			// Save currentQuestion for readability.
 			var question = questions[currentQuestion];
 
 			console.log(question);
 			console.log(typeof question);
 
-			Display first question.
+			// Display first question.
 			displayQuestion(question);
 		},
 
