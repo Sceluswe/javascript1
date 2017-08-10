@@ -26,7 +26,7 @@ window.Questions = (function () {
 	* Display a supplied DOM element inside the .content div.
 	* @returns void.
 	*/
-	function displayNextQuestion() {
+	/*function displayNextQuestion() {
 		console.log("start displayNextQuestion()");
 
 		// Remove the previous question.
@@ -45,7 +45,7 @@ window.Questions = (function () {
 		}
 
 		console.log("exit displayNextQuestion()");
-	}
+	}*/
 
 	/**
 	* Returns a DOM-node question.

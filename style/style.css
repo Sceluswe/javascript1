@@ -27,25 +27,28 @@ section {
 	margin-bottom: 48px;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-weight: bold;
-}
-
 h1 {
     font-size: 48px;
+	font-weight: bold;
 	margin-bottom: 24px;
     border-bottom: 3px solid #55b8ff;
 }
 
 h2 {
-    margin-bottom: 24px;
     font-size: 24px;
+	font-weight: bold;
+	margin-bottom: 24px;
     border-bottom: 2px solid #55b8ff;
 }
 
 h3 {
+	font-weight: bold;
     margin-left: 24px;
 	margin-bottom: 6px;
+}
+
+h4, h5, h6 {
+    font-weight: bold;
 }
 
 p {
@@ -73,7 +76,7 @@ blockquote {
 
 blockquote p {
     padding-top: 6px;
-    padding-bottom: 0px;
+    padding-bottom: 0;
 }
 
 blockquote p:before {
@@ -112,7 +115,7 @@ blockquote b {
 
 .me {
     margin-left: 124px;
-    padding-left: 0px;
+    padding-left: 0;
 }
 
 .profile {
@@ -133,8 +136,12 @@ blockquote b {
     padding: 24px;
 }
 
-.reviews h3, ul, li {
-    display: inline;
+.reviews ul {
+	margin-bottom: 24px;
+}
+
+.reviews li {
+    float: left;
 }
 
 .reviews li {
