@@ -77,7 +77,6 @@
 
     <section id="kmom02">
         <h2>Kmom02: Variabler och loopar</h2>
-        <p>Här är redovisningstexten</p>
 
         <h3>Har du programmerat i JavaScript tidigare?</h3>
         <p>Jag har programmerat inom Javascript tidigare, då med Node.js och jQuery. Denna fråga är snarlik ”Är du bekant med HTML, CSS och JavaScript sedan tidigare?” i kmom01 men jag gör mitt bästa för att lägga till något nytt. Inom Javascript är jag bekant med grunderna och de vanliga datastrukturerna men jag har inte bemästrat Javascripts sätt att hantera objekt än.</p>
@@ -196,8 +195,45 @@
     </section>
 
     <section id="kmom06">
-    <h2>Kmom06</h2>
-    <p>Här är redovisningstexten</p>
+    <h2>Kmom06: Modul och closure</h2>
+	<h3>Har du några erfarenheter av design mönster sedan tidigare?</h3>
+    <p>Tidigare har jag arbetat med design mönster inom C++, design mönster och objekt-orientering är jag därmed van vid. Fabriks mönstret inspirerade mig i detta moment till att skapa funktioner som returnerar färdiga HTML-objekt (noder).</p>
+	
+	<h3>Var det svårt att greppa hur function scope och closure fungerar eller känns det naturligt?</h3>
+    <p>Funktion scope: inget annat kommer åt varibelerna i en funktion om man inte returnerar dem. Det ända onaturliga för mig var att en funktion som deklarerats innan en variabel fortfarande kan komma åt den. </p>
+	<p>Closures: deklarera funktioner och variabler i en funktion för att utnyttja dess function scope till att gömma undan (enkapsulera) data, och endast tillgängliggöra det som behövs utanför funktionen. Detta görs igenom att referera till datan i det vi returnerar.</p>
+	
+	<h3>Kan du jämföra “module pattern” med någon annan liknande datastruktur?</h3>
+    <p>Modul mönstret påminner om classer i C++, men det blir mindre kod och mindre filer eftersom man inte delar upp det hela i en header (översiktlig bild av klassens innehåll) och en cpp fil (deklarationer). Det blir mindre tydligt vad som är publikt eller privat och mindre översiktligt eftersom allt ligger i en ända lång fil.</p>
+	
+	<h3>Känns “module pattern som en bra kodstruktur”?</h3>
+    <p>Modul mönstret är en bra kodstruktur i större program, där tillåts man separera kod och ge varje modul ett eget ansvarsområde. Det har fördelarna att koden blir enklare att felsöka och att ändra eftersom varje modul kan testas individuellt. I små program kan moduler ta mera tid att skapa och kräva flera rader kod än funktionell programmering, det lärde jag mig av föregående kursmoment.</p>
+	
+	<h3>Var boken “Learning JavaScript Design Patterns” lättläst eller lite för svår?</h3>
+    <p>Boken var lättläst och matnyttig, men det hade varit lärorikt att gräva djupare och röra vid fler än ett design mönster. Design mönster verkar vara lösningar på vanligt förekommande problem, att studera dem är likvärt med att studera äldre programmerares erfarenheter, ”vad passar bäst under följande omständigheter?”, till exempel. Målet blir att lära mig när de passar och när andra inte gör det. Design mönster känns som steget efter grundläggande programmerings kunskaper.</p>
+	
+	<h2 class="innerTitle">Reflektion</h2>
+	<h3>Erfarenheter och lärdomar</h3>
+    <p>Jag lärde mig använda Array.prototype.indexOf. En funktion som kollar om ett angivet värde finns med i en array. Med den kunde jag skapa ett register över vilka knappar som blivit tryckta, utan att kopior döck upp. Dessutom hjälpte den mig att kolla om en bokstav fanns med i det rätta ordet.</p>
+	<p>I javascript kan man helt undvika att använda sig av en gameloop (en while-loop som hela tiden kör programmet). Istället används event hanterare som aktiverar en händelse när användaren faktiskt gör något.</p>
+	<p>Jag lät modulen Game skapa hela användargränssnittet igenom att använda HTML element i index.js, modulen hittar rätt element med hjälp av dess klass. Här kunde jag gjort det möjligt för användaren att själv namnge HTML elementen, istället för att hålla sig till en strikt HTML struktur. </p>
+	<p>Game innehöll dessutom samtliga knappar samt skapandet av dem. En modulär lösning hade varit att koda en ”Knapp” modul som hanterar knapparna var för sig. Jag försökte, men kom inte på ett bra sätt att skapa eventhanterarna och därför fick de ingå i Game den här gången. Så här i efterhand tänker jag mig att Game kunde skapat evenhanteraren för varje knapp med hjälp av en funktion i ”Knapp” som tar en callback. På så sätt kunde vilka moduler som helst och vad som helst skett vid ett knapptryck, utan att man behöver ändra något i ”Knapp” modulen. Modulen kunde själv hållit ett register över vilka knappar som använts och sett till att ingen knapp kan användas två gånger. Detta blir en lärdom att ta med sig in i framtiden.</p>
+	<p>På forumet och i chatten lärde jag mig att det snabbaste sättet att skapa ett element är att använda sig av förälder elementets innerHTML. Däremot får inte elementen som skapas föräldern som förälder. På det sättet kan man inte hitta föräldern igenom barnet (child.parentNode). Detta ser jag som ett potentiellt problem och valde därför att använda parent.appendChild funktionen istället.</p>
+	
+	<h3>Problem och lösningar</h3>
+    <p>Jag insåg att en funktion som skapar och returnerar ett HTML-element reducerar antalet rader kod. Funktionens första parameter är en sträng med HTML-tagens typ. Andra parametern är ett objekt med fyra attribut: id (en sträng), classList (en array, alla index läggs till som klasser), text (innerHTML innehållet) och attrs. Attrs är ett objekt innehållande de HTML attribut som tagen behöver. Namnet på objektets attribut blir namnet på HTML attributet och värdet på objektets attribut blir värdet på HTML attributet.</p>
+<p>Exempel:</p>
+<pre>
+var rightLane = createElem(”div”);
+var googleLink = createElem(”a”, {
+	id: ”leftLane”,
+	classList: [”green”, ”left”],
+	text: ”Hello World”,
+	attrs: {href: ”www.google.com”}
+});
+</pre>
+	<h3>Resultat</h3>
+    <p>Resultatet blev mer återanvändbar kod, ett fungerande Hangman spel och design mönster som verktyg till framtiden. Min kunskap inom Javascript förbättrades igenom skapandet av createElem, då jag tog reda på hur man använder attributnamnen i ett objekt och undviker att använda förälder objektets attribut (Object.keys(obj) istället för en for loop). Det är jag nöjd med.</p>
     </section>
 
     <section id="kmom07">

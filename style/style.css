@@ -6,25 +6,25 @@ html {
 
 body {
     width: 960px;
-    margin: 0 auto;
-}
-
-header {
-    margin-top: 24px;
+    margin: 24px auto;
 }
 
 main {
     min-height: 360px;
     margin-top: -50px;
+	margin-bottom: 24px;
     padding: 24px;
     padding-top: 36px;
     background: white;
 }
 
 footer {
-    margin-top: 24px;
     background: white;
     text-align: center;
+}
+
+section {
+	margin-bottom: 48px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -33,24 +33,34 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
     font-size: 48px;
+	margin-bottom: 24px;
     border-bottom: 3px solid #55b8ff;
 }
 
 h2 {
-    margin-top: 24px;
     margin-bottom: 24px;
     font-size: 24px;
     border-bottom: 2px solid #55b8ff;
 }
 
+h3 {
+    margin-left: 24px;
+	margin-bottom: 6px;
+}
+
 p {
-    padding: 24px;
+    margin: 0 24px 24px 24px;
     line-height: 24px;
 }
 
-section h3 {
-    margin-left: 24px;
+pre {
+	background-color: #d3d3d3;
+	margin-left: 24px;
+	margin-bottom: 24px;
+	padding-left: 5px;
+    line-height: 24px;
 }
+
 
 
 /*--- QUOTES ---*/
@@ -97,10 +107,7 @@ blockquote b {
 
 .innerTitle {
     margin-left: 24px;
-}
-
-.firstPmargin {
-    margin-top: 12px;
+	margin-right: 24px;
 }
 
 .me {
