@@ -11,10 +11,10 @@ window.Questions = (function () {
 	* @question dom-element, the dom element of the question to display.
 	* @returns void.
 	*/
-	function displayQuestion(question) {
+	function displayQuestion(parentNode, question) {
 		console.log("starting displayQuestion");
 
-		window.Elemu.select(".content", function (elem) {
+		window.Elemu.select(parentNode, function (elem) {
 			console.log("attempting to display: " + typeof question);
 			elem.appendChild(question);
 		});
@@ -26,7 +26,7 @@ window.Questions = (function () {
 	* Display a supplied DOM element inside the .content div.
 	* @returns void.
 	*/
-	/*function displayNextQuestion() {
+	function displayNextQuestion() {
 		console.log("start displayNextQuestion()");
 
 		// Remove the previous question.
@@ -45,7 +45,7 @@ window.Questions = (function () {
 		}
 
 		console.log("exit displayNextQuestion()");
-	}*/
+	}
 
 	/**
 	* Returns a DOM-node question.
@@ -123,7 +123,7 @@ window.Questions = (function () {
 			return nrOfPoints;
 		},
 
-		"start": function () {
+		"start": function (parentNode) {
 			// Save currentQuestion for readability.
 			var question = questions[currentQuestion];
 
@@ -131,7 +131,7 @@ window.Questions = (function () {
 			console.log(typeof question);
 
 			// Display first question.
-			displayQuestion(question);
+			displayQuestion(parentNode, question);
 		},
 
 		"reset": function () {

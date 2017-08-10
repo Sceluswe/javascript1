@@ -19,7 +19,7 @@ window.Test = (function () {
 		"currentTest": 0,
 
 		"startTest": function () {
-			tests[this.currentTest].start();
+			tests[this.currentTest].start(".content");
 		},
 
 		"reset": function () {
