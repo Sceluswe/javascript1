@@ -6,6 +6,11 @@ window.Questions = (function () {
 	// Create counter for the current question.
 	var currentQuestion = 0;
 
+	// The follow up function to be run when all questions are answered.
+	var callback = function () {
+		// Empty by default.
+	}
+
 	/**
 	* Display a supplied DOM element inside the .content div.
 	* @question dom-element, the dom element of the question to display.
@@ -83,11 +88,11 @@ window.Questions = (function () {
 
 				if (currentQuestion < (questions.length -1)) {
 					// Display the next question.
-					// displayNextQuestion();
-					currentQuestion++;
+					displayNextQuestion();
 				}
 				else if (currentQuestion === (questions.length -1)) {
 					window.Elemu.remove(questions[currentQuestion]);
+					callback();
 				}
 			});
 
@@ -123,7 +128,11 @@ window.Questions = (function () {
 			return nrOfPoints;
 		},
 
-		"start": function (parentNode) {
+		"start": function (parentNode, callbackParam) {
+			// Set the private variable callback if it is defined.
+			if (typeof callback !== "undefined") {
+				callback = callbackParam;
+			}
 			// Save currentQuestion for readability.
 			var question = questions[currentQuestion];
 
