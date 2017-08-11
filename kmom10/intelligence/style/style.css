@@ -44,9 +44,19 @@ body {
 }
 
 .selected {
-	opacity: 0.2;
+	opacity: 0.4;
 }
 
 .green {
 	color: green;
+}
+
+.buttonGreen {
+	color: black;
+	background-color: green;
+}
+
+.buttonRed {
+	color: black;
+	background-color: #8b0000;
 }

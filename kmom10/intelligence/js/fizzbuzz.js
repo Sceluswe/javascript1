@@ -41,16 +41,23 @@ window.FizzBuzz = (function() {
 								points = 3;
 								console.log("Points gained: " + points);
 							}
+							else {
+								button.classList.add("buttonRed");
+							}
 
 							answered = true;
 
 							// Remove all buttons and the answer..
 							window.Elemu.select(".question", function (elem) {
-								window.Elemu.remove(elem);
+								elem.classList.add("selected");
 							});
 
 							window.Elemu.select(".answer", function (elem) {
-								window.Elemu.remove(elem);
+								elem.classList.add("selected");
+
+								if (elem.textContent === correctAnswer) {
+									elem.classList.add("buttonGreen");
+								}
 							});
 
 							// Display the correct answer.
