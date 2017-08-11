@@ -6,9 +6,13 @@ window.Questions = (function () {
 	// Create counter for the current question.
 	var currentQuestion = 0;
 
+	// Register the parentNode to write questions to.
+	var parentNode = "";
+
 	// The follow up function to be run when all questions are answered.
-	var callback = function () {
+	var myCallback = function () {
 		// Empty by default.
+		console.log("myCallback is empty");
 	}
 
 	/**
@@ -42,7 +46,7 @@ window.Questions = (function () {
 			var question = questions[++currentQuestion];
 
 			// Change to the next question if there is one.
-			displayQuestion(question);
+			displayQuestion(parentNode, question);
 
 			window.Elemu.select(".content", function (elem) {
 				elem.appendChild(question);
@@ -92,7 +96,8 @@ window.Questions = (function () {
 				}
 				else if (currentQuestion === (questions.length -1)) {
 					window.Elemu.remove(questions[currentQuestion]);
-					callback();
+					// Execute the user provided callback (if any).
+					myCallback();
 				}
 			});
 
@@ -128,11 +133,15 @@ window.Questions = (function () {
 			return nrOfPoints;
 		},
 
-		"start": function (parentNode, callbackParam) {
-			// Set the private variable callback if it is defined.
+		"start": function (parentNodeParam, callbackParam) {
+			// Set the private variable callback if the param is defined..
 			if (typeof callback !== "undefined") {
-				callback = callbackParam;
+				myCallback = callbackParam;
 			}
+
+			// Set the parentNode all questions will be written to.
+			parentNode = parentNodeParam;
+
 			// Save currentQuestion for readability.
 			var question = questions[currentQuestion];
 
