@@ -28,6 +28,10 @@ window.FizzBuzz = (function() {
 						text: item
 					});
 
+					button.addEventListener("click", function () {
+						console.log("Clicked");
+					});
+
 					wrapper.appendChild(button);
 				});
 			});
