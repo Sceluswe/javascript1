@@ -27,6 +27,8 @@ window.FizzBuzz = (function() {
 						classList: ["answer"],
 						text: item
 					});
+
+					wrapper.appendChild(button);
 				});
 			});
 		},
