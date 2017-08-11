@@ -78,7 +78,7 @@ window.Questions = (function () {
 		answers.forEach(function (item, index) {
 			var answerNode = window.Elemu.create("button", {
 				id: "answer" + index,
-				classList: [("answer")],
+				classList: ["answer"],
 				text: item
 			});
 

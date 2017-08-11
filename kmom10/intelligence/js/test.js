@@ -13,6 +13,7 @@ window.Test = (function () {
 
 	var tests = [
 		window.Questions,
+		window.FizzBuzz,
 	];
 
 	var Test = {
@@ -26,7 +27,8 @@ window.Test = (function () {
 				});
 			}
 
-			tests[this.currentTest].start(".content", callback);
+			// tests[this.currentTest].start(".content", callback);
+			tests[1].start(".content", callback);
 		},
 
 		"reset": function () {
