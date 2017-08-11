@@ -135,8 +135,10 @@ window.Questions = (function () {
 
 		"start": function (parentNodeParam, callbackParam) {
 			// Set the private variable callback if the param is defined..
-			if (typeof callback !== "undefined") {
+			console.log("typeof callbackParam:" + typeof callbackParam);
+			if (typeof callbackParam !== "undefined") {
 				myCallback = callbackParam;
+				console.log("OBS: Setting myCallback");
 			}
 
 			// Set the parentNode all questions will be written to.

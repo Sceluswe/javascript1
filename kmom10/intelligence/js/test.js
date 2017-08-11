@@ -19,7 +19,14 @@ window.Test = (function () {
 		"currentTest": 0,
 
 		"startTest": function () {
-			tests[this.currentTest].start(".content");
+			var callback = function () {
+				window.Elemu.select(".content", function (elem){
+					elem.innerHTML = "<p>Hej</p>";
+					console.log("Being silly with callback");
+				});
+			}
+
+			tests[this.currentTest].start(".content", callback);
 		},
 
 		"reset": function () {
