@@ -2,9 +2,15 @@ window.FizzBuzz = (function() {
 	// A module with a fizzbuzz question.
 	var question = "1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, Fizz Buzz, 16, 17";
 	var answers = ["18", "Fizz", "Buzz", "FizzBuzz"];
+	var answered = false;
 	var correctAnswer = "Fizz";
+	var points = 0;
 
 	var fizzbuzz = {
+		"getPoints": function () {
+			return points;
+		},
+
 		"start": function (parentNode, callbackParam) {
 			// Start the test.
 			window.Elemu.select(parentNode, function (parentElem) {
@@ -16,7 +22,8 @@ window.FizzBuzz = (function() {
 				parentElem.appendChild(wrapper);
 
 				var sequence = window.Elemu.create("p", {
-					text: question
+					text: question,
+					classList: ["question"]
 				});
 
 				wrapper.appendChild(sequence);
@@ -29,7 +36,33 @@ window.FizzBuzz = (function() {
 					});
 
 					button.addEventListener("click", function () {
-						console.log("Clicked");
+						if (!answered) {
+							if (item === correctAnswer) {
+								points = 3;
+								console.log("Points gained: " + points);
+							}
+
+							answered = true;
+
+							// Remove all buttons and the answer..
+							window.Elemu.select(".question", function (elem) {
+								window.Elemu.remove(elem);
+							});
+
+							window.Elemu.select(".answer", function (elem) {
+								window.Elemu.remove(elem);
+							});
+
+							// Display the correct answer.
+							var displayAnswer = window.Elemu.create("p", {
+								text: "The correct answer was: " + correctAnswer,
+								classList: ["green"]
+							});
+
+							wrapper.appendChild(displayAnswer);
+
+							console.log("Clicked");
+						}
 					});
 
 					wrapper.appendChild(button);
