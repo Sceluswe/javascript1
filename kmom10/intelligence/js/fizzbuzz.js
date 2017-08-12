@@ -1,9 +1,7 @@
 window.FizzBuzz = (function() {
 	// A module with a fizzbuzz question.
-	var question = "1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, Fizz Buzz, 16, 17";
 	var answers = ["18", "Fizz", "Buzz", "FizzBuzz"];
 	var answered = false;
-	var correctAnswer = "Fizz";
 	var points = 0;
 
 	/**
@@ -52,15 +50,25 @@ window.FizzBuzz = (function() {
 
 		return {
 			sequence: sequence + "?",
-			answer: fizzbuzzNumber(randomNumber + 5)
+			answers: [randomNumber + 5, "Fizz", "Buzz", "FizzBuzz"],
+			correctAnswer: fizzbuzzNumber(randomNumber + 5)
 		}
 	}
 
 	var FizzBuzz = {
+		/**
+		* Returns the number of points the user has acquired.
+		* @returns a number.
+		*/
 		"getPoints": function () {
 			return points;
 		},
 
+		/**
+		* Starts the test and creates the fizzbuzz question in the DOM.
+		* @param, parentNodeParam, the HTML node the question should be displayed in.
+		* @param, callbackParam, the callback to be executed when the question is answered.
+		*/
 		"start": function (parentNode, callbackParam) {
 			// Start the test.
 			window.Elemu.select(parentNode, function (parentElem) {
@@ -127,6 +135,10 @@ window.FizzBuzz = (function() {
 			});
 		},
 
+		/**
+		* Resets the test and allows the user to start over from the beginning.
+		* Mainly used for bugtesting.
+		*/
 		"reset": function () {
 			// Reset the test and do it over again.
 		}
