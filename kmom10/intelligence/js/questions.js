@@ -129,10 +129,19 @@ window.Questions = (function () {
 	// Create object module with the public functions for the object.
 	var Questions = {
 		nrOfQuestions: questions.length,
+		/**
+		* Returns the number of points the user has acquired.
+		* Returns a number.
+		*/
 		"getPoints": function () {
 			return nrOfPoints;
 		},
 
+		/**
+		 * Starts the test and creates the first question in the DOM.
+		 * @param, parentNodeParam, the HTML node the question should be displayed in.
+		 * @param, callbackParam, the callback to be executed when the last question is answered.
+		 */
 		"start": function (parentNodeParam, callbackParam) {
 			// Set the private variable callback if the param is defined..
 			console.log("typeof callbackParam:" + typeof callbackParam);
