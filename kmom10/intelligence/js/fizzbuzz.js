@@ -14,12 +14,52 @@ window.FizzBuzz = (function() {
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
 
-	var fizzbuzz = {
+	function fizzbuzzNumber(number) {
+		if (typeof number === "number") {
+			var result = number;
+
+			if ((number % 3 === 0) && (number % 5 === 0)) {
+				result = "FizzBuzz";
+			}
+			else if (number % 3 === 0) {
+				result = "Fizz";
+			}
+			else if (number % 5 === 0) {
+				result = "Buzz";
+			}
+		}
+
+		return result;
+	}
+
+	/**
+	* Returns an object with a fizzbuzz sequence and the answer to the next
+	* number in that sequence.
+	*/
+	function fizzbuzzQuestion() {
+		// Get a random number.
+		var randomNumber = getRandomInt(1, 20);
+
+		var sequence = "";
+		// Calculate the fizzbuzz sequence of the coming 5 numbers.
+		for (var i = randomNumber; i < randomNumber + 5; i++) {
+			sequence += fizzbuzzNumber(i) + ", ";
+		}
+
+		return {
+			sequence: sequence + "?",
+			answer: fizzbuzzNumber(randomNumber + 5)
+		}
+	}
+
+	var FizzBuzz = {
 		"getPoints": function () {
 			return points;
 		},
 
 		"start": function (parentNode, callbackParam) {
+			// Check if fizzbuzz works.
+			console.log(fizzbuzzQuestion());
 			// Start the test.
 			window.Elemu.select(parentNode, function (parentElem) {
 				var wrapper = window.Elemu.create("div", {
@@ -89,5 +129,5 @@ window.FizzBuzz = (function() {
 			// Reset the test and do it over again.
 		}
 	};
-	return fizzbuzz;
+	return FizzBuzz;
 }());
