@@ -138,10 +138,10 @@ window.Questions = (function () {
 		},
 
 		/**
-		 * Starts the test and creates the first question in the DOM.
-		 * @param, parentNodeParam, the HTML node the question should be displayed in.
-		 * @param, callbackParam, the callback to be executed when the last question is answered.
-		 */
+		* Starts the test and creates the first question in the DOM.
+		* @param, parentNodeParam, the HTML node the question should be displayed in.
+		* @param, callbackParam, the callback to be executed when the last question is answered.
+		*/
 		"start": function (parentNodeParam, callbackParam) {
 			// Set the private variable callback if the param is defined..
 			console.log("typeof callbackParam:" + typeof callbackParam);
@@ -163,6 +163,10 @@ window.Questions = (function () {
 			displayQuestion(parentNode, question);
 		},
 
+		/**
+		* Resets the test and allows the user to start over from the beginning.
+		* Mainly used for bugtesting.
+		*/
 		"reset": function () {
 			// Reset everything in the subtest and start over.
 			window.Elemu.remove(questions[currentQuestion]);
