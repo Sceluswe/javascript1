@@ -14,6 +14,10 @@ window.FizzBuzz = (function() {
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
 
+	/**
+	* Fizzbuzzes the provided number.
+	* Returns a string with either a fizzbuzz value or the number..
+	*/
 	function fizzbuzzNumber(number) {
 		if (typeof number === "number") {
 			var result = number;
@@ -58,8 +62,6 @@ window.FizzBuzz = (function() {
 		},
 
 		"start": function (parentNode, callbackParam) {
-			// Check if fizzbuzz works.
-			console.log(fizzbuzzQuestion());
 			// Start the test.
 			window.Elemu.select(parentNode, function (parentElem) {
 				var wrapper = window.Elemu.create("div", {
