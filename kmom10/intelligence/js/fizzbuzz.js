@@ -1,6 +1,7 @@
 window.FizzBuzz = (function() {
 	// A module with a fizzbuzz question.
 	var answered = false;
+	var callback = false;
 	var points = 0;
 
 	/**
@@ -147,6 +148,11 @@ window.FizzBuzz = (function() {
 							wrapper.appendChild(displayAnswer);
 
 							console.log("Clicked");
+
+							if (!callback) {
+								callbackParam();
+								callback = true;
+							}
 						}
 					});
 

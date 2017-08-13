@@ -20,15 +20,24 @@ window.Test = (function () {
 		"currentTest": 0,
 
 		"startTest": function () {
-			var callback = function () {
-				window.Elemu.select(".content", function (elem){
+			var that = this;
+
+			var callback1 = function () {
+				window.Elemu.select(".content", function (elem) {
 					elem.innerHTML = "<p>Hej</p>";
 					console.log("Being silly with callback");
 				});
 			}
 
+			var callback = function () {
+				that.currentTest++;
+				console.log(that.currentTest);
+				tests[that.currentTest].start(".content", callback1);
+				console.log("tests[2] = " + tests[2].getPoints());
+			}
+
 			// tests[this.currentTest].start(".content", callback);
-			tests[1].start(".content", callback);
+			tests[this.currentTest].start(".content", callback);
 		},
 
 		"reset": function () {
