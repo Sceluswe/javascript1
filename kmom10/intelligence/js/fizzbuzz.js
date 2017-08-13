@@ -1,6 +1,5 @@
 window.FizzBuzz = (function() {
 	// A module with a fizzbuzz question.
-	var answers = ["18", "Fizz", "Buzz", "FizzBuzz"];
 	var answered = false;
 	var points = 0;
 
@@ -15,10 +14,12 @@ window.FizzBuzz = (function() {
 	/**
 	* Fizzbuzzes the provided number.
 	* Returns a string with either a fizzbuzz value or the number..
+	* @param number, the number to fizzbuzz.
+	* @returns string, always returns a string even if the number is not fizzbuzzed.
 	*/
 	function fizzbuzzNumber(number) {
 		if (typeof number === "number") {
-			var result = number;
+			var result = "" + number;
 
 			if ((number % 3 === 0) && (number % 5 === 0)) {
 				result = "FizzBuzz";
@@ -30,28 +31,35 @@ window.FizzBuzz = (function() {
 				result = "Buzz";
 			}
 		}
+		else {
+			console.log("fizzbuzzNumber() MUST RECEIVE A NUMBER");
+			console.log("Received: " + typeof number);
+		}
 
 		return result;
 	}
 
 	/**
-	* Returns an object with a fizzbuzz sequence and the answer to the next
-	* number in that sequence.
+	* Returns a fizzbuzz question. The number after the sequence is
+	* the correct answer.
+	* @param, sequenceLength, the length of the fizzbuzz sequence.
+	* @returns object, contains fizzbuzz sequence, possible answers and correctAnswer.
 	*/
-	function fizzbuzzQuestion() {
+	function fizzbuzzQuestion(sequenceLength) {
 		// Get a random number.
 		var randomNumber = getRandomInt(1, 20);
+		var finalNumber = randomNumber + sequenceLength;
 
 		var sequence = "";
 		// Calculate the fizzbuzz sequence of the coming 5 numbers.
-		for (var i = randomNumber; i < randomNumber + 5; i++) {
+		for (var i = randomNumber; i < randomNumber + sequenceLength; i++) {
 			sequence += fizzbuzzNumber(i) + ", ";
 		}
 
 		return {
 			sequence: sequence + "?",
-			answers: [randomNumber + 5, "Fizz", "Buzz", "FizzBuzz"],
-			correctAnswer: fizzbuzzNumber(randomNumber + 5)
+			answers: [("" + finalNumber), "Fizz", "Buzz", "FizzBuzz"],
+			correctAnswer: fizzbuzzNumber(finalNumber)
 		}
 	}
 
@@ -70,23 +78,32 @@ window.FizzBuzz = (function() {
 		* @param, callbackParam, the callback to be executed when the question is answered.
 		*/
 		"start": function (parentNode, callbackParam) {
+			// Create the question.
+			var currentQuestion = fizzbuzzQuestion(5);
+
 			// Start the test.
 			window.Elemu.select(parentNode, function (parentElem) {
 				var wrapper = window.Elemu.create("div", {
 					classList: ["currentQuestion"]
 				});
 
-				// Add it to the parentNode.
+				// Add the wrapper to the parentNode.
 				parentElem.appendChild(wrapper);
 
+				var explanation = window.Elemu.create("p", {
+					text: "Gissa nästa ord eller nummer i ordningen.",
+				});
+
+				wrapper.appendChild(explanation);
+
 				var sequence = window.Elemu.create("p", {
-					text: question,
+					text: currentQuestion.sequence,
 					classList: ["question"]
 				});
 
 				wrapper.appendChild(sequence);
 
-				answers.forEach(function (item, index, array) {
+				currentQuestion.answers.forEach(function (item, index, array) {
 					var button = window.Elemu.create("button", {
 						id: "answer" + index,
 						classList: ["answer"],
@@ -95,33 +112,36 @@ window.FizzBuzz = (function() {
 
 					button.addEventListener("click", function () {
 						if (!answered) {
-							if (item === correctAnswer) {
-								points = 3;
-								console.log("Points gained: " + points);
-							}
-							else {
-								button.classList.add("buttonRed");
-							}
-
 							answered = true;
 
-							// Remove all buttons and the answer..
+							// Hide the question.
 							window.Elemu.select(".question", function (elem) {
 								elem.classList.add("selected");
 							});
 
+							// Highlight the correct answer with green.
 							window.Elemu.select(".answer", function (elem) {
+								// Hide all buttons.
 								elem.classList.add("selected");
-
-								if (elem.textContent === correctAnswer) {
+								if (elem.textContent === currentQuestion.correctAnswer) {
 									elem.classList.add("buttonGreen");
 								}
 							});
 
-							// Display the correct answer.
+							// Check if the user was right or wrong.
+							if (item === currentQuestion.correctAnswer) {
+								points = 3;
+								console.log("Points gained: " + points);
+							}
+							else {
+								// If the user is wrong, highlight the user answer with red.
+								button.classList.add("buttonRed");
+							}
+
+							// Display the correct answer again for clarity.
 							var displayAnswer = window.Elemu.create("p", {
-								text: "The correct answer was: " + correctAnswer,
-								classList: ["green"]
+								text: "The correct answer was: " + currentQuestion.correctAnswer,
+								classList: ["correctAnswer", "green"]
 							});
 
 							wrapper.appendChild(displayAnswer);
@@ -141,7 +161,24 @@ window.FizzBuzz = (function() {
 		*/
 		"reset": function () {
 			// Reset the test and do it over again.
+			window.Elemu.select(".question", function (elem) {
+				elem.classList.remove("selected");
+			});
+
+			window.Elemu.select(".answer", function (elem) {
+				elem.classList.remove("selected");
+				elem.classList.remove("buttonGreen");
+				elem.classList.remove("buttonRed");
+			});
+
+			window.Elemu.select(".correctAnswer", function (elem) {
+				window.Elemu.remove(elem);
+			});
+
+			points = 0;
+			answered = false;
 		}
 	};
+
 	return FizzBuzz;
 }());
