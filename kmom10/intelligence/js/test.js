@@ -1,31 +1,64 @@
 window.Test = (function () {
 	'use strict';
-	// Add eventListener that starts the test if the user presses the button.
-	window.Elemu.select(".startButton", function (elem) {
-		elem.addEventListener("click", function () {
-			// Remove welcome screen.
-			window.Elemu.select(".content", function (elem) {
-				while (elem.firstChild) {
-					elem.removeChild(elem.firstChild);
-				}
-			});
-		});
-	});
-
-	var tests = [
-		Object.create(window.Questions),
-		Object.create(window.FizzBuzz),
-		Object.create(window.Questions),
-	];
 
 	var Test = {
+		"tests": [],
 		"currentTest": 0,
+
+		/**
+		* Function initiates all the subtests.
+		*/
+		"init": function () {
+			// Create the questions object.
+			var questionTest = Object.create(window.Questions);
+			// Create questions for the questions test.
+			questionTest.createQuestion(
+				"Vad händer med ett russin om du lägger det i ett glas med Champagne?",
+				["1. Det flyter", "X. Det sjunker", "2. Det åker upp och ner"],
+				2
+			);
+			questionTest.createQuestion(
+				"Vilket land har ett skjutvapen avbildat på flaggan?",
+				["1. Mocambique", "X. Nigeria", "2. Liberia"],
+				0
+			);
+			questionTest.createQuestion(
+				"Vad är den romerska siffran för 100?",
+				["1. M", "X. C", "2. D"],
+				1
+			);
+			// Add questions to the tests array.
+			this.tests.push(questionTest);
+
+			// // Add fizzbuzz test.
+			// this.tests.push(Object.create(window.FizzBuzz));
+			//
+			// // Create a second questions object just for testing.
+			// var questions2 = Object.create(window.Questions);
+			// questions2.createQuestion(
+			// 	"Vad händer med ett russin om du lägger det i ett glas med Champagne?",
+			// 	["1. Det flyter", "X. Det sjunker", "2. Det åker upp och ner"],
+			// 	2
+			// );
+			// questions2.createQuestion(
+			// 	"Vilket land har ett skjutvapen avbildat på flaggan?",
+			// 	["1. Mocambique", "X. Nigeria", "2. Liberia"],
+			// 	0
+			// );
+			// questions2.createQuestion(
+			// 	"Vad är den romerska siffran för 100?",
+			// 	["1. M", "X. C", "2. D"],
+			// 	1
+			// );
+			// // Add questions2 to the tests array.
+			// this.tests.push(questions2);
+		},
 
 		/**
 		* Creates callbacks for all the different tests and distributes them
 		* to their respective test.
 		*/
-		"startTest": function () {
+		"start": function () {
 			var that = this;
 
 			var callback1 = function () {
@@ -48,7 +81,7 @@ window.Test = (function () {
 					button.addEventListener("click", function () {
 						// Start the next test.
 						that.currentTest++;
-						tests[that.currentTest].start(".content", callback1);
+						that.tests[that.currentTest].start(".content", callback1);
 					});
 				});
 			}
@@ -57,11 +90,11 @@ window.Test = (function () {
 			var questionsCallback = function () {
 				that.currentTest++;
 				console.log(that.currentTest);
-				tests[that.currentTest].start(".content", fizzbuzzCallback);
+				that.tests[that.currentTest].start(".content", fizzbuzzCallback);
 			}
 
 			// tests[this.currentTest].start(".content", callback);
-			tests[this.currentTest].start(".content", questionsCallback);
+			this.tests[this.currentTest].start(".content", questionsCallback);
 		},
 
 		/**

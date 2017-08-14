@@ -2,166 +2,142 @@ window.Questions = (function () {
 	'use strict';
 	// 1x2 module.
 
-	// Declare private attributes.
-	var nrOfPoints = 0;
-	// Create counter for the current question.
-	var currentQuestion = 0;
+	var Questions = {
+		// Create Questions.
+		"questions": [],
+		// Declare private attributes.
+		"nrOfPoints": 0,
+		// Create counter for the current question.
+		"currentQuestion": 0,
 
-	// Register the parentNode to write questions to.
-	var parentNode = "";
+		// The follow up function to be run when all questions are answered.
+		"myCallback": function () {
+			// Empty by default.
+			console.log("myCallback is empty");
+		},
 
-	// The follow up function to be run when all questions are answered.
-	var myCallback = function () {
-		// Empty by default.
-		console.log("myCallback is empty");
-	}
+		/**
+		* Adds a question object (a DOM node) to the questions array.
+		* @question string, the question to answer.
+		* @answers array of strings, the 1x2 answers to the question.
+		* @correctAnswer, the index of the correct answer in the answers array.
+		*/
+		"createQuestion": function (question, answers, correctAnswer) {
+			var questionDiv = window.Elemu.create("div", {
+				classList: ["currentQuestion"]
+			});
+			//  Create question node.
+			var questionNode = window.Elemu.create("p", {
+				classList: ["question"],
+				text: question
+			});
 
-	/**
-	* Display a supplied DOM element inside the .content div.
-	* @question dom-element, the dom element of the question to display.
-	* @returns void.
-	*/
-	function displayQuestion(parentNode, question) {
-		console.log("starting displayQuestion");
+			questionDiv.appendChild(questionNode);
 
-		window.Elemu.select(parentNode, function (elem) {
-			console.log("attempting to display: " + typeof question);
-			elem.appendChild(question);
-		});
+			var that = this;
+			answers.forEach(function (item, index) {
+				var answerNode = window.Elemu.create("button", {
+					id: "answer" + index,
+					classList: ["answer"],
+					text: item
+				});
 
-		console.log("exiting displayQuestion");
-	}
+				// Add eventListener to the node.
+				console.log(that.currentQuestion);
+				answerNode.addEventListener("click", function () {
+					if (index === correctAnswer) {
+						that.nrOfPoints += 5;
+						console.log("Answered the question with: " + item);
+						console.log("You earned 5 points, you now have: " + that.nrOfPoints);
+					}
 
-	/**
-	* Display a supplied DOM element inside the .content div.
-	* @returns void.
-	*/
-	function displayNextQuestion() {
-		console.log("start displayNextQuestion()");
+					if (that.currentQuestion < (that.questions.length -1 )) {
+						// Display the next question.
+						that.displayNextQuestion();
+					}
+					else if (that.currentQuestion === (that.questions.length -1)) {
+						window.Elemu.remove(that.questions[that.currentQuestion]);
+						// Execute the user provided callback (if any).
+						that.myCallback();
+					}
+				});
 
-		// Remove the previous question.
-		window.Elemu.remove(questions[currentQuestion]);
+				questionDiv.appendChild(answerNode);
+			});
 
-		if (currentQuestion < questions.length) {
-			// Save the question to be displayed for readability.
-			var question = questions[++currentQuestion];
+			// Add question node to the question array.
+			this.questions.push(questionDiv);
+		},
 
-			// Change to the next question if there is one.
-			displayQuestion(parentNode, question);
 
-			window.Elemu.select(".content", function (elem) {
+		/**
+		* Display a supplied DOM element inside the .content div.
+		* @question dom-element, the dom element of the question to display.
+		* @returns void.
+		*/
+		"displayQuestion": function (parentNode, question) {
+			console.log("starting displayQuestion");
+
+			window.Elemu.select(parentNode, function (elem) {
+				console.log("attempting to display: " + typeof question);
 				elem.appendChild(question);
 			});
-		}
 
-		console.log("exit displayNextQuestion()");
-	}
+			console.log("exiting displayQuestion");
+		},
 
-	/**
-	* Returns a DOM-node question.
-	* @question string, the question to answer.
-	* @answers array of strings, the 1x2 answers to the question.
-	* @correctAnswer, the index of the correct answer in the answers array.
-	* @returns void.
-	*/
-	function createQuestion(question, answers, correctAnswer) {
-		var questionDiv = window.Elemu.create("div", {
-			classList: ["currentQuestion"]
-		});
-		//  Create question node.
-		var questionNode = window.Elemu.create("p", {
-			classList: ["question"],
-			text: question
-		});
+		/**
+		* Display a supplied DOM element inside the .content div.
+		* @returns void.
+		*/
+		"displayNextQuestion": function () {
+			console.log("start displayNextQuestion()");
+			// Get parent from the previous question.
+			var parentNode = this.questions[this.currentQuestion].parentNode;
 
-		questionDiv.appendChild(questionNode);
+			// Remove the previous question from the DOM.
+			window.Elemu.remove(this.questions[this.currentQuestion]);
 
-		answers.forEach(function (item, index) {
-			var answerNode = window.Elemu.create("button", {
-				id: "answer" + index,
-				classList: ["answer"],
-				text: item
-			});
+			if (this.currentQuestion < this.questions.length) {
+				// Move to the next question.
+				this.currentQuestion++;
 
-			// Add eventListener to the node.
-			answerNode.addEventListener("click", function () {
-				if (index === correctAnswer) {
-					nrOfPoints += 5;
-					console.log("Answered the question with: " + item);
-					console.log("You earned 5 points, you now have: " + nrOfPoints);
-				}
+				// Display the new question in the DOM.
+				parentNode.appendChild(this.questions[this.currentQuestion]);
+			}
 
-				if (currentQuestion < (questions.length -1)) {
-					// Display the next question.
-					displayNextQuestion();
-				}
-				else if (currentQuestion === (questions.length -1)) {
-					window.Elemu.remove(questions[currentQuestion]);
-					// Execute the user provided callback (if any).
-					myCallback();
-				}
-			});
+			console.log("exit displayNextQuestion()");
+		},
 
-			questionDiv.appendChild(answerNode);
-		});
-
-		return questionDiv;
-	}
-
-	// Create Questions attributes.
-	var questions = [
-		createQuestion(
-			"Vad händer med ett russin om du lägger det i ett glas med Champagne?",
-			["1. Det flyter", "X. Det sjunker", "2. Det åker upp och ner"],
-			2
-		),
-		createQuestion(
-			"Vilket land har ett skjutvapen avbildat på flaggan?",
-			["1. Mocambique", "X. Nigeria", "2. Liberia"],
-			0
-		),
-		createQuestion(
-			"Vad är den romerska siffran för 100?",
-			["1. M", "X. C", "2. D"],
-			1
-		)
-	];
-
-	// Create object module with the public functions for the object.
-	var Questions = {
-		nrOfQuestions: questions.length,
 		/**
 		* Returns the number of points the user has acquired.
 		* Returns a number.
 		*/
 		"getPoints": function () {
-			return nrOfPoints;
+			return this.nrOfPoints;
 		},
 
 		/**
 		* Starts the test and creates the first question in the DOM.
-		* @param, parentNodeParam, the HTML node the question should be displayed in.
+		* @param, parentNode, the HTML node the question should be displayed in.
 		* @param, callbackParam, the callback to be executed when the last question is answered.
 		*/
-		"start": function (parentNodeParam, callbackParam) {
+		"start": function (parentNode, callbackParam) {
 			// Set the private variable callback if the param is defined..
 			console.log("typeof callbackParam:" + typeof callbackParam);
 			if (typeof callbackParam !== "undefined") {
-				myCallback = callbackParam;
+				this.myCallback = callbackParam;
 				console.log("OBS: Setting myCallback");
 			}
 
-			// Set the parentNode all questions will be written to.
-			parentNode = parentNodeParam;
-
 			// Save currentQuestion for readability.
-			var question = questions[currentQuestion];
+			var question = this.questions[this.currentQuestion];
 
 			console.log(question);
 			console.log(typeof question);
 
 			// Display first question.
-			displayQuestion(parentNode, question);
+			this.displayQuestion(parentNode, question);
 		},
 
 		/**
@@ -170,10 +146,10 @@ window.Questions = (function () {
 		*/
 		"reset": function () {
 			// Reset everything in the subtest and start over.
-			window.Elemu.remove(questions[currentQuestion]);
-			nrOfPoints = 0;
-			currentQuestion = 0;
-			displayQuestion(questions[currentQuestion]);
+			window.Elemu.remove(this.questions[this.currentQuestion]);
+			this.nrOfPoints = 0;
+			this.currentQuestion = 0;
+			this.displayQuestion(this.questions[this.currentQuestion]);
 		}
 	};
 
