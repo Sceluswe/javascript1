@@ -1,4 +1,5 @@
 window.Elemu = (function () {
+	'use strict';
 	// This module contains useful functions for the entire project.
 
 	/*

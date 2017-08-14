@@ -1,4 +1,5 @@
 window.Questions = (function () {
+	'use strict';
 	// 1x2 module.
 
 	// Declare private attributes.

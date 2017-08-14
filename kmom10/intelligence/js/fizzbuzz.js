@@ -1,4 +1,5 @@
 window.FizzBuzz = (function() {
+	'use strict';
 	// A module with a fizzbuzz question.
 	var answered = false;
 	var callback = false;

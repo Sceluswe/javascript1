@@ -1,0 +1,247 @@
+.hidden {
+    visibility: hidden;
+}
+
+.flag {
+    position: relative;
+    float: left;
+    height: 200px;
+    width: 320px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.block {
+    position: absolute;
+    height: 198px;
+    width: 318px;
+    z-index: 100;
+    background-color: white;
+    border: 2px solid black;
+    text-align: center;
+    font-size: 10em;
+}
+
+.block:hover {
+    background-color: gray;
+}
+
+
+
+/* ------------------------------------------------------------------------
+* German Flag
+*/
+.germany {
+    background-color: #FFCE00;
+    overflow: hidden;
+}
+
+.ger-black-top {
+    height: 70px;
+    background-color: black;
+
+}
+
+.ger-red-middle {
+    height: 70px;
+    background-color: #DD0000;
+}
+
+
+
+/* ------------------------------------------------------------------------
+* Jamaican Flag
+*/
+.jamaica {
+    background-color: #009B3A;
+    overflow: hidden;
+}
+
+.jam-triangle-yellow-left {
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: -10px;
+    border-style: solid;
+    border-width: 110px 0 110px 200px;
+    border-color: transparent transparent transparent #FED100;
+}
+
+.jam-triangle-yellow-right {
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: -10px;
+    left: 120px;
+    border-style: solid;
+    border-width: 110px 200px 110px 0;
+    border-color: transparent #FED100 transparent transparent;
+}
+
+.jam-triangle-black-right {
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 30px;
+    left: 180px;
+    border-style: solid;
+    border-width: 70px 140px 70px 0;
+    border-color: transparent #000000 transparent transparent;
+}
+
+.jam-triangle-black-left {
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 30px;
+    z-index: 1;
+    border-style: solid;
+    border-width: 70px 0 70px 140px;
+    border-color: transparent transparent transparent #000000;
+}
+
+
+
+/* ------------------------------------------------------------------------
+* Swedish Flag
+*/
+.sweden {
+    background-color: #005B99;
+    overflow: hidden;
+}
+
+.swe-yellow-top {
+    position: absolute;
+    height: 200px;
+    width: 50px;
+    margin-left: 90px;
+    background-color: #FCD116;
+}
+
+.swe-yellow-middle {
+    position: absolute;
+    width: 320px;
+    height: 50px;
+    top: 75px;
+    background-color: #FCD116;
+}
+
+
+
+/* ------------------------------------------------------------------------
+* South African Flag
+*/
+.southafrica {
+    background-color: #0C1C8C;
+    overflow: hidden;
+}
+
+.sa-square-red-top {
+    width: 320px;
+    height: 100px;
+    background-color: #E23D28;
+}
+
+.sa-square-white-middle {
+    position: absolute;
+    width: 320px;
+    height: 70px;
+    top: 65px;
+    z-index: 1;
+    background-color: #FFFFFF;
+}
+
+.sa-square-green-middle {
+    position: absolute;
+    width: 320px;
+    height: 40px;
+    top: 80px;
+    z-index: 2;
+    background-color: #007C59;
+}
+
+.sa-triangle-white {
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: -40px;
+    z-index: 1;
+    border-style: solid;
+    border-width: 140px 0 140px 200px;
+    border-color: transparent transparent transparent #FFFFFF;
+}
+
+.sa-triangle-green {
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: -20px;
+    z-index: 2;
+    border-style: solid;
+    border-width: 120px 0 120px 170px;
+    border-color: transparent transparent transparent #007C59;
+}
+
+.sa-triangle-yellow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 25px;
+    z-index: 3;
+    border-style: solid;
+    border-width: 75px 0 75px 110px;
+    border-color: transparent transparent transparent #FCB514;
+}
+
+
+.sa-triangle-black {
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 40px;
+    z-index: 4;
+    border-style: solid;
+    border-width: 60px 0 60px 90px;
+    border-color: transparent transparent transparent #000000;
+}
+
+
+/* ------------------------------------------------------------------------
+* Norwegian Flag
+*/
+.norway {
+    background-color: #EF2B2D;
+    overflow: hidden;
+}
+
+.nor-white-top {
+    position: absolute;
+    height: 200px;
+    width: 50px;
+    margin-left: 90px;
+    background-color: #fff;
+}
+
+.nor-white-middle {
+    position: absolute;
+    width: 320px;
+    height: 50px;
+    top: 75px;
+    background-color: #fff;
+}
+
+.nor-blue-top {
+    position: absolute;
+    height: 200px;
+    width: 25px;
+    margin-left: 103px;
+    background-color: #002868;
+}
+
+.nor-blue-middle {
+    position: absolute;
+    width: 320px;
+    height: 25px;
+    top: 88px;
+    background-color: #002868;
+}

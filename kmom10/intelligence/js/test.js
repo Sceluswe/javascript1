@@ -1,4 +1,5 @@
 window.Test = (function () {
+	'use strict';
 	// Add eventListener that starts the test if the user presses the button.
 	window.Elemu.select(".startButton", function (elem) {
 		elem.addEventListener("click", function () {
@@ -12,9 +13,9 @@ window.Test = (function () {
 	});
 
 	var tests = [
-		window.Questions,
-		window.FizzBuzz,
-		window.Questions
+		Object.create(window.Questions),
+		Object.create(window.FizzBuzz),
+		Object.create(window.Questions),
 	];
 
 	var Test = {
@@ -34,6 +35,7 @@ window.Test = (function () {
 				});
 			}
 
+			// Create callback for the fizzbuzz.js test.
 			var fizzbuzzCallback = function () {
 				window.Elemu.select(".content", function (elem) {
 					var button = window.Elemu.create("button", {
@@ -51,6 +53,7 @@ window.Test = (function () {
 				});
 			}
 
+			// Create callback for the questions.js test.
 			var questionsCallback = function () {
 				that.currentTest++;
 				console.log(that.currentTest);
