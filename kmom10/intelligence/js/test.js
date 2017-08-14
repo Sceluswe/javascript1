@@ -20,6 +20,10 @@ window.Test = (function () {
 	var Test = {
 		"currentTest": 0,
 
+		/**
+		* Creates callbacks for all the different tests and distributes them
+		* to their respective test.
+		*/
 		"startTest": function () {
 			var that = this;
 
@@ -57,6 +61,10 @@ window.Test = (function () {
 			tests[this.currentTest].start(".content", questionsCallback);
 		},
 
+		/**
+		* Calls the internal reset function for the currently active test.
+		* This allows the user to do the test again, (cheating).
+		*/
 		"reset": function () {
 			tests[this.currentTest].reset();
 		}
