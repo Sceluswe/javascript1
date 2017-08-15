@@ -1,6 +1,13 @@
 window.Test = (function () {
 	'use strict';
 
+	var tempTest = {
+		"start": function (parentNode, callbackParam) {
+			console.log("my parentNode: " + parentNode);
+			callbackParam();
+		}
+	};
+
 	var Test = {
 		"tests": [],
 		"currentTest": 0,
@@ -30,8 +37,9 @@ window.Test = (function () {
 			// Add questions to the tests array.
 			this.tests.push(questionTest);
 
-			// // Add fizzbuzz test.
-			// this.tests.push(Object.create(window.FizzBuzz));
+			// Add fizzbuzz test.
+			this.tests.push(Object.create(window.FizzBuzz));
+			this.tests.push(Object.create(tempTest));
 			//
 			// // Create a second questions object just for testing.
 			// var questions2 = Object.create(window.Questions);

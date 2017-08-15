@@ -1,10 +1,5 @@
 window.FizzBuzz = (function() {
 	'use strict';
-	// A module with a fizzbuzz question.
-	var answered = false;
-	var callback = false;
-	var points = 0;
-
 	/**
 	* Returns a random integer between min (inclusive) and max (inclusive)
 	* Using Math.round() will give you a non-uniform distribution!
@@ -66,12 +61,17 @@ window.FizzBuzz = (function() {
 	}
 
 	var FizzBuzz = {
+		// A module with a fizzbuzz question.
+		"answered": false,
+		"callbackUsed": false,
+		"nrOfPoints": 0,
+
 		/**
 		* Returns the number of points the user has acquired.
 		* @returns a number.
 		*/
 		"getPoints": function () {
-			return points;
+			return this.nrOfPoints;
 		},
 
 		/**
@@ -113,8 +113,8 @@ window.FizzBuzz = (function() {
 					});
 
 					button.addEventListener("click", function () {
-						if (!answered) {
-							answered = true;
+						if (!this.answered) {
+							this.answered = true;
 
 							// Hide the question.
 							window.Elemu.select(".question", function (elem) {
@@ -132,8 +132,8 @@ window.FizzBuzz = (function() {
 
 							// Check if the user was right or wrong.
 							if (item === currentQuestion.correctAnswer) {
-								points = 3;
-								console.log("Points gained: " + points);
+								this.nrOfPoints = 3;
+								console.log("Points gained: " + this.nrOfPoints);
 							}
 							else {
 								// If the user is wrong, highlight the user answer with red.
@@ -150,9 +150,9 @@ window.FizzBuzz = (function() {
 
 							console.log("Clicked");
 
-							if (!callback) {
+							if (!this.callbackUsed) {
 								callbackParam();
-								callback = true;
+								this.callbackUsed = true;
 							}
 						}
 					});
@@ -182,8 +182,8 @@ window.FizzBuzz = (function() {
 				window.Elemu.remove(elem);
 			});
 
-			points = 0;
-			answered = false;
+			this.nrOfPoints = 0;
+			this.answered = false;
 		}
 	};
 
