@@ -1,12 +1,23 @@
 window.Memory = (function(){
 	'use strict';
 
+	function createFlagDiv(classes) {
+		var parentNode = window.Elemu.create("div", {classList: [className[0]]});
+		// Remove the first class index since that's the parent.
+		classes.shift();
+
+		// Apply all other classes children of parent.
+		forEach(function (item) {
+			parentNode.appendChild(window.Elemu.create("div", {classList: [item]}));
+		});
+	}
+
 	// HTML code for flags.
-	var germanFlagContent = "<div class=\"ger-black-top\"></div><div class=\"ger-red-middle\"></div>";
-	var jamaicaFlagContent = "<div class=\"jam-triangle-yellow-right\"></div><div class=\"jam-triangle-yellow-left\"></div><div class=\"jam-triangle-black-left\"></div><div class=\"jam-triangle-black-right\"></div>";
-	var swedishFlagContent = "<div class=\"swe-yellow-top\"></div><div class=\"swe-yellow-middle\"></div>";
-	var southAfricanFlagContent = "<div class=\"sa-square-red-top\"></div><div class=\"sa-square-white-middle\"></div><div class=\"sa-square-green-middle\"></div><div class=\"sa-triangle-white\"></div><div class=\"sa-triangle-green\"></div><div class=\"sa-triangle-yellow\"></div><div class=\"sa-triangle-black\"></div>";
-	var norwegianFlagContent = "<div class=\"nor-white-top\"></div><div class=\"nor-white-middle\"></div><div class=\"nor-blue-top\"></div><div class=\"nor-blue-middle\"></div>";
+	var germanFlag = createFlagDiv(["german", "ger-black-top", "ger-red-middle"]);
+	var jamaicaFlag = createFlagDiv(["jamaica", "jam-triangle-yellow-right", "jam-triangle-yellow-left", "jam-triangle-black-left", "jam-triangle-black-right"]);
+	var swedishFlag = createFlagDiv(["sweden", "swe-yellow-top", "swe-yellow-middle"]);
+	var southAfricanFlag = createFlagDiv(["sa-square-red-top", "sa-square-white-middle", "sa-square-green-middle", "sa-triangle-white", "sa-triangle-green", "sa-triangle-yellow", "sa-triangle-black"]);
+	var norwegianFlag = createFlagDiv(["nor-white-top", "nor-white-middle", "nor-blue-top", "nor-blue-middle"]);
 
 	// Block object. Object that hides the flag.
 	var Element = {
