@@ -10,26 +10,25 @@ window.Memory = (function(){
 
 	// Block object. Object that hides the flag.
 	var Element = {
-		tagName: "",
-		classes: [],
-		id: "",
-		content: "",
-		parent: "",
+		"tagName": "",
+		"classes": [],
+		"id": "",
+		"content": "",
 
-		init: function (tagName, classlist, id, content) {
+		"init": function (tagName, classlist, id, content) {
 			this.classes = classlist;
 			this.id = id;
 			this.content = content;
 		},
 
-		getElement: function () {
+		"getElement": function () {
 			return document.getElementById(this.id);
 		},
 
 		/*
 		* Function that draws the element.
 		*/
-		draw: function (parentNode) {
+		"draw": function (parentNode) {
 			if (this.tagName !== "") {
 				var elem = "";
 				var check = this.getElement();
@@ -88,7 +87,7 @@ window.Memory = (function(){
 	}
 
 	// Create all flag objects.
-	// (tagName, classlist=[], id, content="", parent="")
+	// (tagName, classlist=[], id, content="")
 	var gerFlag = Object.create(Element);
 	gerFlag.init("div", ["flag", "germany"], "germany", germanFlagContent);
 	var gerFlag1 = Object.create(Element);
@@ -119,12 +118,16 @@ window.Memory = (function(){
 		"myFlags": [gerFlag, jamFlag, sweFlag, saFlag, norFlag, gerFlag1, jamFlag1, sweFlag1, saFlag1, norFlag1],
 		// List of selected elements.
 		"selected": [],
+		"myCallback": function () {
+			console.log("Called empty callback");
+		},
 
 		/* Add an event listener to the blocks.
 		* @param flag, the flag the block is blocking.
 		* @param block, the block to receive a listener.
 		*/
 		"blockListener": function (flag, block) {
+			var that = this;
 			block.addEventListener("click", function () {
 				// Log click.
 				console.log("click");
@@ -152,6 +155,11 @@ window.Memory = (function(){
 							selected = [];
 						}, 1000);
 					}
+
+					// If all the flags have been discovered, call callback.
+					if (that.selected.length === that.myFlags.length) {
+						that.myCallback;
+					}
 				}
 			});
 		},
@@ -159,17 +167,17 @@ window.Memory = (function(){
 		/**
 		* Draw flags and blocks for the memory game.
 		*/
-		"drawMemory": function () {
+		"drawMemory": function (parentNode) {
 			myFlags.forEach(function (flag, index) {
 				// Draw the flag and use the returned element.
-				flag.draw();
+				flag.draw(parentNode);
 
 				// Create a block for the flag.
 				var block = Object.create(Element);
-				block.init("div", ["flag", "block"], ("block" + index), "?", "#content");
+				block.init("div", ["flag", "block"], ("block" + index), "?");
 
 				// Draw the block for the flag.
-				block.draw();
+				block.draw(parentNode);
 
 				// Get the block and flag elements.
 				var blockElem = block.getElement();
@@ -184,8 +192,13 @@ window.Memory = (function(){
 			});
 		},
 
-		"start": function () {
-			drawMemory();
+		"start": function (parentNode, callbackParam) {
+			// Set callback.
+			this.callback = callbackParam;
+			//
+			// Draw the memory game to parent node.
+			drawMemory(parentNode);
+
 			// Place all flags and blocks in the correct positions.
 			window.onresize = function () {
 				document.getElementById("content").innerHTML = "";
