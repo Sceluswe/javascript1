@@ -3,8 +3,8 @@ window.Memory = (function(){
 
 	// All useful functions.
 	/*
-	In 1964, Richard Durstenfeld came up with the modern method as a computer algorithm. It has a run time complexity of O(n).
-	This function is Durstenfelds version of the fisher-yates algorithm.
+	* In 1964, Richard Durstenfeld came up with the modern method as a computer algorithm. It has a run time complexity of O(n).
+	* This function is Durstenfelds version of the fisher-yates algorithm.
 	*/
 	function shuffle (array) {
 		var i = 0;
@@ -19,7 +19,12 @@ window.Memory = (function(){
 		}
 	}
 
+	/**
+	* Creates an element and children to that element with a single class.
+	* @param classes, an array of strings, each string contains the class of one object.
+	*/
 	function createFlagDiv(classes) {
+		// Create parent.
 		var parentNode = window.Elemu.create("div", {classList: [className[0]]});
 		// Remove the first class index since that's the parent.
 		classes.shift();
@@ -28,6 +33,8 @@ window.Memory = (function(){
 		forEach(function (item) {
 			parentNode.appendChild(window.Elemu.create("div", {classList: [item]}));
 		});
+
+		return parentNode;
 	}
 
 	// HTML code for flags.
