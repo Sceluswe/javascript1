@@ -25,8 +25,7 @@ window.Memory = (function(){
 	*/
 	function createFlagDiv(classes) {
 		// Create parent.
-		var parentNode = window.Elemu.create("div", {classList: [classes[0]]});
-		// Remove the first class index since that's the parent.
+		var parentNode = window.Elemu.create("div", {classList: ["flag", classes[0]]});
 		classes.shift();
 
 		// Apply all other classes children of parent.
@@ -38,14 +37,15 @@ window.Memory = (function(){
 	}
 
 	// HTML code for flags.
-	var germanFlag = createFlagDiv(["german", "ger-black-top", "ger-red-middle"]);
+	var germanFlag = createFlagDiv(["germany", "ger-black-top", "ger-red-middle"]);
 	var jamaicaFlag = createFlagDiv(["jamaica", "jam-triangle-yellow-right", "jam-triangle-yellow-left", "jam-triangle-black-left", "jam-triangle-black-right"]);
 	var swedishFlag = createFlagDiv(["sweden", "swe-yellow-top", "swe-yellow-middle"]);
 	var southAfricanFlag = createFlagDiv(["sa-square-red-top", "sa-square-white-middle", "sa-square-green-middle", "sa-triangle-white", "sa-triangle-green", "sa-triangle-yellow", "sa-triangle-black"]);
 	var norwegianFlag = createFlagDiv(["nor-white-top", "nor-white-middle", "nor-blue-top", "nor-blue-middle"]);
 
 	// Create 2 arrays with flags.
-	var flags = [germanFlag, jamaicaFlag, swedishFlag, southAfricanFlag, norwegianFlag];
+	// var flags = [germanFlag, jamaicaFlag, swedishFlag, southAfricanFlag, norwegianFlag];
+	var flags = [jamaicaFlag];
 	var flagDuplicates = flags;
 
 	var Memory = {
@@ -128,7 +128,7 @@ window.Memory = (function(){
 					// Set event listener on block.
 					that.blockListener(flag, block);
 					elem.appendChild(flag);
-					elem.appendChild(block);
+					// elem.appendChild(block);
 				});
 			});
 

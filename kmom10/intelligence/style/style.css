@@ -19,6 +19,10 @@ body {
 	background-color: #b2dfff;
 }
 
+div {
+	margin: 0;
+}
+
 .buttonDiv {
 	text-align: center;
 }
@@ -34,6 +38,7 @@ body {
 
 .content {
 	width: 720px;
+	overflow-y: auto;
 	background-color: white;
 	margin: 0 auto;
 	padding: 2em;
