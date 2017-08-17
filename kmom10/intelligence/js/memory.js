@@ -38,15 +38,19 @@ window.Memory = (function(){
 
 	// HTML code for flags.
 	var germanFlag = createFlagDiv(["germany", "ger-black-top", "ger-red-middle"]);
+	var germanFlag1 = createFlagDiv(["germany", "ger-black-top", "ger-red-middle"]);
 	var jamaicaFlag = createFlagDiv(["jamaica", "jam-triangle-yellow-right", "jam-triangle-yellow-left", "jam-triangle-black-left", "jam-triangle-black-right"]);
+	var jamaicaFlag1 = createFlagDiv(["jamaica", "jam-triangle-yellow-right", "jam-triangle-yellow-left", "jam-triangle-black-left", "jam-triangle-black-right"]);
 	var swedishFlag = createFlagDiv(["sweden", "swe-yellow-top", "swe-yellow-middle"]);
-	var southAfricanFlag = createFlagDiv(["sa-square-red-top", "sa-square-white-middle", "sa-square-green-middle", "sa-triangle-white", "sa-triangle-green", "sa-triangle-yellow", "sa-triangle-black"]);
-	var norwegianFlag = createFlagDiv(["nor-white-top", "nor-white-middle", "nor-blue-top", "nor-blue-middle"]);
+	var swedishFlag1 = createFlagDiv(["sweden", "swe-yellow-top", "swe-yellow-middle"]);
+	var southAfricanFlag = createFlagDiv(["southafrica", "sa-square-red-top", "sa-square-white-middle", "sa-square-green-middle", "sa-triangle-white", "sa-triangle-green", "sa-triangle-yellow", "sa-triangle-black"]);
+	var southAfricanFlag1 = createFlagDiv(["southafrica", "sa-square-red-top", "sa-square-white-middle", "sa-square-green-middle", "sa-triangle-white", "sa-triangle-green", "sa-triangle-yellow", "sa-triangle-black"]);
+	var norwegianFlag = createFlagDiv(["norway", "nor-white-top", "nor-white-middle", "nor-blue-top", "nor-blue-middle"]);
+	var norwegianFlag1 = createFlagDiv(["norway", "nor-white-top", "nor-white-middle", "nor-blue-top", "nor-blue-middle"]);
 
 	// Create 2 arrays with flags.
-	// var flags = [germanFlag, jamaicaFlag, swedishFlag, southAfricanFlag, norwegianFlag];
-	var flags = [jamaicaFlag];
-	var flagDuplicates = flags;
+	var flags = [germanFlag, jamaicaFlag, swedishFlag, southAfricanFlag, norwegianFlag];
+	var flagDuplicates = [germanFlag1, jamaicaFlag1, swedishFlag1, southAfricanFlag1, norwegianFlag1];
 
 	var Memory = {
 		// Create an array using the two flag arrays to get duplicates of each flag..
@@ -111,8 +115,10 @@ window.Memory = (function(){
 		"drawMemory": function (parentNode) {
 			console.log("Trying to drawMemory.");
 
-			var that = this;
+			// Shuffle the array.
+			shuffle(this.myFlags);
 
+			var that = this;
 			window.Elemu.select(parentNode, function (elem) {
 				that.myFlags.forEach(function (flag, index) {
 					var block = window.Elemu.create("div", {
@@ -122,13 +128,15 @@ window.Memory = (function(){
 					});
 
 					// Set the blocks position equal to the flag it's blocking.
+					console.log("flag top: " + flag.offsetTop);
+					console.log("flag left: " + flag.offsetLeft);
 					block.style.top = flag.offsetTop + "px";
 					block.style.left = flag.offsetLeft + "px";
 
 					// Set event listener on block.
 					that.blockListener(flag, block);
 					elem.appendChild(flag);
-					// elem.appendChild(block);
+					elem.appendChild(block);
 				});
 			});
 
