@@ -25,12 +25,12 @@ window.Memory = (function(){
 	*/
 	function createFlagDiv(classes) {
 		// Create parent.
-		var parentNode = window.Elemu.create("div", {classList: [className[0]]});
+		var parentNode = window.Elemu.create("div", {classList: [classes[0]]});
 		// Remove the first class index since that's the parent.
 		classes.shift();
 
 		// Apply all other classes children of parent.
-		forEach(function (item) {
+		classes.forEach(function (item) {
 			parentNode.appendChild(window.Elemu.create("div", {classList: [item]}));
 		});
 
@@ -44,12 +44,13 @@ window.Memory = (function(){
 	var southAfricanFlag = createFlagDiv(["sa-square-red-top", "sa-square-white-middle", "sa-square-green-middle", "sa-triangle-white", "sa-triangle-green", "sa-triangle-yellow", "sa-triangle-black"]);
 	var norwegianFlag = createFlagDiv(["nor-white-top", "nor-white-middle", "nor-blue-top", "nor-blue-middle"]);
 
+	// Create 2 arrays with flags.
 	var flags = [germanFlag, jamaicaFlag, swedishFlag, southAfricanFlag, norwegianFlag];
-	var flagDuplicates = arr1;
+	var flagDuplicates = flags;
 
 	var Memory = {
-		// Create the array with the flag objects.
-		"myFlags": flags.concat(flagDuplicates);
+		// Create an array using the two flag arrays to get duplicates of each flag..
+		"myFlags": flags.concat(flagDuplicates),
 
 		// List of selected elements.
 		"selected": [],
@@ -65,9 +66,12 @@ window.Memory = (function(){
 		*/
 		"blockListener": function (flag, block) {
 			var that = this;
+			// Get the selected flags.
+			var selected = this.selected;
+
 			block.addEventListener("click", function () {
 				// Log click.
-				console.log("click");
+				console.log("clicked block:" + block.id);
 
 				if (selected.length < 2) {
 					// Hide clicked item.
@@ -105,44 +109,45 @@ window.Memory = (function(){
 		* Draw flags and blocks for the memory game.
 		*/
 		"drawMemory": function (parentNode) {
-			myFlags.forEach(function (flag, index) {
-				// Draw the flag and use the returned element.
-				flag.draw(parentNode);
+			console.log("Trying to drawMemory.");
 
-				// Create a block for the flag.
-				var block = Object.create(Element);
-				block.init("div", ["flag", "block"], ("block" + index), "?");
+			var that = this;
 
-				// Draw the block for the flag.
-				block.draw(parentNode);
+			window.Elemu.select(parentNode, function (elem) {
+				that.myFlags.forEach(function (flag, index) {
+					var block = window.Elemu.create("div", {
+						id: "block" + index,
+						classList: ["flag", "block"],
+						text: "?"
+					});
 
-				// Get the block and flag elements.
-				var blockElem = block.getElement();
-				var flagElem = flag.getElement();
+					// Set the blocks position equal to the flag it's blocking.
+					block.style.top = flag.offsetTop + "px";
+					block.style.left = flag.offsetLeft + "px";
 
-				// Set the blocks position equal to the flag it's blocking.
-				blockElem.style.top = flagElem.offsetTop + "px";
-				blockElem.style.left = flagElem.offsetLeft + "px";
-
-				// Set event listener on block.
-				blockListener(flag, blockElem);
+					// Set event listener on block.
+					that.blockListener(flag, block);
+					elem.appendChild(flag);
+					elem.appendChild(block);
+				});
 			});
+
+			console.log("Done drawing memory.");
 		},
 
 		"start": function (parentNode, callbackParam) {
 			// Set callback.
 			this.callback = callbackParam;
-			//
+
 			// Draw the memory game to parent node.
-			drawMemory(parentNode);
+			this.drawMemory(parentNode);
 
 			// Place all flags and blocks in the correct positions.
 			window.onresize = function () {
-				document.getElementById("content").innerHTML = "";
-
-				drawMemory();
+				document.getElementById(parentNode).innerHTML = "";
+				this.drawMemory(parentNode);
 			};
-		}
+		},
 
 		"reset": function () {
 			// Reset the test.
