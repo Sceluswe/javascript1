@@ -108,7 +108,8 @@ window.Test = (function () {
 			}
 
 			// tests[this.currentTest].start(".content", callback);
-			this.tests[this.currentTest].start(".content", questionsCallback);
+			// this.tests[this.currentTest].start(".content", questionsCallback);
+			this.tests[this.currentTest].start(".content");
 		},
 
 		/**

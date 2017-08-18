@@ -25,8 +25,7 @@ window.Memory = (function(){
 	*/
 	function createFlagDiv(classes) {
 		// Create parent.
-		// var parentNode = window.Elemu.create("div", {classList: ["flag", classes[0]]});
-		var parentNode = window.Elemu.create("div", {classList: ["flag"]});
+		var parentNode = window.Elemu.create("div", {id: classes[0], classList: ["flag"]});
 		// classes.shift();
 
 		// Apply all other classes children of parent.
@@ -53,12 +52,17 @@ window.Memory = (function(){
 	var flags = [germanFlag, jamaicaFlag, swedishFlag, southAfricanFlag, norwegianFlag];
 	var flagDuplicates = [germanFlag1, jamaicaFlag1, swedishFlag1, southAfricanFlag1, norwegianFlag1];
 
+	if ( germanFlag === germanFlag1) {
+		console.log("they are equal");
+	}
+
 	var Memory = {
 		// Create an array using the two flag arrays to get duplicates of each flag..
 		"myFlags": flags.concat(flagDuplicates),
 
 		// List of selected elements.
 		"selected": [],
+		"found": 0,
 
 		// Function to be called when all memory blocks have been revealed.
 		"myCallback": function () {
@@ -71,40 +75,42 @@ window.Memory = (function(){
 		*/
 		"blockListener": function (flag, block) {
 			var that = this;
-			// Get the selected flags.
-			var selected = this.selected;
-
 			block.addEventListener("click", function () {
 				// Log click.
 				console.log("clicked block:" + block.id);
 
-				if (selected.length < 2) {
+				if (that.selected.length < 2) {
 					// Hide clicked item.
 					block.classList.add("hidden");
 
 					// Save selected.
-					selected.push({ flag: flag.classes[1], block: block });
+					that.selected.push({ flag: flag, block: block });
 
 					// Log selected.
-					console.log("selected items: " + selected);
+					console.log("selected items: " + that.selected);
 
 					// If we have matching flags, keep them visible.
-					if (selected.length === 2 && selected[0].flag === selected[1].flag) {
-						selected = [];
+					if (that.selected.length === 2 && that.selected[0].flag.id === that.selected[1].flag.id) {
+						that.selected = [];
+						// And record them as found.
+						that.found += 2;
 					}
 					// If we don't have matching flags, hide them after a few seconds.
-					else if (selected.length === 2 && selected[0].flag !== selected[1].flag) {
+					else if (that.selected.length === 2 && that.selected[0].flag !== that.selected[1].flag) {
 						window.setTimeout(function () {
-							selected[0].block.classList.remove("hidden");
-							selected[1].block.classList.remove("hidden");
+							that.selected[0].block.classList.remove("hidden");
+							that.selected[1].block.classList.remove("hidden");
 
-							selected = [];
+							that.selected = [];
 						}, 1000);
 					}
 
+					console.log("found: " + that.found);
+					console.log("length: " + that.myFlags.length);
+
 					// If all the flags have been discovered, call callback.
-					if (that.selected.length === that.myFlags.length) {
-						that.myCallback;
+					if (that.found === that.myFlags.length) {
+						that.myCallback();
 					}
 				}
 			});
@@ -155,8 +161,10 @@ window.Memory = (function(){
 
 			// Place all flags and blocks in the correct positions.
 			window.onresize = function () {
-				document.getElementById(parentNode).innerHTML = "";
-				this.drawMemory(parentNode);
+				window.Elemu.select(parentNode, function () {
+					parentNode.innerHTML = "";
+					this.drawMemory(parentNode);
+				});
 			};
 		},
 
