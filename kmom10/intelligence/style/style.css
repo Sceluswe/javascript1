@@ -28,18 +28,18 @@ div {
 }
 
 .startButton {
-	font-size: 24px;
 	padding: 15px;
 	border: hidden;
 	border-radius: 25px;
 	background-color: #87CEFF;
 	color: white;
+	font-size: 24px;
 }
 
 .content {
+	overflow-y: auto;
 	position: relative;
 	width: 720px;
-	overflow-y: auto;
 	margin: 0 auto;
 	padding: 2em;
 	border-radius: 30px;
