@@ -4,9 +4,10 @@
 
 .flag {
     position: relative;
-    float: left;
     height: 200px;
     width: 320px;
+    float: left;
+    overflow: hidden;
     margin-right: 10px;
     margin-bottom: 10px;
 }
@@ -32,18 +33,25 @@
 * German Flag
 */
 .germany {
+    height: 200px;
+    z-index: 0;
     background-color: #FFCE00;
-    overflow: hidden;
 }
 
 .ger-black-top {
+    position: absolute;
     height: 70px;
+    top: 0;
+    z-index: 1;
     background-color: black;
 
 }
 
 .ger-red-middle {
+    position: absolute;
     height: 70px;
+    top: 0;
+    z-index: 1;
     background-color: #DD0000;
 }
 
@@ -53,8 +61,8 @@
 * Jamaican Flag
 */
 .jamaica {
+    height: 200px;
     background-color: #009B3A;
-    overflow: hidden;
 }
 
 .jam-triangle-yellow-left {
@@ -106,14 +114,15 @@
 * Swedish Flag
 */
 .sweden {
+    height: 200px;
     background-color: #005B99;
-    overflow: hidden;
 }
 
 .swe-yellow-top {
     position: absolute;
     height: 200px;
     width: 50px;
+    top: 0;
     margin-left: 90px;
     background-color: #FCD116;
 }
@@ -132,13 +141,15 @@
 * South African Flag
 */
 .southafrica {
+    height: 200px;
     background-color: #0C1C8C;
-    overflow: hidden;
 }
 
 .sa-square-red-top {
+    position: absolute;
     width: 320px;
     height: 100px;
+    top: 0px;
     background-color: #E23D28;
 }
 
@@ -210,22 +221,26 @@
 * Norwegian Flag
 */
 .norway {
+    height: 200px;
+    z-index: 0;
     background-color: #EF2B2D;
-    overflow: hidden;
 }
 
 .nor-white-top {
     position: absolute;
     height: 200px;
     width: 50px;
+    height: 320px;
+    z-index: 0;
     margin-left: 90px;
     background-color: #fff;
 }
 
 .nor-white-middle {
     position: absolute;
-    width: 320px;
     height: 50px;
+    width: 320px;
+    z-index: 0;
     top: 75px;
     background-color: #fff;
 }
@@ -234,14 +249,16 @@
     position: absolute;
     height: 200px;
     width: 25px;
+    z-index: 1;
     margin-left: 103px;
     background-color: #002868;
 }
 
 .nor-blue-middle {
     position: absolute;
-    width: 320px;
     height: 25px;
+    width: 320px;
+    z-index: 1;
     top: 88px;
     background-color: #002868;
 }

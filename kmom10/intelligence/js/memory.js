@@ -25,8 +25,9 @@ window.Memory = (function(){
 	*/
 	function createFlagDiv(classes) {
 		// Create parent.
-		var parentNode = window.Elemu.create("div", {classList: ["flag", classes[0]]});
-		classes.shift();
+		// var parentNode = window.Elemu.create("div", {classList: ["flag", classes[0]]});
+		var parentNode = window.Elemu.create("div", {classList: ["flag"]});
+		// classes.shift();
 
 		// Apply all other classes children of parent.
 		classes.forEach(function (item) {
@@ -121,21 +122,23 @@ window.Memory = (function(){
 			var that = this;
 			window.Elemu.select(parentNode, function (elem) {
 				that.myFlags.forEach(function (flag, index) {
+					// Add the flag to the DOM.
+					elem.appendChild(flag);
+
 					var block = window.Elemu.create("div", {
 						id: "block" + index,
-						classList: ["flag", "block"],
+						classList: ["block"],
 						text: "?"
 					});
 
+					// Get the top and left position of the flag.
 					// Set the blocks position equal to the flag it's blocking.
-					console.log("flag top: " + flag.offsetTop);
-					console.log("flag left: " + flag.offsetLeft);
 					block.style.top = flag.offsetTop + "px";
 					block.style.left = flag.offsetLeft + "px";
 
+
 					// Set event listener on block.
 					that.blockListener(flag, block);
-					elem.appendChild(flag);
 					elem.appendChild(block);
 				});
 			});
