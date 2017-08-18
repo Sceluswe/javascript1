@@ -6,13 +6,13 @@ h2, h4, h5, h6, p {
 
 
 h1 {
-	text-align: center;
 	margin: 0 0 24px 0;
+	text-align: center;
 }
 
 h3 {
-	color: green;
 	margin: 0 0 24px 0;
+	color: green;
 }
 
 body {
@@ -28,21 +28,22 @@ div {
 }
 
 .startButton {
-	color: white;
 	font-size: 24px;
-	background-color: #87CEFF;
 	padding: 15px;
 	border: hidden;
 	border-radius: 25px;
+	background-color: #87CEFF;
+	color: white;
 }
 
 .content {
+	position: relative;
 	width: 720px;
 	overflow-y: auto;
-	background-color: white;
 	margin: 0 auto;
 	padding: 2em;
 	border-radius: 30px;
+	background-color: white;
 }
 
 .answer {
@@ -59,11 +60,11 @@ div {
 }
 
 .buttonGreen {
-	color: black;
 	background-color: green;
+	color: black;
 }
 
 .buttonRed {
-	color: black;
 	background-color: #8b0000;
+	color: black;
 }

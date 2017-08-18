@@ -3,22 +3,22 @@
 }
 
 .flag {
+    overflow: hidden;
+    float: left;
     position: relative;
     height: 200px;
     width: 320px;
-    float: left;
-    overflow: hidden;
     margin-right: 10px;
     margin-bottom: 10px;
 }
 
 .block {
     position: absolute;
+    z-index: 100;
     height: 198px;
     width: 318px;
-    z-index: 100;
-    background-color: white;
     border: 2px solid black;
+    background-color: white;
     text-align: center;
     font-size: 10em;
 }
@@ -33,6 +33,7 @@
 * German Flag
 */
 .germany {
+    position: relative;
     height: 200px;
     z-index: 0;
     background-color: #FFCE00;
@@ -40,6 +41,7 @@
 
 .ger-black-top {
     position: absolute;
+    width: 320px;
     height: 70px;
     top: 0;
     z-index: 1;
@@ -49,8 +51,9 @@
 
 .ger-red-middle {
     position: absolute;
+    width: 320px;
     height: 70px;
-    top: 0;
+    top: 70px;
     z-index: 1;
     background-color: #DD0000;
 }
@@ -120,18 +123,18 @@
 
 .swe-yellow-top {
     position: absolute;
+    top: 0;
     height: 200px;
     width: 50px;
-    top: 0;
     margin-left: 90px;
     background-color: #FCD116;
 }
 
 .swe-yellow-middle {
     position: absolute;
+    top: 75px;
     width: 320px;
     height: 50px;
-    top: 75px;
     background-color: #FCD116;
 }
 
@@ -147,36 +150,36 @@
 
 .sa-square-red-top {
     position: absolute;
-    width: 320px;
     height: 100px;
     top: 0px;
+    width: 320px;
     background-color: #E23D28;
 }
 
 .sa-square-white-middle {
     position: absolute;
-    width: 320px;
-    height: 70px;
     top: 65px;
     z-index: 1;
+    width: 320px;
+    height: 70px;
     background-color: #FFFFFF;
 }
 
 .sa-square-green-middle {
     position: absolute;
-    width: 320px;
-    height: 40px;
     top: 80px;
     z-index: 2;
+    width: 320px;
+    height: 40px;
     background-color: #007C59;
 }
 
 .sa-triangle-white {
     position: absolute;
-    width: 0;
-    height: 0;
     top: -40px;
     z-index: 1;
+    width: 0;
+    height: 0;
     border-style: solid;
     border-width: 140px 0 140px 200px;
     border-color: transparent transparent transparent #FFFFFF;
@@ -184,10 +187,10 @@
 
 .sa-triangle-green {
     position: absolute;
-    width: 0;
-    height: 0;
     top: -20px;
     z-index: 2;
+    width: 0;
+    height: 0;
     border-style: solid;
     border-width: 120px 0 120px 170px;
     border-color: transparent transparent transparent #007C59;
@@ -195,10 +198,10 @@
 
 .sa-triangle-yellow {
     position: absolute;
-    width: 0;
-    height: 0;
     top: 25px;
     z-index: 3;
+    width: 0;
+    height: 0;
     border-style: solid;
     border-width: 75px 0 75px 110px;
     border-color: transparent transparent transparent #FCB514;
@@ -207,10 +210,10 @@
 
 .sa-triangle-black {
     position: absolute;
-    width: 0;
-    height: 0;
     top: 40px;
     z-index: 4;
+    width: 0;
+    height: 0;
     border-style: solid;
     border-width: 60px 0 60px 90px;
     border-color: transparent transparent transparent #000000;
@@ -221,44 +224,46 @@
 * Norwegian Flag
 */
 .norway {
-    height: 200px;
+    position: relative;
     z-index: 0;
+    height: 200px;
     background-color: #EF2B2D;
 }
 
 .nor-white-top {
     position: absolute;
-    height: 200px;
+    top: 0;
+    z-index: 1;
     width: 50px;
-    height: 320px;
-    z-index: 0;
+    height: 200px;
     margin-left: 90px;
     background-color: #fff;
 }
 
 .nor-white-middle {
     position: absolute;
-    height: 50px;
-    width: 320px;
-    z-index: 0;
     top: 75px;
+    z-index: 1;
+    width: 320px;
+    height: 50px;
     background-color: #fff;
 }
 
 .nor-blue-top {
     position: absolute;
-    height: 200px;
+    top: 0;
+    z-index: 2;
     width: 25px;
-    z-index: 1;
+    height: 200px;
     margin-left: 103px;
     background-color: #002868;
 }
 
 .nor-blue-middle {
     position: absolute;
-    height: 25px;
-    width: 320px;
-    z-index: 1;
     top: 88px;
+    z-index: 2;
+    width: 320px;
+    height: 25px;
     background-color: #002868;
 }
