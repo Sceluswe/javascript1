@@ -156,6 +156,12 @@ window.Memory = (function(){
 			console.log("Done drawing memory.");
 		},
 
+		/**
+		* Start the subtest by drawing it to the DOM.
+		* @param parentNode, the DOM node the test will draw to.
+		* @param callbackParam, the optional code that will be executed when the test is done.
+		* @returns void.
+		*/
 		"start": function (parentNode, callbackParam) {
 			// Set callback.
 			this.callback = callbackParam;
