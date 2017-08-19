@@ -38,27 +38,29 @@ window.Memory = (function(){
 
 	// HTML code for flags.
 	var germanFlag = createFlagDiv(["germany", "ger-black-top", "ger-red-middle"]);
-	var germanFlag1 = createFlagDiv(["germany", "ger-black-top", "ger-red-middle"]);
 	var jamaicaFlag = createFlagDiv(["jamaica", "jam-triangle-yellow-right", "jam-triangle-yellow-left", "jam-triangle-black-left", "jam-triangle-black-right"]);
-	var jamaicaFlag1 = createFlagDiv(["jamaica", "jam-triangle-yellow-right", "jam-triangle-yellow-left", "jam-triangle-black-left", "jam-triangle-black-right"]);
 	var swedishFlag = createFlagDiv(["sweden", "swe-yellow-top", "swe-yellow-middle"]);
-	var swedishFlag1 = createFlagDiv(["sweden", "swe-yellow-top", "swe-yellow-middle"]);
 	var southAfricanFlag = createFlagDiv(["southafrica", "sa-square-red-top", "sa-square-white-middle", "sa-square-green-middle", "sa-triangle-white", "sa-triangle-green", "sa-triangle-yellow", "sa-triangle-black"]);
-	var southAfricanFlag1 = createFlagDiv(["southafrica", "sa-square-red-top", "sa-square-white-middle", "sa-square-green-middle", "sa-triangle-white", "sa-triangle-green", "sa-triangle-yellow", "sa-triangle-black"]);
 	var norwegianFlag = createFlagDiv(["norway", "nor-white-top", "nor-white-middle", "nor-blue-top", "nor-blue-middle"]);
-	var norwegianFlag1 = createFlagDiv(["norway", "nor-white-top", "nor-white-middle", "nor-blue-top", "nor-blue-middle"]);
+	var finnishFlag = createFlagDiv(["finnish", "fin-blue-top", "fin-blue-middle"]);
+	var denmarkFlag = createFlagDiv(["denmark", "den-white-top", "den-white-middle"]);
+	var austriaFlag = createFlagDiv(["austria", "aus-red-top", "aus-red-bottom"]);
 
 	// Create 2 arrays with flags.
-	var flags = [germanFlag, jamaicaFlag, swedishFlag, southAfricanFlag, norwegianFlag];
-	var flagDuplicates = [germanFlag1, jamaicaFlag1, swedishFlag1, southAfricanFlag1, norwegianFlag1];
-
-	if ( germanFlag === germanFlag1) {
-		console.log("they are equal");
-	}
+	var flags = [
+		germanFlag,
+		jamaicaFlag,
+		swedishFlag,
+		southAfricanFlag,
+		norwegianFlag,
+		finnishFlag,
+		denmarkFlag,
+		austriaFlag
+	];
 
 	var Memory = {
 		// Create an array using the two flag arrays to get duplicates of each flag..
-		"myFlags": flags.concat(flagDuplicates),
+		"myFlags": flags,
 
 		// List of selected elements.
 		"selected": [],
@@ -144,8 +146,8 @@ window.Memory = (function(){
 
 
 					// Set event listener on block.
-					that.blockListener(flag, block);
-					elem.appendChild(block);
+					// that.blockListener(flag, block);
+					// elem.appendChild(block);
 				});
 			});
 

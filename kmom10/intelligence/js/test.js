@@ -40,9 +40,9 @@ window.Test = (function () {
 			// Add fizzbuzz test.
 			this.tests.push(Object.create(window.FizzBuzz));
 
-			console.log(window.Memory);
 			// Add the memory test.
 			this.tests.push(Object.create(window.Memory));
+			this.currentTest = 2;
 
 			//
 			// // Create a second questions object just for testing.
