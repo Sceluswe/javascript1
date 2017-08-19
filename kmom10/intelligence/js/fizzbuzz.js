@@ -151,6 +151,7 @@ window.FizzBuzz = (function() {
 							console.log("Clicked");
 
 							if (!this.callbackUsed) {
+								// Execute callback when the test is done.
 								callbackParam();
 								this.callbackUsed = true;
 							}

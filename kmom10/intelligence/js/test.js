@@ -43,8 +43,6 @@ window.Test = (function () {
 			console.log(window.Memory);
 			// Add the memory test.
 			this.tests.push(Object.create(window.Memory));
-			// Set currentTest to 2 for testing.
-			this.currentTest = 2;
 
 			//
 			// // Create a second questions object just for testing.
@@ -82,6 +80,7 @@ window.Test = (function () {
 				});
 			}
 
+			// Create callback for the memory.js test.
 			// Create callback for the fizzbuzz.js test.
 			var fizzbuzzCallback = function () {
 				window.Elemu.select(".content", function (elem) {
@@ -93,6 +92,10 @@ window.Test = (function () {
 					elem.appendChild(button);
 
 					button.addEventListener("click", function () {
+						// Remove the fizzbuzz test.
+						window.Elemu.select(".content", function (elem) {
+							elem.innerHTML = "";
+						});
 						// Start the next test.
 						that.currentTest++;
 						that.tests[that.currentTest].start(".content", callback1);
@@ -107,9 +110,7 @@ window.Test = (function () {
 				that.tests[that.currentTest].start(".content", fizzbuzzCallback);
 			}
 
-			// tests[this.currentTest].start(".content", callback);
-			// this.tests[this.currentTest].start(".content", questionsCallback);
-			this.tests[this.currentTest].start(".content");
+			this.tests[this.currentTest].start(".content", questionsCallback);
 		},
 
 		/**
