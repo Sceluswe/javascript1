@@ -178,6 +178,10 @@ window.Memory = (function(){
 			};
 		},
 
+		/**
+		* Resets the test and allows the player to start over without the flags moving.
+		* @returns void.
+		*/
 		"reset": function () {
 			// Reset the test.
 		},
