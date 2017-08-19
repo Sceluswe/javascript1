@@ -45,6 +45,7 @@ window.Memory = (function(){
 	var finnishFlag = createFlagDiv(["finnish", "fin-blue-top", "fin-blue-middle"]);
 	var denmarkFlag = createFlagDiv(["denmark", "den-white-top", "den-white-middle"]);
 	var austriaFlag = createFlagDiv(["austria", "aus-red-top", "aus-red-bottom"]);
+	var armeniaFlag = createFlagDiv(["armenia", "arm-red-top", "arm-blue-middle"]);
 
 	// Create 2 arrays with flags.
 	var flags = [
@@ -55,7 +56,8 @@ window.Memory = (function(){
 		norwegianFlag,
 		finnishFlag,
 		denmarkFlag,
-		austriaFlag
+		austriaFlag,
+		armeniaFlag
 	];
 
 	var Memory = {
