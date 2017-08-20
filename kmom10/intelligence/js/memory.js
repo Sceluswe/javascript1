@@ -49,6 +49,7 @@ window.Memory = (function(){
 	/**
 	* Creates an element and children to that element with a single class.
 	* @param classes, an array of strings, each string contains the class of one object.
+	* @return DOM list node.
 	*/
 	function createFlagDiv(classes) {
 		// Create parent.
