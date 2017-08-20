@@ -20,6 +20,33 @@ window.Memory = (function(){
 	}
 
 	/**
+	* Creates a node containing a numbered list and returns it.
+	* @param strings, the array of strings used as text in the list elements.
+	* @returns a DOM node.
+	*/
+	function createFlagList(strings) {
+		var listWrapper = window.Elemu.create("div", {
+			id: "listWrapper"
+		});
+
+		var list = window.Elemu.create("ol", {
+			classList: ["ordered-list"]
+		});
+
+		strings.forEach(function (item) {
+			var listElem = window.Elemu.create("li", {
+				text: item
+			});
+
+			list.appendChild(listElem);
+		});
+
+		listWrapper.appendChild(list);
+
+		return listWrapper;
+	}
+
+	/**
 	* Creates an element and children to that element with a single class.
 	* @param classes, an array of strings, each string contains the class of one object.
 	*/
@@ -58,6 +85,18 @@ window.Memory = (function(){
 		denmarkFlag,
 		austriaFlag,
 		armeniaFlag
+	];
+
+	var flagStrings = [
+		"Tyskland",
+		"Jamaica",
+		"Svenska",
+		"Sydafrikanska",
+		"Norska",
+		"Finska",
+		"Danmark",
+		"Österrike",
+		"Armenien"
 	];
 
 	var Memory = {
@@ -131,26 +170,31 @@ window.Memory = (function(){
 
 			var that = this;
 			window.Elemu.select(parentNode, function (elem) {
+				// Test the list function.
+				var list = createFlagList(flagStrings);
+				elem.appendChild(list);
+
+				// Add the flags to the DOM.
 				that.myFlags.forEach(function (flag, index) {
-					// Add the flag to the DOM.
 					elem.appendChild(flag);
 
+					// Create a block to hide the flag.
 					var block = window.Elemu.create("div", {
 						id: "block" + index,
 						classList: ["block"],
 						text: "?"
 					});
 
-					// Get the top and left position of the flag.
-					// Set the blocks position equal to the flag it's blocking.
+					// Set the top and left position of the block equal to the flag.
 					block.style.top = flag.offsetTop + "px";
 					block.style.left = flag.offsetLeft + "px";
-
 
 					// Set event listener on block.
 					// that.blockListener(flag, block);
 					// elem.appendChild(block);
 				});
+
+				console.log(list);
 			});
 
 			console.log("Done drawing memory.");
@@ -171,8 +215,8 @@ window.Memory = (function(){
 
 			// Place all flags and blocks in the correct positions.
 			window.onresize = function () {
-				window.Elemu.select(parentNode, function () {
-					parentNode.innerHTML = "";
+				window.Elemu.select(parentNode, function (elem) {
+					elem.innerHTML = "";
 					this.drawMemory(parentNode);
 				});
 			};
