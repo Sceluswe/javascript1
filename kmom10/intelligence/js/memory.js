@@ -190,9 +190,11 @@ window.Memory = (function(){
 					block.style.top = flag.offsetTop + "px";
 					block.style.left = flag.offsetLeft + "px";
 
-					// Set event listener on block.
-					// that.blockListener(flag, block);
-					// elem.appendChild(block);
+					window.setTimeout(function () {
+						// Set event listener on block.
+						that.blockListener(flag, block);
+						elem.appendChild(block);
+					}, 5000);
 				});
 
 				console.log(list);
