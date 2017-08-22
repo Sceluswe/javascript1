@@ -13,7 +13,7 @@ window.Test = (function () {
 		"currentTest": 0,
 
 		/**
-		* Function initiates all the subtests.
+		* Function initiates all the subtests and saves them in the tests array.
 		*/
 		"init": function () {
 			// Create the questions object.
