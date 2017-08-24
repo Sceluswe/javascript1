@@ -67,12 +67,14 @@ window.Memory = (function(){
 	* Displays the test description and a start button for this sub-test.
 	* @returns void.
 	*/
-	// function displayDescription() {
-	// 	// Create paragraf.
-	// 	var p = window.Elemu.create("p", {
-	// 		text: "I följande test "
-	// 	});
-	// }
+	function displayDescription() {
+		// Create paragraf.
+		var p = window.Elemu.create("p", {
+			text: "I följande test testas ditt minne. Du kommer få se nio olika flaggor i fem sekunder och därefter döljs de. När de dolts får du en lista med flaggornas namn och i vilken ordning du ska klicka på flaggorna så att de återigen syns. Om du väljer rätt får du 3 poäng, väljer du fel avslutas testet."
+		});
+
+
+	}
 
 	// HTML code for flags.
 	var germanFlag = createFlagDiv(["germany", "ger-black-top", "ger-red-middle"]);
