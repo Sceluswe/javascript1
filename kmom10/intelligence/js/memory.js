@@ -54,7 +54,6 @@ window.Memory = (function(){
 	function createFlagDiv(classes) {
 		// Create parent.
 		var parentNode = window.Elemu.create("div", {id: classes[0], classList: ["flag"]});
-		// classes.shift();
 
 		// Apply all other classes children of parent.
 		classes.forEach(function (item) {
@@ -63,6 +62,17 @@ window.Memory = (function(){
 
 		return parentNode;
 	}
+
+	/**
+	* Displays the test description and a start button for this sub-test.
+	* @returns void.
+	*/
+	// function displayDescription() {
+	// 	// Create paragraf.
+	// 	var p = window.Elemu.create("p", {
+	// 		text: "I följande test "
+	// 	});
+	// }
 
 	// HTML code for flags.
 	var germanFlag = createFlagDiv(["germany", "ger-black-top", "ger-red-middle"]);
