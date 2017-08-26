@@ -193,7 +193,6 @@ window.Memory = (function(){
 			console.log("Trying to drawTest.");
 
 			// Shuffle the array.
-			console.log(this.myFlags);
 			shuffle(this.myFlags);
 
 			var that = this;
@@ -247,6 +246,10 @@ window.Memory = (function(){
 			wrapper.appendChild(getDescription());
 			var that = this;
 			wrapper.appendChild(getStartButton(function () {
+				// Remove description.
+				window.Elemu.remove(wrapper);
+
+				// Run the test.
 				that.drawTest(parentNode);
 			}));
 
