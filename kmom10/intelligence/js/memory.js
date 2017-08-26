@@ -64,28 +64,31 @@ window.Memory = (function(){
 	}
 
 	/**
-	* Displays the test description and a start button for this sub-test.
+	* Writes the test description and a start button for this sub-test.
 	* @returns DOM node containing the "start test" button and said description.
 	*/
-	function displayDescription(parentNode) {
-		// Create wrapper div.
-		var wrapper = window.Elemu.create("div", {classList: ["description-wrapper"]});
+	function getDescription() {
 		// Create paragraf.
 		var p = window.Elemu.create("p", {
 			text: "I följande test testas ditt minne. Du kommer få se nio olika flaggor i fem sekunder och därefter döljs de. När de dolts får du en lista med flaggornas namn och i vilken ordning du ska klicka på flaggorna så att de återigen syns. Om du väljer rätt får du 3 poäng, väljer du fel avslutas testet."
 		});
 
-		// Create the "start test" button.
+		return p;
+	}
+
+	function getStartButton (eventListener) {
 		var button = window.Elemu.create("button", {
 			classList: ["button"],
 			text: "Starta testet"
 		});
 
-		wrapper.appendChild(p);
-		wrapper.appendChild(button);
+		if (eventListener !== "undefined") {
+			button.addEventListener("click", eventListener);
+		}
 
-		parentNode.appendChild(wrapper);
+		return button;
 	}
+
 
 	// HTML code for flags.
 	var germanFlag = createFlagDiv(["germany", "ger-black-top", "ger-red-middle"]);
@@ -186,10 +189,11 @@ window.Memory = (function(){
 		/**
 		* Draw flags and blocks for the memory game.
 		*/
-		"drawMemory": function (parentNode) {
-			console.log("Trying to drawMemory.");
+		"drawTest": function (parentNode) {
+			console.log("Trying to drawTest.");
 
 			// Shuffle the array.
+			console.log(this.myFlags);
 			shuffle(this.myFlags);
 
 			var that = this;
@@ -236,9 +240,18 @@ window.Memory = (function(){
 			// Set callback.
 			this.callback = callbackParam;
 
+			// Create a wrapper.
+			var wrapper = window.Elemu.create("div", {classList: ["description"]});
+
 			// Draw the description and "start test" button.
+			wrapper.appendChild(getDescription());
+			var that = this;
+			wrapper.appendChild(getStartButton(function () {
+				that.drawTest(parentNode);
+			}));
+
 			window.Elemu.select(parentNode, function (elem) {
-				displayDescription(elem);
+				elem.appendChild(wrapper);
 			});
 
 			// Place all flags and blocks in the correct positions.
