@@ -65,15 +65,23 @@ window.Memory = (function(){
 
 	/**
 	* Displays the test description and a start button for this sub-test.
-	* @returns void.
+	* @returns DOM node containing the "start test" button and said description.
 	*/
 	function displayDescription() {
+		// Create wrapper div.
+		var wrapper = window.Elemu.create("div");
 		// Create paragraf.
 		var p = window.Elemu.create("p", {
 			text: "I följande test testas ditt minne. Du kommer få se nio olika flaggor i fem sekunder och därefter döljs de. När de dolts får du en lista med flaggornas namn och i vilken ordning du ska klicka på flaggorna så att de återigen syns. Om du väljer rätt får du 3 poäng, väljer du fel avslutas testet."
 		});
 
+		// Create the "start test" button.
+		var button = window.Elemu.create("button", {
 
+		});
+
+		wrapper.appendChild(p);
+		wrapper.appendChild(button);
 	}
 
 	// HTML code for flags.
