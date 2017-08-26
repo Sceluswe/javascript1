@@ -67,9 +67,9 @@ window.Memory = (function(){
 	* Displays the test description and a start button for this sub-test.
 	* @returns DOM node containing the "start test" button and said description.
 	*/
-	function displayDescription() {
+	function displayDescription(parentNode) {
 		// Create wrapper div.
-		var wrapper = window.Elemu.create("div");
+		var wrapper = window.Elemu.create("div", {classList: ["description-wrapper"]});
 		// Create paragraf.
 		var p = window.Elemu.create("p", {
 			text: "I följande test testas ditt minne. Du kommer få se nio olika flaggor i fem sekunder och därefter döljs de. När de dolts får du en lista med flaggornas namn och i vilken ordning du ska klicka på flaggorna så att de återigen syns. Om du väljer rätt får du 3 poäng, väljer du fel avslutas testet."
@@ -77,11 +77,14 @@ window.Memory = (function(){
 
 		// Create the "start test" button.
 		var button = window.Elemu.create("button", {
-
+			classList: ["button"],
+			text: "Starta testet"
 		});
 
 		wrapper.appendChild(p);
 		wrapper.appendChild(button);
+
+		parentNode.appendChild(wrapper);
 	}
 
 	// HTML code for flags.
@@ -233,8 +236,10 @@ window.Memory = (function(){
 			// Set callback.
 			this.callback = callbackParam;
 
-			// Draw the memory game to parent node.
-			this.drawMemory(parentNode);
+			// Draw the description and "start test" button.
+			window.Elemu.select(parentNode, function (elem) {
+				displayDescription(elem);
+			});
 
 			// Place all flags and blocks in the correct positions.
 			window.onresize = function () {
