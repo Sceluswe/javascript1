@@ -218,8 +218,8 @@ window.Memory = (function(){
 
 					window.setTimeout(function () {
 						// Set event listener on block.
-						// that.blockListener(flag, block);
-						// elem.appendChild(block);
+						that.blockListener(flag, block);
+						elem.appendChild(block);
 					}, 5000);
 				});
 
@@ -259,12 +259,12 @@ window.Memory = (function(){
 			});
 
 			// Place all flags and blocks in the correct positions.
-			// window.onresize = function () {
-			// 	window.Elemu.select(parentNode, function (elem) {
-			// 		elem.innerHTML = "";
-			// 		this.drawMemory(parentNode);
-			// 	});
-			// };
+			window.onresize = function () {
+				window.Elemu.select(parentNode, function (elem) {
+					elem.innerHTML = "";
+					this.drawMemory(parentNode);
+				});
+			};
 		},
 
 		/**
