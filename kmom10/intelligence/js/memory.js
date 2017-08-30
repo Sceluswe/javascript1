@@ -77,8 +77,10 @@ window.Memory = (function(){
 	}
 
 	function getStartButton (eventListener) {
+		var buttonDiv = window.Elemu.create("div", {classList: ["center"]});
+
 		var button = window.Elemu.create("button", {
-			classList: ["button"],
+			classList: ["startButton"],
 			text: "Starta testet"
 		});
 
@@ -86,7 +88,9 @@ window.Memory = (function(){
 			button.addEventListener("click", eventListener);
 		}
 
-		return button;
+		buttonDiv.appendChild(button);
+
+		return buttonDiv;
 	}
 
 
