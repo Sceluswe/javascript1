@@ -3,6 +3,23 @@ window.Elemu = (function () {
 	// This module contains useful functions for the entire project.
 
 	/*
+	* In 1964, Richard Durstenfeld came up with the modern method as a computer algorithm. It has a run time complexity of O(n).
+	* This function is Durstenfelds version of the fisher-yates algorithm.
+	*/
+	function shuffle (array) {
+		var i = 0;
+		var j = 0;
+		var temp = null;
+
+		for (i = array.length - 1; i > 0; i -= 1) {
+			j = Math.floor(Math.random() * (i + 1));
+			temp = array[i];
+			array[i] = array[j];
+			array[j] = temp;
+		}
+	}
+
+	/*
 	* High-order function executing callable on HTMLelements with target class/id.
 	* @param target, the targeted HTMLelement preceeded by a . or # respectively.
 	* @param callable, callable to be used on each of the targeted element.
@@ -166,6 +183,7 @@ window.Elemu = (function () {
 		select: selectElem,
 		create: createElem,
 		remove: deleteElem,
-		replaceChar: replaceChar
+		replaceChar: replaceChar,
+		shuffle: shuffle
 	};
 })();

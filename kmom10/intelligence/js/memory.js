@@ -2,22 +2,6 @@ window.Memory = (function(){
 	'use strict';
 
 	// All useful functions.
-	/*
-	* In 1964, Richard Durstenfeld came up with the modern method as a computer algorithm. It has a run time complexity of O(n).
-	* This function is Durstenfelds version of the fisher-yates algorithm.
-	*/
-	function shuffle (array) {
-		var i = 0;
-		var j = 0;
-		var temp = null;
-
-		for (i = array.length - 1; i > 0; i -= 1) {
-			j = Math.floor(Math.random() * (i + 1));
-			temp = array[i];
-			array[i] = array[j];
-			array[j] = temp;
-		}
-	}
 
 	/**
 	* Creates a node containing a numbered list and returns it.
@@ -197,7 +181,7 @@ window.Memory = (function(){
 			console.log("Trying to drawTest.");
 
 			// Shuffle the array.
-			shuffle(this.myFlags);
+			window.Elemu.shuffle(this.myFlags);
 
 			var that = this;
 			window.Elemu.select(parentNode, function (elem) {
