@@ -60,6 +60,11 @@ window.Memory = (function(){
 		return p;
 	}
 
+	/**
+	* Creates and returns a styled startbutton wrapped in a div.
+	* @param eventListener, adds a callable to the button.
+	* @returns void.
+	*/
 	function getStartButton (eventListener) {
 		var buttonDiv = window.Elemu.create("div", {classList: ["center"]});
 
@@ -177,8 +182,8 @@ window.Memory = (function(){
 		/**
 		* Draw flags and blocks for the memory game.
 		*/
-		"drawTest": function (parentNode) {
-			console.log("Trying to drawTest.");
+		"drawMemory": function (parentNode) {
+			console.log("Trying to drawMemory.");
 
 			// Shuffle the array.
 			window.Elemu.shuffle(this.myFlags);
@@ -227,6 +232,7 @@ window.Memory = (function(){
 			// Set callback.
 			this.callback = callbackParam;
 
+			// Create the startpage for the test.
 			// Create a wrapper.
 			var wrapper = window.Elemu.create("div", {classList: ["description"]});
 
@@ -239,7 +245,7 @@ window.Memory = (function(){
 				window.Elemu.remove(wrapper);
 
 				// Run the test.
-				that.drawTest(parentNode);
+				that.drawMemory(parentNode);
 			}));
 
 			window.Elemu.select(parentNode, function (elem) {
