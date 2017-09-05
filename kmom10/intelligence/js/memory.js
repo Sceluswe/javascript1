@@ -28,7 +28,7 @@ window.Memory = (function(){
 			}
 			else {
 				listElem = window.Elemu.create("li", {
-					classList: ["opacity08"],
+					classList: ["opacity04"],
 					text: item
 				});
 			}
