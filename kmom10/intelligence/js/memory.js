@@ -82,31 +82,7 @@ window.Memory = (function(){
 		return buttonDiv;
 	}
 
-
-	// HTML code for flags.
-	var germanFlag = createFlagDiv(["germany", "ger-black-top", "ger-red-middle"]);
-	var jamaicaFlag = createFlagDiv(["jamaica", "jam-triangle-yellow-right", "jam-triangle-yellow-left", "jam-triangle-black-left", "jam-triangle-black-right"]);
-	var swedishFlag = createFlagDiv(["sweden", "swe-yellow-top", "swe-yellow-middle"]);
-	var southAfricanFlag = createFlagDiv(["southafrica", "sa-square-red-top", "sa-square-white-middle", "sa-square-green-middle", "sa-triangle-white", "sa-triangle-green", "sa-triangle-yellow", "sa-triangle-black"]);
-	var norwegianFlag = createFlagDiv(["norway", "nor-white-top", "nor-white-middle", "nor-blue-top", "nor-blue-middle"]);
-	var finnishFlag = createFlagDiv(["finnish", "fin-blue-top", "fin-blue-middle"]);
-	var denmarkFlag = createFlagDiv(["denmark", "den-white-top", "den-white-middle"]);
-	var austriaFlag = createFlagDiv(["austria", "aus-red-top", "aus-red-bottom"]);
-	var armeniaFlag = createFlagDiv(["armenia", "arm-red-top", "arm-blue-middle"]);
-
-	// Create 2 arrays with flags.
-	var flags = [
-		germanFlag,
-		jamaicaFlag,
-		swedishFlag,
-		southAfricanFlag,
-		norwegianFlag,
-		finnishFlag,
-		denmarkFlag,
-		austriaFlag,
-		armeniaFlag
-	];
-
+	// Strings for the displayed flag list.
 	var flagStrings = [
 		"Tyskland",
 		"Jamaica",
@@ -120,8 +96,18 @@ window.Memory = (function(){
 	];
 
 	var Memory = {
-		// Create an array using the two flag arrays to get duplicates of each flag..
-		"myFlags": flags,
+		// Create an array using the two flag arrays to get duplicates of each flag.
+		"myFlags": [
+			createFlagDiv(["germany", "ger-black-top", "ger-red-middle"]),
+			createFlagDiv(["jamaica", "jam-triangle-yellow-right", "jam-triangle-yellow-left", "jam-triangle-black-left", "jam-triangle-black-right"]),
+			createFlagDiv(["sweden", "swe-yellow-top", "swe-yellow-middle"]),
+			createFlagDiv(["southafrica", "sa-square-red-top", "sa-square-white-middle", "sa-square-green-middle", "sa-triangle-white", "sa-triangle-green", "sa-triangle-yellow", "sa-triangle-black"]),
+			createFlagDiv(["norway", "nor-white-top", "nor-white-middle", "nor-blue-top", "nor-blue-middle"]),
+			createFlagDiv(["finnish", "fin-blue-top", "fin-blue-middle"]),
+			createFlagDiv(["denmark", "den-white-top", "den-white-middle"]),
+			createFlagDiv(["austria", "aus-red-top", "aus-red-bottom"]),
+			createFlagDiv(["armenia", "arm-red-top", "arm-blue-middle"])
+		],
 
 		// List of selected elements.
 		"selected": [],
