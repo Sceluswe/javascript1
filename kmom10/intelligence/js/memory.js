@@ -17,12 +17,28 @@ window.Memory = (function(){
 			classList: ["ordered-list"]
 		});
 
-		strings.forEach(function (item) {
-			var listElem = window.Elemu.create("li", {
-				text: item
-			});
+		strings.forEach(function (item, index) {
+			var listElem = undefined;
 
-			list.appendChild(listElem);
+			if (index === 0) {
+				listElem = window.Elemu.create("li", {
+					classList: ["blue"],
+					text: item
+				});
+			}
+			else {
+				listElem = window.Elemu.create("li", {
+					classList: ["opacity08"],
+					text: item
+				});
+			}
+
+			if (listElem !== "undefined") {
+				list.appendChild(listElem);
+			}
+			else {
+				console.log("ERROR: listElem in createFlagList() was undefined");
+			}
 		});
 
 		listWrapper.appendChild(list);
@@ -166,7 +182,9 @@ window.Memory = (function(){
 		},
 
 		/**
-		* Draw flags and blocks for the memory game.
+		* Draw "list of flags", flags and blocks for the memory game.
+		* @param parentNode, the parentNode in the DOM to draw to.
+		* @returns void.
 		*/
 		"drawMemory": function (parentNode) {
 			console.log("Trying to drawMemory.");
@@ -176,7 +194,7 @@ window.Memory = (function(){
 
 			var that = this;
 			window.Elemu.select(parentNode, function (elem) {
-				// Test the list function.
+				// Create the list and apply it to the DOM.
 				var list = createFlagList(flagStrings);
 				elem.appendChild(list);
 
@@ -209,7 +227,7 @@ window.Memory = (function(){
 		},
 
 		/**
-		* Start the subtest by drawing it to the DOM.
+		* Creates the startpage for the test and allows the test to be started.
 		* @param parentNode, the DOM node the test will draw to.
 		* @param callbackParam, the optional code that will be executed when the test is done.
 		* @returns void.
@@ -222,9 +240,10 @@ window.Memory = (function(){
 			// Create a wrapper.
 			var wrapper = window.Elemu.create("div", {classList: ["description"]});
 
-			// Draw the description and "start test" button.
+			// Draw the description.
 			wrapper.appendChild(getDescription());
 
+			// Draw the start button and give it a callable.
 			var that = this;
 			wrapper.appendChild(getStartButton(function () {
 				// Remove description.
@@ -234,6 +253,7 @@ window.Memory = (function(){
 				that.drawMemory(parentNode);
 			}));
 
+			// Apply description and start button to the parentNode.
 			window.Elemu.select(parentNode, function (elem) {
 				elem.appendChild(wrapper);
 			});
@@ -242,7 +262,7 @@ window.Memory = (function(){
 			window.onresize = function () {
 				window.Elemu.select(parentNode, function (elem) {
 					elem.innerHTML = "";
-					this.drawMemory(parentNode);
+					that.drawMemory(parentNode);
 				});
 			};
 		},

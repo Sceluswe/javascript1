@@ -31,6 +31,10 @@ div {
 	text-align: center;
 }
 
+.opacity08 {
+	opacity: 0.8;
+}
+
 .startButton {
 	padding: 15px;
 	border: hidden;
@@ -61,6 +65,10 @@ div {
 
 .green {
 	color: green;
+}
+
+.blue {
+	color: blue;
 }
 
 .buttonGreen {
