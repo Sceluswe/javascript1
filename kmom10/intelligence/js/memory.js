@@ -22,7 +22,7 @@ window.Memory = (function(){
 
 			if (index === 0) {
 				listElem = window.Elemu.create("li", {
-					classList: ["blue"],
+					classList: ["blue", "big"],
 					text: item
 				});
 			}

@@ -35,6 +35,11 @@ div {
 	opacity: 0.4;
 }
 
+.big {
+	font-weight: bold;
+	font-size: 18px;
+}
+
 .startButton {
 	padding: 15px;
 	border: hidden;
