@@ -5,6 +5,7 @@ window.Elemu = (function () {
 	/*
 	* In 1964, Richard Durstenfeld came up with the modern method as a computer algorithm. It has a run time complexity of O(n).
 	* This function is Durstenfelds version of the fisher-yates algorithm.
+	* @returns void.
 	*/
 	function shuffle (array) {
 		var i = 0;
@@ -24,6 +25,7 @@ window.Elemu = (function () {
 	* @param target, the targeted HTMLelement preceeded by a . or # respectively.
 	* @param callable, callable to be used on each of the targeted element.
 	* @param ...params, rest arguments used as arguments for callable.
+	* @returns void.
 	*/
 	function selectElem(target, callable) {
 		// Get all targeted HTML elements using target.
@@ -53,6 +55,7 @@ window.Elemu = (function () {
 	* @param attrObj, object with attributes: id, classList (array), text, attrs (obj)
 	* attrs is an object and the property names are used as HTMLnode attributes
 	* the contents of the properties becomes the value of the attribute.
+	* @returns void.
 	*/
 	function createElem(element, attrObj) {
 		// Create HTML node.

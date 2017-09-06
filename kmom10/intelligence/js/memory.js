@@ -137,6 +137,7 @@ window.Memory = (function(){
 		/* Add an event listener to the blocks.
 		* @param flag, the flag the block is blocking.
 		* @param block, the block to receive a listener.
+		* @returns void.
 		*/
 		"blockListener": function (flag, block) {
 			var that = this;
