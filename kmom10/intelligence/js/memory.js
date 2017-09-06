@@ -6,9 +6,10 @@ window.Memory = (function(){
 	/**
 	* Creates a node containing a numbered list and returns it.
 	* @param strings, the array of strings used as text in the list elements.
-	* @returns a DOM node.
+	* @param indexParam, the list element to be high-lighted.
+	* @returns a DOM node, a list with text elements from the textFlag array.
 	*/
-	function createFlagList(strings) {
+	function createFlagList(strings, indexParam) {
 		var listWrapper = window.Elemu.create("div", {
 			id: "listWrapper"
 		});
@@ -20,7 +21,7 @@ window.Memory = (function(){
 		strings.forEach(function (item, index) {
 			var listElem = undefined;
 
-			if (index === 0) {
+			if (index === indexParam) {
 				listElem = window.Elemu.create("li", {
 					classList: ["blue", "big"],
 					text: item
@@ -33,12 +34,7 @@ window.Memory = (function(){
 				});
 			}
 
-			if (listElem !== "undefined") {
-				list.appendChild(listElem);
-			}
-			else {
-				console.log("ERROR: listElem in createFlagList() was undefined");
-			}
+			list.appendChild(listElem);
 		});
 
 		listWrapper.appendChild(list);
@@ -49,7 +45,7 @@ window.Memory = (function(){
 	/**
 	* Creates an element and children to that element with a single class.
 	* @param classes, an array of strings, each string contains the class of one object.
-	* @return DOM list node.
+	* @returns DOM-node, flag-divs wrapped inside a div.
 	*/
 	function createFlagDiv(classes) {
 		// Create parent.
