@@ -2,7 +2,9 @@ window.FizzBuzz = (function() {
 	'use strict';
 	/**
 	* Returns a random integer between min (inclusive) and max (inclusive)
-	*
+	* @param min, the minmum value that can be returned.
+	* @param max, the largest value that can be returned.
+	* @returns integer, randomized value.
 	*/
 	function getRandomInt(min, max) {
 		return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -78,6 +80,7 @@ window.FizzBuzz = (function() {
 		* Starts the test and creates the fizzbuzz question in the DOM.
 		* @param, parentNodeParam, the HTML node the question should be displayed in.
 		* @param, callbackParam, the callback to be executed when the question is answered.
+		* @returns void.
 		*/
 		"start": function (parentNode, callbackParam) {
 			// Create the question.
@@ -165,7 +168,8 @@ window.FizzBuzz = (function() {
 
 		/**
 		* Resets the test and allows the user to start over from the beginning.
-		* Mainly used for bugtesting.
+		* Mainly used for bugtesting or cheating.
+		* @returns void.
 		*/
 		"reset": function () {
 			// Reset the test and do it over again.

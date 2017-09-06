@@ -14,6 +14,7 @@ window.Test = (function () {
 
 		/**
 		* Function initiates all the subtests and saves them in the tests array.
+		* @returns void.
 		*/
 		"init": function () {
 			// Create the questions object.
@@ -69,6 +70,7 @@ window.Test = (function () {
 		/**
 		* Creates callbacks for all the different tests and distributes them
 		* to their respective test.
+		* @returns void.
 		*/
 		"start": function () {
 			var that = this;
@@ -116,6 +118,7 @@ window.Test = (function () {
 		/**
 		* Calls the internal reset function for the currently active test.
 		* This allows the user to do the test again, (cheating).
+		* @returns void.
 		*/
 		"reset": function () {
 			tests[this.currentTest].reset();

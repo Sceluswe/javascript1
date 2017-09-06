@@ -21,6 +21,7 @@ window.Questions = (function () {
 		* @question string, the question to answer.
 		* @answers array of strings, the 1x2 answers to the question.
 		* @correctAnswer, the index of the correct answer in the answers array.
+		* @returns DOM-node, a question and it's answers wrapped in a div.
 		*/
 		"createQuestion": function (question, answers, correctAnswer) {
 			var questionDiv = window.Elemu.create("div", {
@@ -111,7 +112,7 @@ window.Questions = (function () {
 
 		/**
 		* Returns the number of points the user has acquired.
-		* Returns a number.
+		* @returns an integer, number.
 		*/
 		"getPoints": function () {
 			return this.nrOfPoints;
@@ -121,6 +122,7 @@ window.Questions = (function () {
 		* Starts the test and creates the first question in the DOM.
 		* @param, parentNode, the HTML node the question should be displayed in.
 		* @param, callbackParam, the callback to be executed when the last question is answered.
+		* @returns void.
 		*/
 		"start": function (parentNode, callbackParam) {
 			// Set the private variable callback if the param is defined..
@@ -143,6 +145,7 @@ window.Questions = (function () {
 		/**
 		* Resets the test and allows the user to start over from the beginning.
 		* Mainly used for bugtesting.
+		* @returns void.
 		*/
 		"reset": function () {
 			// Reset everything in the subtest and start over.
