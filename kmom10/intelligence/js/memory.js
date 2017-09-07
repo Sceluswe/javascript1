@@ -1,8 +1,6 @@
 window.Memory = (function(){
 	'use strict';
 
-	// All useful functions.
-
 	/**
 	* Creates a node containing a numbered list and returns it.
 	* @param strings, the array of strings used as text in the list elements.
@@ -121,13 +119,20 @@ window.Memory = (function(){
 			createFlagDiv(["armenia", "arm-red-top", "arm-blue-middle"])
 		],
 
-		// List of selected elements.
-		"selected": [],
-		"found": 0,
-
 		// Function to be called when all memory blocks have been revealed.
 		"myCallback": function () {
 			console.log("Called empty callback");
+		},
+
+		"currentFlag": 0;
+
+		"nrOfPoints": 0,
+
+		/**
+		* Returns the number of points collected.
+		*/
+		"getNrOfPoints": function () {
+			return this.nrOfPoints;
 		},
 
 		/* Add an event listener to the blocks.
@@ -135,25 +140,19 @@ window.Memory = (function(){
 		* @param block, the block to receive a listener.
 		* @returns void.
 		*/
-		"blockListener": function (flag, block) {
+		"blockEventListener": function (flag, block) {
 			var that = this;
 			block.addEventListener("click", function () {
-				// Log click.
 				console.log("clicked block:" + block.id);
 
 				if (that.selected.length < 2) {
 					// Hide clicked item.
 					block.classList.add("hidden");
 
-					// Save selected.
-					that.selected.push({ flag: flag, block: block });
-
-					// Log selected.
-					console.log("selected items: " + that.selected);
-
 					// If we have matching flags, keep them visible.
 					if (that.selected.length === 2 && that.selected[0].flag.id === that.selected[1].flag.id) {
 						that.selected = [];
+
 						// And record them as found.
 						that.found += 2;
 					}
@@ -212,7 +211,7 @@ window.Memory = (function(){
 
 					window.setTimeout(function () {
 						// Set event listener on block.
-						that.blockListener(flag, block);
+						that.blockEventListener(flag, block);
 						elem.appendChild(block);
 					}, 5000);
 				});
