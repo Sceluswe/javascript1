@@ -1,61 +1,6 @@
 window.Memory = (function(){
 	'use strict';
 
-	/**
-	* Creates a node containing a numbered list and returns it.
-	* @param strings, the array of strings used as text in the list elements.
-	* @param indexParam, the list element to be high-lighted.
-	* @returns a DOM node, a list with text elements from the textFlag array.
-	*/
-	function createFlagList(strings, indexParam) {
-		var listWrapper = window.Elemu.create("div", {
-			id: "listWrapper"
-		});
-
-		var list = window.Elemu.create("ol", {
-			classList: ["ordered-list"]
-		});
-
-		strings.forEach(function (item, index) {
-			var listElem = undefined;
-
-			if (index === indexParam) {
-				listElem = window.Elemu.create("li", {
-					classList: ["blue", "big"],
-					text: item
-				});
-			}
-			else {
-				listElem = window.Elemu.create("li", {
-					classList: ["opacity04"],
-					text: item
-				});
-			}
-
-			list.appendChild(listElem);
-		});
-
-		listWrapper.appendChild(list);
-
-		return listWrapper;
-	}
-
-	/**
-	* Creates an element and children to that element with a single class.
-	* @param classes, an array of strings, each string contains the class of one object.
-	* @returns DOM-node, flag-divs wrapped inside a div.
-	*/
-	function createFlagDiv(classes) {
-		// Create parent.
-		var parentNode = window.Elemu.create("div", {id: classes[0], classList: ["flag"]});
-
-		// Apply all other classes children of parent.
-		classes.forEach(function (item) {
-			parentNode.appendChild(window.Elemu.create("div", {classList: [item]}));
-		});
-
-		return parentNode;
-	}
 
 	/**
 	* Writes the test description and a start button for this sub-test.
@@ -92,126 +37,158 @@ window.Memory = (function(){
 		return buttonDiv;
 	}
 
-	// Strings for the displayed flag list.
-	var flagStrings = [
-		"Tyskland",
-		"Jamaica",
-		"Svenska",
-		"Sydafrikanska",
-		"Norska",
-		"Finska",
-		"Danmark",
-		"Österrike",
-		"Armenien"
-	];
+	function createFlag(listName, classes) {
+		var flag = Object.create(window.Flag);
+
+		flag.init(listName, classes);
+
+		return flag;
+	}
+
+	// Create a dummy Flag object.
+	var Flag = Object.create(window.Flag);
 
 	var Memory = {
-		// Create an array using the two flag arrays to get duplicates of each flag.
+		// Create an array with flag objects.
 		"myFlags": [
-			createFlagDiv(["germany", "ger-black-top", "ger-red-middle"]),
-			createFlagDiv(["jamaica", "jam-triangle-yellow-right", "jam-triangle-yellow-left", "jam-triangle-black-left", "jam-triangle-black-right"]),
-			createFlagDiv(["sweden", "swe-yellow-top", "swe-yellow-middle"]),
-			createFlagDiv(["southafrica", "sa-square-red-top", "sa-square-white-middle", "sa-square-green-middle", "sa-triangle-white", "sa-triangle-green", "sa-triangle-yellow", "sa-triangle-black"]),
-			createFlagDiv(["norway", "nor-white-top", "nor-white-middle", "nor-blue-top", "nor-blue-middle"]),
-			createFlagDiv(["finnish", "fin-blue-top", "fin-blue-middle"]),
-			createFlagDiv(["denmark", "den-white-top", "den-white-middle"]),
-			createFlagDiv(["austria", "aus-red-top", "aus-red-bottom"]),
-			createFlagDiv(["armenia", "arm-red-top", "arm-blue-middle"])
+			createFlag("Tyskland", ["germany", "ger-black-top", "ger-red-middle"]),
+			createFlag("Jamaica", ["jamaica", "jam-triangle-yellow-right", "jam-triangle-yellow-left", "jam-triangle-black-left", "jam-triangle-black-right"]),
+			createFlag("Sverige", ["sweden", "swe-yellow-top", "swe-yellow-middle"]),
+			createFlag("Sydafrika", ["southafrica", "sa-square-red-top", "sa-square-white-middle", "sa-square-green-middle", "sa-triangle-white", "sa-triangle-green", "sa-triangle-yellow", "sa-triangle-black"]),
+			createFlag("Norge", ["norway", "nor-white-top", "nor-white-middle", "nor-blue-top", "nor-blue-middle"]),
+			createFlag("Finland", ["finnish", "fin-blue-top", "fin-blue-middle"]),
+			createFlag("Danmark", ["denmark", "den-white-top", "den-white-middle"]),
+			createFlag("Österrike", ["austria", "aus-red-top", "aus-red-bottom"]),
+			createFlag("Armenien", ["armenia", "arm-red-top", "arm-blue-middle"])
 		],
+
+		// Create an array with flagnames for the selection list.
+		"flagSelectionList": [
+			"Tyskland",
+			"Jamaica",
+			"Sverige",
+			"Sydafrika",
+			"Norge",
+			"Findland",
+			"Danmark",
+			"Österrike",
+			"Armenien"
+		],
+
+		"currentFlag": 0,
+
+		"nrOfPoints": 0,
+
+		"wrapperClassname": "memory-wrapper",
+		"parentNode": undefined,
+		/**
+		* Returns the number of points collected.
+		* @returns integer.
+		*/
+		"getNrOfPoints": function () {
+			return this.nrOfPoints;
+		},
 
 		// Function to be called when all memory blocks have been revealed.
 		"myCallback": function () {
 			console.log("Called empty callback");
 		},
 
-		"currentFlag": 0;
-
-		"nrOfPoints": 0,
-
 		/**
-		* Returns the number of points collected.
+		* Creates a node containing a numbered list and returns it.
+		* @param strings, the array of strings used as text in the list elements.
+		* @param indexParam, the list element to be high-lighted.
+		* @returns a DOM node, a list with text elements from the textFlag array.
 		*/
-		"getNrOfPoints": function () {
-			return this.nrOfPoints;
+		"createFlagList": function (indexParam) {
+			var listWrapper = window.Elemu.create("div", {
+				id: "listWrapper"
+			});
+
+			var list = window.Elemu.create("ol", {
+				classList: ["ordered-list"]
+			});
+
+			this.flagSelectionList.forEach(function (item, index) {
+				var listElem = undefined;
+
+				if (index === indexParam) {
+					listElem = window.Elemu.create("li", {
+						classList: ["blue", "big"],
+						text: item
+					});
+				}
+				else {
+					listElem = window.Elemu.create("li", {
+						classList: ["opacity04"],
+						text: item
+					});
+				}
+
+				list.appendChild(listElem);
+			});
+
+			listWrapper.appendChild(list);
+
+			return listWrapper;
 		},
 
-		/* Add an event listener to the blocks.
-		* @param flag, the flag the block is blocking.
+		/* Add an event listener to the blocks, checks if the correct flag has been pressed.
+		* @param flagNr, the index number of the flag in the array.
 		* @param block, the block to receive a listener.
 		* @returns void.
 		*/
-		"blockEventListener": function (flag, block) {
+		"blockEventListener": function (flagNr, block) {
 			var that = this;
 			block.addEventListener("click", function () {
 				console.log("clicked block:" + block.id);
 
-				if (that.selected.length < 2) {
+				// Check if the user selected the right block.
+				if (flagNr === that.currentFlag) {
 					// Hide clicked item.
 					block.classList.add("hidden");
 
-					// If we have matching flags, keep them visible.
-					if (that.selected.length === 2 && that.selected[0].flag.id === that.selected[1].flag.id) {
-						that.selected = [];
+					// If the user selected the correct flag, award point.
+					that.nrOfPoints += 1;
 
-						// And record them as found.
-						that.found += 2;
-					}
-					// If we don't have matching flags, hide them after a few seconds.
-					else if (that.selected.length === 2 && that.selected[0].flag !== that.selected[1].flag) {
-						window.setTimeout(function () {
-							that.selected[0].block.classList.remove("hidden");
-							that.selected[1].block.classList.remove("hidden");
-
-							that.selected = [];
-						}, 1000);
-					}
-
-					console.log("found: " + that.found);
-					console.log("length: " + that.myFlags.length);
-
-					// If all the flags have been discovered, call callback.
-					if (that.found === that.myFlags.length) {
-						that.myCallback();
-					}
+					that.currentFlag++;
+					that.redrawMemory();
 				}
 			});
 		},
 
 		/**
-		* Draw "list of flags", flags and blocks for the memory game.
+		* Draw FlagList, flags and blocks for the memory game.
 		* @param parentNode, the parentNode in the DOM to draw to.
 		* @returns void.
 		*/
 		"drawMemory": function (parentNode) {
 			console.log("Trying to drawMemory.");
 
-			// Shuffle the array.
-			window.Elemu.shuffle(this.myFlags);
-
 			var that = this;
 			window.Elemu.select(parentNode, function (elem) {
 				// Create the list and apply it to the DOM.
-				var list = createFlagList(flagStrings);
+				var list = that.createFlagList();
 				elem.appendChild(list);
 
-				// Add the flags to the DOM.
-				that.myFlags.forEach(function (flag, index) {
-					elem.appendChild(flag);
+				// Add the flags and blocks to the DOM.
+				that.myFlags.forEach(function (flag, flagNr) {
+					elem.appendChild(flag.node);
 
 					// Create a block to hide the flag.
 					var block = window.Elemu.create("div", {
-						id: "block" + index,
+						id: "block" + flagNr,
 						classList: ["block"],
 						text: "?"
 					});
 
 					// Set the top and left position of the block equal to the flag.
-					block.style.top = flag.offsetTop + "px";
-					block.style.left = flag.offsetLeft + "px";
+					block.style.top = flag.node.offsetTop + "px";
+					block.style.left = flag.node.offsetLeft + "px";
 
 					window.setTimeout(function () {
 						// Set event listener on block.
-						that.blockEventListener(flag, block);
+						that.blockEventListener(flagNr, block);
 						elem.appendChild(block);
 					}, 5000);
 				});
@@ -229,11 +206,15 @@ window.Memory = (function(){
 		* @returns void.
 		*/
 		"start": function (parentNode, callbackParam) {
+			console.log(this.myFlags);
+			// Shuffle the array.
+			window.Elemu.shuffle(this.myFlags);
+
 			// Set callback.
 			this.callback = callbackParam;
 
 			// Create the startpage for the test.
-			// Create a wrapper.
+			// Create wrapper.
 			var wrapper = window.Elemu.create("div", {classList: ["description"]});
 
 			// Draw the description.
@@ -249,18 +230,18 @@ window.Memory = (function(){
 				that.drawMemory(parentNode);
 			}));
 
-			// Apply description and start button to the parentNode.
+			// Apply wrapper to the parentNode.
 			window.Elemu.select(parentNode, function (elem) {
 				elem.appendChild(wrapper);
 			});
 
-			// Place all flags and blocks in the correct positions.
-			window.onresize = function () {
-				window.Elemu.select(parentNode, function (elem) {
-					elem.innerHTML = "";
-					that.drawMemory(parentNode);
-				});
-			};
+			// // Place all flags and blocks in the correct positions.
+			// window.onresize = function () {
+			// 	window.Elemu.select(parentNode, function (elem) {
+			// 		elem.innerHTML = "";
+			// 		that.drawMemory(parentNode);
+			// 	});
+			// };
 		},
 
 		/**
