@@ -162,11 +162,11 @@ window.Memory = (function(){
 		* @param parentNode, the parentNode in the DOM to draw to.
 		* @returns void.
 		*/
-		"drawMemory": function (parentNode) {
+		"drawMemory": function () {
 			console.log("Trying to drawMemory.");
 
 			var that = this;
-			window.Elemu.select(parentNode, function (elem) {
+			window.Elemu.select(that.wrapperClassname, function (elem) {
 				// Create the list and apply it to the DOM.
 				var list = that.createFlagList();
 				elem.appendChild(list);
@@ -207,8 +207,9 @@ window.Memory = (function(){
 		*/
 		"start": function (parentNode, callbackParam) {
 			console.log(this.myFlags);
-			// Shuffle the array.
+			// Shuffle the arrays.
 			window.Elemu.shuffle(this.myFlags);
+			window.Elemu.shuffle(this.flagSelectionList);
 
 			// Set callback.
 			this.callback = callbackParam;
@@ -226,8 +227,18 @@ window.Memory = (function(){
 				// Remove description.
 				window.Elemu.remove(wrapper);
 
-				// Run the test.
-				that.drawMemory(parentNode);
+				// Create wrapper node.
+				var memoryWrapper = window.Elemu.create("div", {
+					classList: [that.wrapperClassname]
+				});
+
+				// Apply wrapper to the parentNode.
+				window.Elemu.select(parentNode, function (elem) {
+					elem.appendChild(wrapper);
+				});
+
+				// Draw the test.
+				that.drawMemory();
 			}));
 
 			// Apply wrapper to the parentNode.
