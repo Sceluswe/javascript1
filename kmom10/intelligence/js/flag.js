@@ -8,7 +8,7 @@ window.Flag = (function () {
 		/**
 		* Initiates this flag, creates an element and children to that element with a single class.
 		* @param listName, the listname of the flag.
-		* @param classes, an array of strings, each string contains the class of one object.
+		* @param classes, array of strings, each string is the class of one object. 1 object = 1 flagpart.
 		* @returns DOM-node, flag-divs wrapped inside a div.
 		*/
 		"init": function (listName, classes) {
@@ -22,7 +22,7 @@ window.Flag = (function () {
 				flag.appendChild(window.Elemu.create("div", {classList: [item]}));
 			});
 
-			this.node = flaflagNrg;
+			this.node = flag;
 		}
 	};
 

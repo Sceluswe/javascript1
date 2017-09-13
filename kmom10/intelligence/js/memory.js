@@ -20,7 +20,7 @@ window.Memory = (function(){
 	* @param eventListener, adds a callable to the button.
 	* @returns void.
 	*/
-	function getStartButton (eventListener) {
+	function getStartButton(eventListener) {
 		var buttonDiv = window.Elemu.create("div", {classList: ["center"]});
 
 		var button = window.Elemu.create("button", {
@@ -129,6 +129,18 @@ window.Memory = (function(){
 			return listWrapper;
 		},
 
+		/**
+		* Removes the old list and creates a new one.
+		* @param indexParam, the item in the list to be highlighted.
+		* @returns void.
+		*/
+		"updateFlagList": function (indexParam) {
+			window.Elemu.select("listWrapper", function (elem) {
+				elem.innerHTML = "";
+				elem.createFlagList(indexParam);
+			});
+		},
+
 		/* Add an event listener to the blocks, checks if the correct flag has been pressed.
 		* @param flagNr, the index number of the flag in the array.
 		* @param block, the block to receive a listener.
@@ -141,55 +153,57 @@ window.Memory = (function(){
 
 				// Check if the user selected the right block.
 				if (flagNr === that.currentFlag) {
-					// Hide clicked item.
-					block.classList.add("hidden");
-
 					// If the user selected the correct flag, award point.
 					that.nrOfPoints += 1;
 
+					// Move on to the next flag.
 					that.currentFlag++;
-					that.redrawMemory();
+					that.updateFlagList(that.currentFlag);
 				}
 			});
 		},
 
 		/**
 		* Draw FlagList, flags and blocks for the memory game.
-		* @param parentNode, the parentNode in the DOM to draw to.
+		* @param parentNode, id or classname of the node in the DOM to draw to.
 		* @returns void.
 		*/
-		"drawMemory": function () {
+		"drawMemory": function (parentNode) {
 			console.log("Trying to drawMemory.");
 
+			// Create wrapper.
+			var listWrapper = window.Elemu.create("div", {classList: [this.wrapperClassname]});
+
+			// Create the list and apply it to the wrapper.
+			var list = this.createFlagList();
+			listWrapper.appendChild(list);
+
+			// Add the flags and blocks to the DOM.
 			var that = this;
-			window.Elemu.select(that.wrapperClassname, function (elem) {
-				// Create the list and apply it to the DOM.
-				var list = that.createFlagList();
-				elem.appendChild(list);
+			this.myFlags.forEach(function (flag, flagNr) {
+				listWrapper.appendChild(flag.node);
 
-				// Add the flags and blocks to the DOM.
-				that.myFlags.forEach(function (flag, flagNr) {
-					elem.appendChild(flag.node);
-
-					// Create a block to hide the flag.
-					var block = window.Elemu.create("div", {
-						id: "block" + flagNr,
-						classList: ["block"],
-						text: "?"
-					});
-
-					// Set the top and left position of the block equal to the flag.
-					block.style.top = flag.node.offsetTop + "px";
-					block.style.left = flag.node.offsetLeft + "px";
-
-					window.setTimeout(function () {
-						// Set event listener on block.
-						that.blockEventListener(flagNr, block);
-						elem.appendChild(block);
-					}, 5000);
+				// Create a block to hide the flag.
+				var block = window.Elemu.create("div", {
+					id: "block" + flagNr,
+					classList: ["block"],
+					text: "?"
 				});
 
-				console.log(list);
+				// Set the top and left position of the block equal to the flag.
+				block.style.top = flag.node.offsetTop + "px";
+				block.style.left = flag.node.offsetLeft + "px";
+
+				window.setTimeout(function () {
+					// Set event listener on block.
+					that.blockEventListener(flagNr, block);
+					listWrapper.appendChild(block);
+				}, 5000);
+			});
+
+			// Select parent node and apply wrapper.
+			window.Elemu.select(parentNode, function (elem) {
+				elem.appendChild(listWrapper);
 			});
 
 			console.log("Done drawing memory.");
@@ -234,7 +248,7 @@ window.Memory = (function(){
 				});
 
 				// Draw the test.
-				that.drawMemory();
+				that.drawMemory(parentNode);
 			}));
 
 			// Apply wrapper to the parentNode.
