@@ -51,6 +51,39 @@ window.Memory = (function(){
 		return flag;
 	}
 
+	/**
+	* Returns an ordered list with elements from the array, one of which is highlighted.
+	* @param array, the array with strings to be put inside li elements.
+	* @param indexParam, the index of the li element to be highlighted.
+	* @returns DOMnode, an unordered list.
+	*/
+	function createMemoryList(array, indexParam) {
+		var list = window.Elemu.create("ol", {
+			classList: ["ordered-list"]
+		});
+
+		array.forEach(function (item, index) {
+			var listElem = undefined;
+
+			if (index === indexParam) {
+				listElem = window.Elemu.create("li", {
+					classList: ["blue", "big"],
+					text: item
+				});
+			}
+			else {
+				listElem = window.Elemu.create("li", {
+					classList: ["opacity04"],
+					text: item
+				});
+			}
+
+			list.appendChild(listElem);
+		});
+
+		return list;
+	}
+
 	var Memory = {
 		// Create an array with flag objects.
 		"myFlags": [
@@ -76,7 +109,6 @@ window.Memory = (function(){
 
 		"nrOfPoints": 0,
 
-		"wrapperClassname": "memory-wrapper",
 		/**
 		* Returns the number of points collected.
 		* @returns integer.
@@ -91,53 +123,27 @@ window.Memory = (function(){
 		},
 
 		/**
-		* Creates a node containing a numbered list and returns it.
-		* @param strings, the array of strings used as text in the list elements.
-		* @param indexParam, the list element to be high-lighted.
-		* @returns a DOM node, a list with text elements from the textFlag array.
+		* Creates a wrapper node containing a numbered list and returns it.
+		* @returns DOMnode, div wrapper.
 		*/
-		"createFlagList": function (indexParam) {
-			var listWrapper = window.Elemu.create("div", {
-				id: "listWrapper"
-			});
+		"createFlagList": function () {
+			var listWrapper = window.Elemu.create("div", {id: "list-wrapper"});
 
-			var list = window.Elemu.create("ol", {
-				classList: ["ordered-list"]
-			});
-
-			this.flagSelectionList.forEach(function (item, index) {
-				var listElem = undefined;
-
-				if (index === indexParam) {
-					listElem = window.Elemu.create("li", {
-						classList: ["blue", "big"],
-						text: item
-					});
-				}
-				else {
-					listElem = window.Elemu.create("li", {
-						classList: ["opacity04"],
-						text: item
-					});
-				}
-
-				list.appendChild(listElem);
-			});
-
-			listWrapper.appendChild(list);
+			// Put list inside wrapper.
+			listWrapper.appendChild(createMemoryList(this.flagSelectionList, 0));
 
 			return listWrapper;
 		},
 
 		/**
-		* Removes the old list and creates a new one.
+		* Removes the old list and creates a new one with new highlighted element.
 		* @param indexParam, the item in the list to be highlighted.
 		* @returns void.
 		*/
 		"updateFlagList": function (indexParam) {
-			window.Elemu.select("listWrapper", function (elem) {
+			window.Elemu.select("#list-wrapper", function (elem) {
 				elem.innerHTML = "";
-				elem.createFlagList(indexParam);
+				elem.createMemoryList(indexParam);
 			});
 		},
 
@@ -160,6 +166,8 @@ window.Memory = (function(){
 					that.currentFlag++;
 					that.updateFlagList(that.currentFlag);
 				}
+
+				if ()
 			});
 		},
 
@@ -171,17 +179,18 @@ window.Memory = (function(){
 		"drawMemory": function (parentNode) {
 			console.log("Trying to drawMemory.");
 
-			// Create wrapper.
-			var listWrapper = window.Elemu.create("div", {classList: [this.wrapperClassname]});
+			// Create memory wrapper.
+			var memoryWrapper = window.Elemu.create("div", {id: parentNode + "-memory"});
 
-			// Create the list and apply it to the wrapper.
-			var list = this.createFlagList();
-			listWrapper.appendChild(list);
+			// Create and append flagList to memoryWrapper.
+			memoryWrapper.appenChild(this.createFlagList());
 
-			// Add the flags and blocks to the DOM.
-			var that = this;
+			// Create wrapper for all flags.
+			var flagWrapper = window.Elemu.create("div", {id: "flag-wrapper"});
+
+			// Add the flags and blocks to the memoryWrapper.
 			this.myFlags.forEach(function (flag, flagNr) {
-				listWrapper.appendChild(flag.node);
+				flagWrapper.appendChild(flag.node);
 
 				// Create a block to hide the flag.
 				var block = window.Elemu.create("div", {
@@ -196,18 +205,44 @@ window.Memory = (function(){
 
 				window.setTimeout(function () {
 					// Set event listener on block.
-					that.blockEventListener(flagNr, block);
-					listWrapper.appendChild(block);
+					this.blockEventListener(flagNr, block);
+					flagWrapper.appendChild(block);
 				}, 5000);
+
+				memoryWrapper.appendChild(flagWrapper);
 			});
 
-			// Select parent node and apply wrapper.
 			window.Elemu.select(parentNode, function (elem) {
-				elem.appendChild(listWrapper);
+				elem.appendChild(memoryWrapper);
 			});
 
 			console.log("Done drawing memory.");
 		},
+
+		/**
+		* Draw the description page, explaining the test.
+		* @param parentNode, id or classname of the node in the DOM to draw to.
+		* @returns void.
+		*/
+		"drawDescription": function (parentNode) {
+			// Create the description page for the test.
+			var wrapper = window.Elemu.create("div", {classList: ["description"]});
+
+			wrapper.appendChild(getDescription());
+
+			var that = this;
+			wrapper.appendChild(getStartButton(function () {
+				// Remove description.
+				window.Elemu.remove(wrapper);
+
+				that.drawMemory(parentNode);
+			}));
+
+			// Apply wrapper to the parentNode.
+			window.Elemu.select(parentNode, function (elem) {
+				elem.appendChild(wrapper);
+			});
+		}
 
 		/**
 		* Creates the startpage for the test and allows the test to be started.
@@ -216,45 +251,13 @@ window.Memory = (function(){
 		* @returns void.
 		*/
 		"start": function (parentNode, callbackParam) {
-			console.log(this.myFlags);
-			// Shuffle the arrays.
+			// Shuffle the arrays to make the test different everytime.
 			window.Elemu.shuffle(this.myFlags);
 			window.Elemu.shuffle(this.flagSelectionList);
 
-			// Set callback.
 			this.callback = callbackParam;
 
-			// Create the startpage for the test.
-			// Create wrapper.
-			var wrapper = window.Elemu.create("div", {classList: ["description"]});
-
-			// Draw the description.
-			wrapper.appendChild(getDescription());
-
-			// Draw the start button and give it a callable.
-			var that = this;
-			wrapper.appendChild(getStartButton(function () {
-				// Remove description.
-				window.Elemu.remove(wrapper);
-
-				// Create wrapper node.
-				var memoryWrapper = window.Elemu.create("div", {
-					classList: [that.wrapperClassname]
-				});
-
-				// Apply wrapper to the parentNode.
-				window.Elemu.select(parentNode, function (elem) {
-					elem.appendChild(wrapper);
-				});
-
-				// Draw the test.
-				that.drawMemory(parentNode);
-			}));
-
-			// Apply wrapper to the parentNode.
-			window.Elemu.select(parentNode, function (elem) {
-				elem.appendChild(wrapper);
-			});
+			this.drawDescription(parentNode);
 
 			// // Place all flags and blocks in the correct positions.
 			// window.onresize = function () {
