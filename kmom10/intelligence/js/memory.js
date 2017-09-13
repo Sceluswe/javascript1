@@ -37,6 +37,12 @@ window.Memory = (function(){
 		return buttonDiv;
 	}
 
+	/**
+	* Creates a flag object and returns it.
+	* @param listName, name of the flag, the displayed name in the visual list.
+	* @param classes, the CSS classes used for the DOMNode in the flag object.
+	* @returns void.
+	*/
 	function createFlag(listName, classes) {
 		var flag = Object.create(window.Flag);
 
@@ -44,9 +50,6 @@ window.Memory = (function(){
 
 		return flag;
 	}
-
-	// Create a dummy Flag object.
-	var Flag = Object.create(window.Flag);
 
 	var Memory = {
 		// Create an array with flag objects.
@@ -64,15 +67,9 @@ window.Memory = (function(){
 
 		// Create an array with flagnames for the selection list.
 		"flagSelectionList": [
-			"Tyskland",
-			"Jamaica",
-			"Sverige",
-			"Sydafrika",
-			"Norge",
-			"Findland",
-			"Danmark",
-			"Österrike",
-			"Armenien"
+			"Tyskland", "Jamaica", "Sverige",
+			"Sydafrika", "Norge", "Findland",
+			"Danmark", "Österrike", "Armenien"
 		],
 
 		"currentFlag": 0,
@@ -80,7 +77,6 @@ window.Memory = (function(){
 		"nrOfPoints": 0,
 
 		"wrapperClassname": "memory-wrapper",
-		"parentNode": undefined,
 		/**
 		* Returns the number of points collected.
 		* @returns integer.

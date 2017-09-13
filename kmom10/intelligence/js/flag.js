@@ -1,8 +1,6 @@
 window.Flag = (function () {
 	"use strict";
 
-	function createFlagDiv(classes) {
-	}
 	var Flag = {
 		"node": undefined,
 		"listName": "",
