@@ -1,8 +1,7 @@
 (function(){
 	'use strict';
 	// Initiate the test module.
-	var Test = Object.create(window.Test);
-	Test.init();
+	window.Test.init();
 
 	// Add eventListener that starts the test if the user presses the button.
 	window.Elemu.select(".startButton", function (elem) {
@@ -15,7 +14,7 @@
 			});
 
 			// Start the test.
-			Test.start();
+			window.Test.start();
 		});
 	});
 

@@ -175,7 +175,7 @@ window.Memory = (function(){
 
 					// Remove all blocks.
 					window.Elemu.select(".block", function (elem) {
-						window.Elemu.remove(elem);
+						elem.classList.add("hidden");
 					});
 
 					// Create button with the callback.
@@ -294,6 +294,16 @@ window.Memory = (function(){
 		*/
 		"reset": function () {
 			// Reset the test.
+			this.nrOfPoints = 0;
+			this.currentFlag = 0;
+
+			// Updaste list.
+			this.updateFlagList(0);
+
+			// Show all blocks.
+			window.Elemu.select(".block", function (elem) {
+				elem.classList.remove("hidden");
+			});
 		},
 	}
 

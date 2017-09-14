@@ -127,7 +127,8 @@ window.Test = (function () {
 		* @returns void.
 		*/
 		"reset": function () {
-			tests[this.currentTest].reset();
+			console.log(this.currentTest);
+			this.tests[this.currentTest].reset();
 		}
 	};
 
