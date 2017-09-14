@@ -147,27 +147,33 @@ window.Memory = (function(){
 		},
 
 		/* Add an event listener to the blocks, checks if the correct flag has been pressed.
-		* @param flagNr, the index number of the flag in the array.
+		* @param flag, the flag in the myFlags array.
 		* @param block, the block to receive a listener.
 		* @returns void.
 		*/
-		"blockEventListener": function (flagNr, block) {
+		"blockEventListener": function (flag, block) {
 			var that = this;
 			block.addEventListener("click", function () {
 				console.log("clicked block:" + block.id);
 				block.classList.add("hidden");
 
 				// Check if the user selected the right block.
-				if (flagNr === that.currentFlag) {
+				console.log(flag.listName);
+				console.log(that.flagSelectionList[that.currentFlag]);
+				if (flag.listName === that.flagSelectionList[that.currentFlag]) {
 					// If the user selected the correct flag, award point.
 					that.nrOfPoints += 1;
 
-					// Move on to the next flag.
-					that.currentFlag++;
-					that.updateFlagList(that.currentFlag);
+					console.log("Correct flag selected!");
 				}
 
-				// if ()
+				// Move on to the next flag.
+				that.currentFlag++;
+				that.updateFlagList(that.currentFlag);
+
+				if (that.currentFlag === that.flagSelectionList.length) {
+					console.log("Test ends");
+				}
 			});
 		},
 
@@ -214,7 +220,7 @@ window.Memory = (function(){
 
 				window.setTimeout(function () {
 					// Set event listener on block.
-					that.blockEventListener(flagNr, block);
+					that.blockEventListener(flag, block);
 					flagWrapper.appendChild(block);
 				}, 5000);
 			});
