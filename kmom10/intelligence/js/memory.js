@@ -1,7 +1,6 @@
 window.Memory = (function(){
 	'use strict';
 
-
 	/**
 	* Writes the test description and a start button for this sub-test.
 	* @returns DOM node containing the "start test" button and said description.
@@ -68,7 +67,7 @@ window.Memory = (function(){
 			if (index === indexParam) {
 				listElem = window.Elemu.create("li", {
 					classList: ["blue", "big"],
-					text: item
+					text: item + " <<< Tryck på blocket som döljer denna flagga."
 				});
 			}
 			else {
@@ -101,12 +100,11 @@ window.Memory = (function(){
 		// Create an array with flagnames for the selection list.
 		"flagSelectionList": [
 			"Tyskland", "Jamaica", "Sverige",
-			"Sydafrika", "Norge", "Findland",
+			"Sydafrika", "Norge", "Finland",
 			"Danmark", "Österrike", "Armenien"
 		],
 
 		"currentFlag": 0,
-
 		"nrOfPoints": 0,
 
 		/**
@@ -141,9 +139,10 @@ window.Memory = (function(){
 		* @returns void.
 		*/
 		"updateFlagList": function (indexParam) {
+			var that = this;
 			window.Elemu.select("#list-wrapper", function (elem) {
 				elem.innerHTML = "";
-				elem.createMemoryList(indexParam);
+				elem.appendChild(createMemoryList(that.flagSelectionList, indexParam));
 			});
 		},
 
@@ -156,6 +155,7 @@ window.Memory = (function(){
 			var that = this;
 			block.addEventListener("click", function () {
 				console.log("clicked block:" + block.id);
+				block.classList.add("hidden");
 
 				// Check if the user selected the right block.
 				if (flagNr === that.currentFlag) {
@@ -167,7 +167,7 @@ window.Memory = (function(){
 					that.updateFlagList(that.currentFlag);
 				}
 
-				if ()
+				// if ()
 			});
 		},
 
@@ -179,16 +179,22 @@ window.Memory = (function(){
 		"drawMemory": function (parentNode) {
 			console.log("Trying to drawMemory.");
 
-			// Create memory wrapper.
-			var memoryWrapper = window.Elemu.create("div", {id: parentNode + "-memory"});
+			var memoryWrapper = window.Elemu.create("div", {id: "memory-game"});
 
 			// Create and append flagList to memoryWrapper.
-			memoryWrapper.appenChild(this.createFlagList());
+			memoryWrapper.appendChild(this.createFlagList());
 
-			// Create wrapper for all flags.
+			// Create and append flagWrapper to memoryWrapper.
 			var flagWrapper = window.Elemu.create("div", {id: "flag-wrapper"});
+			memoryWrapper.appendChild(flagWrapper);
 
-			// Add the flags and blocks to the memoryWrapper.
+			// Add memoryWrapper to the parentNode.
+			window.Elemu.select(parentNode, function (elem) {
+				elem.appendChild(memoryWrapper);
+			});
+
+			// Add the flags and blocks to the flagWrapper.
+			var that = this;
 			this.myFlags.forEach(function (flag, flagNr) {
 				flagWrapper.appendChild(flag.node);
 
@@ -200,20 +206,17 @@ window.Memory = (function(){
 				});
 
 				// Set the top and left position of the block equal to the flag.
+				console.log(flag.node.parentNode);
+				console.log("flag offsetTop: " + flag.node.offsetTop);
+				console.log("flag offsetLeft: " + flag.node.offsetLeft);
 				block.style.top = flag.node.offsetTop + "px";
 				block.style.left = flag.node.offsetLeft + "px";
 
 				window.setTimeout(function () {
 					// Set event listener on block.
-					this.blockEventListener(flagNr, block);
+					that.blockEventListener(flagNr, block);
 					flagWrapper.appendChild(block);
 				}, 5000);
-
-				memoryWrapper.appendChild(flagWrapper);
-			});
-
-			window.Elemu.select(parentNode, function (elem) {
-				elem.appendChild(memoryWrapper);
 			});
 
 			console.log("Done drawing memory.");
@@ -242,7 +245,7 @@ window.Memory = (function(){
 			window.Elemu.select(parentNode, function (elem) {
 				elem.appendChild(wrapper);
 			});
-		}
+		},
 
 		/**
 		* Creates the startpage for the test and allows the test to be started.
