@@ -111,7 +111,7 @@ window.Memory = (function(){
 		* Returns the number of points collected.
 		* @returns integer.
 		*/
-		"getNrOfPoints": function () {
+		"getPoints": function () {
 			return this.nrOfPoints;
 		},
 
@@ -223,9 +223,6 @@ window.Memory = (function(){
 				});
 
 				// Set the top and left position of the block equal to the flag.
-				console.log(flag.node.parentNode);
-				console.log("flag offsetTop: " + flag.node.offsetTop);
-				console.log("flag offsetLeft: " + flag.node.offsetLeft);
 				block.style.top = flag.node.offsetTop + "px";
 				block.style.left = flag.node.offsetLeft + "px";
 

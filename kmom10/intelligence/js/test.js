@@ -1,13 +1,6 @@
 window.Test = (function () {
 	'use strict';
 
-	var tempTest = {
-		"start": function (parentNode, callbackParam) {
-			console.log("my parentNode: " + parentNode);
-			callbackParam();
-		}
-	};
-
 	var Test = {
 		"tests": [],
 		"currentTest": 0,
@@ -43,7 +36,6 @@ window.Test = (function () {
 
 			// Add the memory test.
 			this.tests.push(Object.create(window.Memory));
-			this.currentTest = 2;
 		},
 
 		/**
@@ -53,39 +45,52 @@ window.Test = (function () {
 		*/
 		"start": function () {
 			var that = this;
-
-			var callback1 = function () {
-				window.Elemu.select(".content", function (elem) {
-					elem.innerHTML = "<p>Hej</p>";
-					console.log("Being silly with callback");
-				});
-			}
-
 			// Create callback for the memory.js test.
 			var memoryCallback = function () {
+				var created = false;
 				window.Elemu.select(".content", function (elem) {
-					var button = window.Elemu.create("button", {
-						text: "Avsluta test",
-						classList: ["startButton"]
-					});
-
-					var buttonWrapper = window.Elemu.create("div", {
-						classList: ["center"]
-					});
-
-					buttonWrapper.appendChild(button);
-					elem.appendChild(buttonWrapper);
-
-					button.addEventListener("click", function () {
-						elem.innerHTML = "";
-
-						var paragraf = window.Elemu.create("p", {
-							classList: ["center"],
-							text: "Testet är slutfört! Tack för din medverkan."
+					if (!created) {
+						// Create buttonWrapper.
+						var buttonWrapper = window.Elemu.create("div", {
+							classList: ["exitbutton", "center"]
 						});
 
-						elem.appendChild(paragraf);
-					});
+						elem.appendChild(buttonWrapper);
+
+						// Create button.
+						var button = window.Elemu.create("button", {
+							text: "Avsluta test",
+							classList: ["startButton"]
+						});
+
+						buttonWrapper.appendChild(button);
+
+						button.addEventListener("click", function () {
+							// Clear .content.
+							elem.innerHTML = "";
+
+							// Thank the user.
+							var paragraf = window.Elemu.create("p", {
+								classList: ["center"],
+								text: "Testet är slutfört! Tack för din medverkan."
+							});
+
+							elem.appendChild(paragraf);
+
+							// Calculate points.
+							var sum = 0;
+							that.tests.forEach(function (test) {
+								sum += test.getPoints();
+							});
+
+							var points = window.Elemu.create("h2", {
+								classList: ["center"],
+								text: "Din intelligens kvot: " + sum
+							});
+
+							elem.appendChild(points);
+						});
+					}
 				});
 			};
 
@@ -106,7 +111,7 @@ window.Test = (function () {
 						});
 						// Start the next test.
 						that.currentTest++;
-						that.tests[that.currentTest].start(".content", callback1);
+						that.tests[that.currentTest].start(".content", memoryCallback);
 					});
 				});
 			};
@@ -118,7 +123,7 @@ window.Test = (function () {
 				that.tests[that.currentTest].start(".content", fizzbuzzCallback);
 			};
 
-			this.tests[this.currentTest].start(".content", memoryCallback);
+			this.tests[this.currentTest].start(".content", questionsCallback);
 		},
 
 		/**
@@ -127,7 +132,6 @@ window.Test = (function () {
 		* @returns void.
 		*/
 		"reset": function () {
-			console.log(this.currentTest);
 			this.tests[this.currentTest].reset();
 		}
 	};
