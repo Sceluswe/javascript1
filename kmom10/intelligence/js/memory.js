@@ -158,18 +158,27 @@ window.Memory = (function(){
 				block.classList.add("hidden");
 
 				// Check if the user selected the right block.
-				console.log(flag.listName);
-				console.log(that.flagSelectionList[that.currentFlag]);
 				if (flag.listName === that.flagSelectionList[that.currentFlag]) {
+					console.log("Correct flag selected!");
+
 					// If the user selected the correct flag, award point.
 					that.nrOfPoints += 1;
 
-					console.log("Correct flag selected!");
+					// Move on to the next flag.
+					that.currentFlag++;
+					that.updateFlagList(that.currentFlag);
+				}
+				// If the user guesses incorrectly the game ends.
+				else {
+					console.log("Test ends");
+					that.updateFlagList(-1);
+
+					// Remove all blocks.
+					window.Elemu.select(".block", function (elem) {
+						window.Elemu.remove(elem);
+					});
 				}
 
-				// Move on to the next flag.
-				that.currentFlag++;
-				that.updateFlagList(that.currentFlag);
 
 				if (that.currentFlag === that.flagSelectionList.length) {
 					console.log("Test ends");
