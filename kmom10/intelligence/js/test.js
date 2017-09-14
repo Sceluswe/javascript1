@@ -44,27 +44,6 @@ window.Test = (function () {
 			// Add the memory test.
 			this.tests.push(Object.create(window.Memory));
 			this.currentTest = 2;
-
-			//
-			// // Create a second questions object just for testing.
-			// var questions2 = Object.create(window.Questions);
-			// questions2.createQuestion(
-			// 	"Vad händer med ett russin om du lägger det i ett glas med Champagne?",
-			// 	["1. Det flyter", "X. Det sjunker", "2. Det åker upp och ner"],
-			// 	2
-			// );
-			// questions2.createQuestion(
-			// 	"Vilket land har ett skjutvapen avbildat på flaggan?",
-			// 	["1. Mocambique", "X. Nigeria", "2. Liberia"],
-			// 	0
-			// );
-			// questions2.createQuestion(
-			// 	"Vad är den romerska siffran för 100?",
-			// 	["1. M", "X. C", "2. D"],
-			// 	1
-			// );
-			// // Add questions2 to the tests array.
-			// this.tests.push(questions2);
 		},
 
 		/**
@@ -85,20 +64,23 @@ window.Test = (function () {
 			// Create callback for the memory.js test.
 			var memoryCallback = function () {
 				window.Elemu.select(".content", function (elem) {
-					elem.innerHTML = "";
-
 					var button = window.Elemu.create("button", {
 						text: "Avsluta test",
-						classList: ["startButton", "center"]
+						classList: ["startButton"]
 					});
 
-					elem.appendChild(button);
+					var buttonWrapper = window.Elemu.create("div", {
+						classList: ["center"]
+					});
+
+					buttonWrapper.appendChild(button);
+					elem.appendChild(buttonWrapper);
 
 					button.addEventListener("click", function () {
 						elem.innerHTML = "";
 
 						var paragraf = window.Elemu.create("p", {
-							classList: ["center", ],
+							classList: ["center"],
 							text: "Testet är slutfört! Tack för din medverkan."
 						});
 
