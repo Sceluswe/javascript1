@@ -19,12 +19,12 @@ window.Memory = (function(){
 	* @param eventListener, adds a callable to the button.
 	* @returns void.
 	*/
-	function getStartButton(eventListener) {
+	function createButton(text, eventListener) {
 		var buttonDiv = window.Elemu.create("div", {classList: ["center"]});
 
 		var button = window.Elemu.create("button", {
 			classList: ["startButton"],
-			text: "Starta testet"
+			text: text
 		});
 
 		if (eventListener !== "undefined") {
@@ -177,8 +177,10 @@ window.Memory = (function(){
 					window.Elemu.select(".block", function (elem) {
 						window.Elemu.remove(elem);
 					});
-				}
 
+					// Create button with the callback.
+					that.myCallback();
+				}
 
 				if (that.currentFlag === that.flagSelectionList.length) {
 					console.log("Test ends");
@@ -249,7 +251,7 @@ window.Memory = (function(){
 			wrapper.appendChild(getDescription());
 
 			var that = this;
-			wrapper.appendChild(getStartButton(function () {
+			wrapper.appendChild(createButton("Starta testet", function () {
 				// Remove description.
 				window.Elemu.remove(wrapper);
 
@@ -273,7 +275,7 @@ window.Memory = (function(){
 			window.Elemu.shuffle(this.myFlags);
 			window.Elemu.shuffle(this.flagSelectionList);
 
-			this.callback = callbackParam;
+			this.myCallback = callbackParam;
 
 			this.drawDescription(parentNode);
 

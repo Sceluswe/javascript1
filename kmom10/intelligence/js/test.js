@@ -83,6 +83,30 @@ window.Test = (function () {
 			}
 
 			// Create callback for the memory.js test.
+			var memoryCallback = function () {
+				window.Elemu.select(".content", function (elem) {
+					elem.innerHTML = "";
+
+					var button = window.Elemu.create("button", {
+						text: "Avsluta test",
+						classList: ["startButton", "center"]
+					});
+
+					elem.appendChild(button);
+
+					button.addEventListener("click", function () {
+						elem.innerHTML = "";
+
+						var paragraf = window.Elemu.create("p", {
+							classList: ["center", ],
+							text: "Testet är slutfört! Tack för din medverkan."
+						});
+
+						elem.appendChild(paragraf);
+					});
+				});
+			};
+
 			// Create callback for the fizzbuzz.js test.
 			var fizzbuzzCallback = function () {
 				window.Elemu.select(".content", function (elem) {
@@ -103,16 +127,16 @@ window.Test = (function () {
 						that.tests[that.currentTest].start(".content", callback1);
 					});
 				});
-			}
+			};
 
 			// Create callback for the questions.js test.
 			var questionsCallback = function () {
 				that.currentTest++;
 				console.log(that.currentTest);
 				that.tests[that.currentTest].start(".content", fizzbuzzCallback);
-			}
+			};
 
-			this.tests[this.currentTest].start(".content", questionsCallback);
+			this.tests[this.currentTest].start(".content", memoryCallback);
 		},
 
 		/**
