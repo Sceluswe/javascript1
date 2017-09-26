@@ -55,16 +55,18 @@ window.FizzBuzz = (function() {
 			sequence += fizzbuzzNumber(i) + ", ";
 		}
 
-		return {
-			sequence: sequence + "?",
-			answers: [("" + finalNumber), "Fizz", "Buzz", "FizzBuzz"],
-			correctAnswer: fizzbuzzNumber(finalNumber)
-		}
+		var question = Object(window.Question);
+		question.initialize(
+			sequence + "?",
+			[("" + finalNumber), "Fizz", "Buzz", "FizzBuzz"],
+			fizzbuzzNumber(finalNumber)
+		);
+
+		return question;
 	}
 
 	var FizzBuzz = {
 		// A module with a fizzbuzz question.
-		"answered": false,
 		"callbackUsed": false,
 		"nrOfPoints": 0,
 
@@ -86,83 +88,20 @@ window.FizzBuzz = (function() {
 			// Create the question.
 			var currentQuestion = fizzbuzzQuestion(5);
 
-			// Start the test.
-			window.Elemu.select(parentNode, function (parentElem) {
-				var wrapper = window.Elemu.create("div", {
-					classList: ["currentQuestion"]
-				});
+			var that = this;
+			var question = currentQuestion.getQuestion(function () {
+				if (!that.callbackUsed) {
+					that.callbackUsed = true;
+					callbackParam();
+				}
 
-				// Add the wrapper to the parentNode.
-				parentElem.appendChild(wrapper);
+				if (currentQuestion.answered) {
+					that.nrOfPoints += 3;
+				}
+			});
 
-				var explanation = window.Elemu.create("p", {
-					text: "Gissa nästa ord eller nummer i ordningen.",
-				});
-
-				wrapper.appendChild(explanation);
-
-				var sequence = window.Elemu.create("p", {
-					text: currentQuestion.sequence,
-					classList: ["question"]
-				});
-
-				wrapper.appendChild(sequence);
-
-				currentQuestion.answers.forEach(function (item, index, array) {
-					var button = window.Elemu.create("button", {
-						id: "answer" + index,
-						classList: ["answer"],
-						text: item
-					});
-
-					button.addEventListener("click", function () {
-						if (!this.answered) {
-							this.answered = true;
-
-							// Hide the question.
-							window.Elemu.select(".question", function (elem) {
-								elem.classList.add("selected");
-							});
-
-							// Highlight the correct answer with green.
-							window.Elemu.select(".answer", function (elem) {
-								// Hide all buttons.
-								elem.classList.add("selected");
-								if (elem.textContent === currentQuestion.correctAnswer) {
-									elem.classList.add("buttonGreen");
-								}
-							});
-
-							// Check if the user was right or wrong.
-							if (item === currentQuestion.correctAnswer) {
-								this.nrOfPoints = 3;
-								console.log("Points gained: " + this.nrOfPoints);
-							}
-							else {
-								// If the user is wrong, highlight the user answer with red.
-								button.classList.add("buttonRed");
-							}
-
-							// Display the correct answer again for clarity.
-							var displayAnswer = window.Elemu.create("p", {
-								text: "The correct answer was: " + currentQuestion.correctAnswer,
-								classList: ["correctAnswer", "green"]
-							});
-
-							wrapper.appendChild(displayAnswer);
-
-							console.log("Clicked");
-
-							if (!this.callbackUsed) {
-								// Execute callback when the test is done.
-								callbackParam();
-								this.callbackUsed = true;
-							}
-						}
-					});
-
-					wrapper.appendChild(button);
-				});
+			window.Elemu.select(parentNode, function (elem) {
+				elem.appendChild(question);
 			});
 		},
 
@@ -172,23 +111,8 @@ window.FizzBuzz = (function() {
 		* @returns void.
 		*/
 		"reset": function () {
-			// Reset the test and do it over again.
-			window.Elemu.select(".question", function (elem) {
-				elem.classList.remove("selected");
-			});
-
-			window.Elemu.select(".answer", function (elem) {
-				elem.classList.remove("selected");
-				elem.classList.remove("buttonGreen");
-				elem.classList.remove("buttonRed");
-			});
-
-			window.Elemu.select(".correctAnswer", function (elem) {
-				window.Elemu.remove(elem);
-			});
-
+			this.fizzbuzzQuestion.hideAnswer();
 			this.nrOfPoints = 0;
-			this.answered = false;
 		}
 	};
 
