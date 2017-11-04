@@ -17,11 +17,11 @@ window.Questions = (function () {
 		},
 
 		/**
-		* Adds a question object (a DOM node) to the questions array.
+		* Adds a question object to the questions array.
 		* @question string, the question to answer.
 		* @answers array of strings, the 1x2 answers to the question.
 		* @correctAnswer, the index of the correct answer in the answers array.
-		* @returns DOM-node, a question and it's answers wrapped in a div.
+		* @returns object, a question object with all its members.
 		*/
 		"createQuestion": function (question, answers, correctAnswer) {
 			var questionDiv = window.Elemu.create("div", {
