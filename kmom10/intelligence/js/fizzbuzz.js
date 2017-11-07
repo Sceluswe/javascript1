@@ -69,6 +69,7 @@ window.FizzBuzz = (function() {
 		// A module with a fizzbuzz question.
 		"callbackUsed": false,
 		"nrOfPoints": 0,
+		"fizzbuzzQuestion": undefined,
 
 		/**
 		* Returns the number of points the user has acquired.
@@ -86,16 +87,16 @@ window.FizzBuzz = (function() {
 		*/
 		"start": function (parentNode, callbackParam) {
 			// Create the question.
-			var currentQuestion = fizzbuzzQuestion(5);
+			this.fizzbuzzQuestion = fizzbuzzQuestion(5);
 
 			var that = this;
-			var question = currentQuestion.getQuestion(function () {
+			var question = this.fizzbuzzQuestion.getQuestion(function () {
 				if (!that.callbackUsed) {
 					that.callbackUsed = true;
 					callbackParam();
 				}
 
-				if (currentQuestion.answered) {
+				if (this.fizzbuzzQuestion.answered) {
 					that.nrOfPoints += 3;
 				}
 			});
@@ -113,6 +114,7 @@ window.FizzBuzz = (function() {
 		"reset": function () {
 			this.fizzbuzzQuestion.hideAnswer();
 			this.nrOfPoints = 0;
+			this.callbackUsed = false;
 		}
 	};
 
