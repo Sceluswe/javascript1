@@ -1,25 +1,24 @@
 window.Question = (function () {
 
-	function createEventListener(button, that, callback) {
+	function createEventListener(button, question, callback) {
 		button.addEventListener("click", function () {
-			if (!that.answered) {
-				that.answered = true;
+			if (!question.answered) {
+				question.answered = true;
 
 				// Hide the question.
-				window.Elemu.select(("#question" + that.myID), function (elem) {
+				window.Elemu.select(("#question" + question.myID), function (elem) {
 					elem.classList.add("selected");
 				});
 
-				that.displayAnswer();
+				question.displayAnswer();
 
-				if (button.textContent === that.correctAnswer){
-					that.userAnswer = true;
+				if (button.textContent === question.correctAnswer){
+					question.userAnswer = true;
 				}
 				else {
 					// If the user is wrong, highlight the user answer with red.
 					button.classList.add("buttonRed");
 				}
-
 
 				// Execute user callback.
 				if (typeof callback !== "undefined") {
@@ -64,14 +63,14 @@ window.Question = (function () {
 		* @returns void.
 		*/
 		"displayAnswer": function () {
-			var that  = this;
+			var question  = this;
 
 			// Highlight the correct answer with green.
 			window.Elemu.select(("#answer" + this.myID), function (elem) {
 				// Make the answers unclickable.
 				elem.classList.add("selected");
 
-				if (elem.textContent === that.correctAnswer) {
+				if (elem.textContent === question.correctAnswer) {
 					elem.classList.add("buttonGreen");
 				}
 			});
@@ -88,7 +87,11 @@ window.Question = (function () {
 			});
 		},
 
-		"hideAnswer": function () {
+		/**
+		* Make the answers clickable again.
+		* @returns void.
+		*/
+		"reset": function () {
 			// Remove the highlight.
 			window.Elemu.select(("#answer" + this.myID), function (elem) {
 				// Make the answers unclickable.
@@ -102,6 +105,8 @@ window.Question = (function () {
 			window.Elemu.select(("#correctAnswer" + this.myID), function (elem) {
 				window.Elemu.remove(elem);
 			});
+
+			this.answered = false;
 		},
 
 		/**
@@ -110,33 +115,41 @@ window.Question = (function () {
 		* @returns DOM node.
 		*/
 		"getQuestion": function (callback) {
-			var that = this;
+			var question = this;
 
 			// Create and return the DOM Node.
 			var wrapper = window.Elemu.create("div", {
-				id: "question-wrapper" + that.myID,
+				id: "question-wrapper" + question.myID
 			});
 
-			var question = window.Elemu.create("p", {
-				id: "question" + that.myID,
-				text: that.question,
+			var questionP = window.Elemu.create("p", {
+				id: "question" + question.myID,
+				text: question.question,
 			});
 
-			wrapper.appendChild(question);
+			wrapper.appendChild(questionP);
 
 			this.answers.forEach(function (item, index) {
 				var button = window.Elemu.create("button", {
-					id: "answer" + that.myID,
+					id: "answer" + question.myID,
 					classList: ["answer"],
 					text: item
 				});
 
-				createEventListener(button, that, callback);
+				createEventListener(button, question, callback);
 
 				wrapper.appendChild(button);
 			});
 
 			return wrapper;
+		},
+
+		/**
+		* Returns true if the player answered correctly.
+		* @returns boolean.
+		*/
+		"getUserAnswer": function () {
+			return this.userAnswer;
 		}
 	};
 

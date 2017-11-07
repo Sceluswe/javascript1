@@ -96,7 +96,7 @@ window.FizzBuzz = (function() {
 					callbackParam();
 				}
 
-				if (this.fizzbuzzQuestion.answered) {
+				if (that.fizzbuzzQuestion.answered) {
 					that.nrOfPoints += 3;
 				}
 			});
@@ -112,9 +112,8 @@ window.FizzBuzz = (function() {
 		* @returns void.
 		*/
 		"reset": function () {
-			this.fizzbuzzQuestion.hideAnswer();
+			this.fizzbuzzQuestion.reset();
 			this.nrOfPoints = 0;
-			this.callbackUsed = false;
 		}
 	};
 
