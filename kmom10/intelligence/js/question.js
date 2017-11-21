@@ -1,43 +1,42 @@
 window.Question = (function () {
+	"use strict";
 
-	function createEventListener(button, question, callback) {
-		button.addEventListener("click", function () {
-			if (!question.answered) {
-				question.answered = true;
+	function createEventListener(answer, questionObj) {
+		answer.addEventListener("click", function () {
+			if (!questionObj.answered) {
+				questionObj.answered = true;
 
 				// Hide the question.
-				window.Elemu.select(("#question" + question.myID), function (elem) {
-					elem.classList.add("selected");
-				});
+				questionObj.questionNode.classList.add("selected");
 
-				question.displayAnswer();
+				questionObj.displayAnswer();
 
-				if (button.textContent === question.correctAnswer){
-					question.userAnswer = true;
+				if (answer.textContent === questionObj.correctAnswer){
+					questionObj.userAnswer = true;
 				}
 				else {
 					// If the user is wrong, highlight the user answer with red.
-					button.classList.add("buttonRed");
+					answer.classList.add("buttonRed");
 				}
 
 				// Execute user callback.
-				if (typeof callback !== "undefined") {
-					callback();
-				}
+				questionObj.callback();
 			}
 		});
 	}
 
-	var staticID = 0;
-
-	var question = {
-		myID: undefined,
-		question: undefined,
-		answers: undefined,
+	return {
+		wrapperNode: undefined,
+		questionNode: undefined,
+		answerNodes: undefined,
 		correctAnswer: undefined,
 		// Used to determine if the user was right or not.
 		userAnswer: false,
 		answered: false,
+
+		callback: function () {
+			console.log("Called undefined callback");
+		},
 
 		/**
 		* Initializes a question object with the provided values.
@@ -47,14 +46,24 @@ window.Question = (function () {
 		* @returns void.
 		*/
 		"initialize": function (question, answers, correctAnswer) {
-			// Set the unique ID for this question.
-			this.myID = staticID;
-			// Create new staticID for the next question.
-			staticID += 1;
+			this.answerNodes = [];
+			this.questionNode = window.Elemu.create("p", {
+				id: "question",
+				text: question,
+			});
 
-			this.question = question;
-			this.answers = answers;
-			this.correctAnswer = correctAnswer;
+			var that = this;
+			answers.forEach(function (answer) {
+				var answerNode = window.Elemu.create("button", {
+					id: "answer",
+					classList: ["answer"],
+					text: answer
+				});
+
+				that.answerNodes.push(answerNode);
+			});
+
+			this.correctAnswer = answers[correctAnswer];
 		},
 
 		/**
@@ -63,26 +72,25 @@ window.Question = (function () {
 		* @returns void.
 		*/
 		"displayAnswer": function () {
-			var question  = this;
-
+			var that = this;
 			// Highlight the correct answer with green.
-			window.Elemu.select(("#answer" + this.myID), function (elem) {
+			this.answerNodes.forEach(function (answer) {
 				// Make the answers unclickable.
-				elem.classList.add("selected");
+				answer.classList.add("selected");
 
-				if (elem.textContent === question.correctAnswer) {
-					elem.classList.add("buttonGreen");
+				if (answer.textContent === that.correctAnswer) {
+					answer.classList.add("buttonGreen");
 				}
 			});
 
 			// Display the correct answer again for clarity.
 			var displayAnswer = window.Elemu.create("p", {
-				id: "correctAnswer" + this.myID,
-				text: "The correct answer was: " + this.correctAnswer,
+				id: "correctAnswer",
+				text: "The correct answer was: \"" + this.correctAnswer + "\"",
 				classList: ["correctAnswer", "green"]
 			});
 
-			window.Elemu.select(("#question-wrapper" + this.myID), function (elem) {
+			window.Elemu.select(("#question-wrapper"), function (elem) {
 				elem.appendChild(displayAnswer);
 			});
 		},
@@ -91,9 +99,9 @@ window.Question = (function () {
 		* Make the answers clickable again.
 		* @returns void.
 		*/
-		"reset": function () {
+		"hideAnswer": function () {
 			// Remove the highlight.
-			window.Elemu.select(("#answer" + this.myID), function (elem) {
+			window.Elemu.select(("#answer"), function (elem) {
 				// Make the answers unclickable.
 				elem.classList.remove("selected");
 
@@ -102,7 +110,7 @@ window.Question = (function () {
 				}
 			});
 
-			window.Elemu.select(("#correctAnswer" + this.myID), function (elem) {
+			window.Elemu.select(("#correctAnswer"), function (elem) {
 				window.Elemu.remove(elem);
 			});
 
@@ -114,34 +122,35 @@ window.Question = (function () {
 		* @param callback, a callback function to be executed when the question is answered.
 		* @returns DOM node.
 		*/
-		"getQuestion": function (callback) {
-			var question = this;
+		"getWrapper": function () {
+			var wrapper;
 
-			// Create and return the DOM Node.
-			var wrapper = window.Elemu.create("div", {
-				id: "question-wrapper" + question.myID
-			});
-
-			var questionP = window.Elemu.create("p", {
-				id: "question" + question.myID,
-				text: question.question,
-			});
-
-			wrapper.appendChild(questionP);
-
-			this.answers.forEach(function (item, index) {
-				var button = window.Elemu.create("button", {
-					id: "answer" + question.myID,
-					classList: ["answer"],
-					text: item
+			if (typeof this.wrapperNode === "undefined") {
+				wrapper = window.Elemu.create("div", {
+					id: "question-wrapper"
 				});
 
-				createEventListener(button, question, callback);
+				wrapper.appendChild(this.questionNode);
 
-				wrapper.appendChild(button);
-			});
+				var that = this;
+				this.answerNodes.forEach(function (answer) {
+					createEventListener(answer, that);
+
+					wrapper.appendChild(answer);
+				});
+
+				// Save wrapper node.
+				this.wrapperNode = wrapper;
+			}
+			else {
+				wrapper = this.wrapperNode;
+			}
 
 			return wrapper;
+		},
+
+		"setCallback": function (callback) {
+			this.callback = callback;
 		},
 
 		/**
@@ -152,6 +161,4 @@ window.Question = (function () {
 			return this.userAnswer;
 		}
 	};
-
-	return question;
 })();
