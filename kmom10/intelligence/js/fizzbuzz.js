@@ -29,13 +29,13 @@ window.FizzBuzz = (function() {
 			else if (number % 5 === 0) {
 				result = "Buzz";
 			}
+
+			return result;
 		}
 		else {
 			console.log("fizzbuzzNumber() MUST RECEIVE A NUMBER");
 			console.log("Received: " + typeof number);
 		}
-
-		return result;
 	}
 
 	/**
@@ -90,7 +90,7 @@ window.FizzBuzz = (function() {
 			this.fizzbuzzQuestion = fizzbuzzQuestion(5);
 
 			var that = this;
-			var question = this.fizzbuzzQuestion.getQuestion(function () {
+			this.fizzbuzzQuestion.setCallback(function () {
 				if (!that.callbackUsed) {
 					that.callbackUsed = true;
 					callbackParam();
@@ -102,7 +102,7 @@ window.FizzBuzz = (function() {
 			});
 
 			window.Elemu.select(parentNode, function (elem) {
-				elem.appendChild(question);
+				elem.appendChild(that.fizzbuzzQuestion.getWrapper());
 			});
 		},
 
@@ -112,7 +112,7 @@ window.FizzBuzz = (function() {
 		* @returns void.
 		*/
 		"reset": function () {
-			this.fizzbuzzQuestion.reset();
+			this.fizzbuzzQuestion.hideAnswer();
 			this.nrOfPoints = 0;
 		}
 	};

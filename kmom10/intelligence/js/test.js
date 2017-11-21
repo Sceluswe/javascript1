@@ -11,7 +11,7 @@ window.Test = (function () {
 		*/
 		"init": function () {
 			// Create the questions object.
-			var questionTest = Object.create(window.Questions);
+			var questionTest = new Object(window.Questions);
 			// Create questions for the questions test.
 			questionTest.createQuestion(
 				"Vad händer med ett russin om du lägger det i ett glas med Champagne?",
@@ -118,8 +118,13 @@ window.Test = (function () {
 
 			// Create callback for the questions.js test.
 			var questionsCallback = function () {
+				// Remove anything remaining from the old test.
+				window.Elemu.select(".content", function (content) {
+					content.innerHTML = "";
+				});
+
+				// Start new test.
 				that.currentTest++;
-				console.log(that.currentTest);
 				that.tests[that.currentTest].start(".content", fizzbuzzCallback);
 			};
 
