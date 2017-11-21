@@ -120,7 +120,7 @@ window.Test = (function () {
 			var questionsCallback = function () {
 				// Remove anything remaining from the old test.
 				window.Elemu.select(".content", function (content) {
-					window.Elemu.remove(content);
+					content.innerHTML = "";
 				});
 
 				// Start new test.
