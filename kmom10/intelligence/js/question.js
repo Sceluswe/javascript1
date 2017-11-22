@@ -108,7 +108,7 @@ window.Question = (function () {
 		"hideAnswer": function () {
 			// Remove the highlight.
 			window.Elemu.select(("#answer"), function (elem) {
-				// Make the answers unclickable.
+				// Make the answers clickable.
 				elem.classList.remove("selected");
 
 				if (elem.textContent === this.correctAnswer) {
@@ -120,6 +120,19 @@ window.Question = (function () {
 				window.Elemu.remove(elem);
 			});
 
+			this.answered = false;
+		},
+
+		"reset": function () {
+			this.answerNodes.forEach( function (answer) {
+				answer.classList.remove("selected");
+				answer.classList.remove("buttonGreen");
+				answer.classList.remove("buttonRed");
+			});
+
+			this.questionNode.classList.remove("selected");
+
+			this.wrapperNode = undefined;
 			this.answered = false;
 		},
 

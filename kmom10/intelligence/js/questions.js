@@ -112,10 +112,19 @@ window.Questions = (function () {
 		*/
 		"reset": function () {
 			// Reset everything in the subtest and start over.
-			window.Elemu.remove(this.questions[this.currentQuestion]);
 			this.nrOfPoints = 0;
 			this.currentQuestion = 0;
-			this.displayQuestion(this.questions[this.currentQuestion]);
+
+			this.questions.forEach(function (question)  {
+				question.reset();
+			});
+
+			var that = this;
+			window.Elemu.select(that.parentNode, function (elem) {
+				elem.innerHTML = "";
+				var question = that.questions[that.currentQuestion];
+				elem.appendChild(question.getWrapper());
+			});
 		}
 	};
 
