@@ -16,17 +16,17 @@ window.Test = (function () {
 			questionTest.createQuestion(
 				"Vad händer med ett russin om du lägger det i ett glas med Champagne?",
 				["1. Det flyter", "X. Det sjunker", "2. Det åker upp och ner"],
-				2
+				"2. Det åker upp och ner"
 			);
 			questionTest.createQuestion(
 				"Vilket land har ett skjutvapen avbildat på flaggan?",
 				["1. Mocambique", "X. Nigeria", "2. Liberia"],
-				0
+				"2. Liberia"
 			);
 			questionTest.createQuestion(
 				"Vad är den romerska siffran för 100?",
 				["1. M", "X. C", "2. D"],
-				1
+				"X. C"
 			);
 			// Add questions to the tests array.
 			this.tests.push(questionTest);
@@ -85,7 +85,7 @@ window.Test = (function () {
 
 							var points = window.Elemu.create("h2", {
 								classList: ["center"],
-								text: "Din intelligens kvot: " + sum + " / 27"
+								text: "Din intelligens kvot: " + sum + " / 21"
 							});
 
 							elem.appendChild(points);
@@ -98,7 +98,7 @@ window.Test = (function () {
 			var fizzbuzzCallback = function () {
 				window.Elemu.select(".content", function (elem) {
 					var button = window.Elemu.create("button", {
-						text: "Go to the next test.",
+						text: "Nästa test!",
 						classList: ["startButton"]
 					});
 
@@ -120,12 +120,22 @@ window.Test = (function () {
 			var questionsCallback = function () {
 				// Remove anything remaining from the old test.
 				window.Elemu.select(".content", function (content) {
-					content.innerHTML = "";
-				});
+					var nextButton = window.Elemu.create("button", {
+						id: "next-question",
+						classList: ["startButton"],
+						text: "Nästa test!"
+					});
 
-				// Start new test.
-				that.currentTest++;
-				that.tests[that.currentTest].start(".content", fizzbuzzCallback);
+					// Remove old question and display the next one.
+					nextButton.addEventListener("click", function () {
+						content.innerHTML="";
+						// Start new test.
+						that.currentTest++;
+						that.tests[that.currentTest].start(".content", fizzbuzzCallback);
+					});
+
+					content.appendChild(nextButton);
+				});
 			};
 
 			this.tests[this.currentTest].start(".content", questionsCallback);
@@ -137,6 +147,9 @@ window.Test = (function () {
 		* @returns void.
 		*/
 		"reset": function () {
+			window.Elemu.select(".content", function (content) {
+				content.innerHTML = "";
+			});
 			this.tests[this.currentTest].reset();
 		}
 	};

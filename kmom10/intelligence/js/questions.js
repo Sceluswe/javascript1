@@ -2,6 +2,7 @@ window.Questions = (function () {
 	'use strict';
 	// 1x2 module.
 
+
 	var Questions = {
 		// Create Questions.
 		"questions": [],
@@ -20,6 +21,13 @@ window.Questions = (function () {
 			}
 		},
 
+		/*
+		* Creates the callback to be used in each question object.
+		* @returns void.
+		*/
+		"questionsCallback": function () {
+		},
+
 		/**
 		* Adds a question object to the questions array.
 		* @question string, the question to answer.
@@ -33,11 +41,8 @@ window.Questions = (function () {
 
 			var that = this;
 			questionObj.setCallback(function () {
-				// Get the current question being displayed.
-				var thisQuestion = that.questions[that.currentQuestion];
-
 				// Award the player points for answering correctly.
-				if (thisQuestion.getUserAnswer()) {
+				if (questionObj.getUserAnswer()) {
 					that.nrOfPoints += 3;
 				}
 
@@ -51,7 +56,7 @@ window.Questions = (function () {
 
 					// Remove old question and display the next one.
 					nextButton.addEventListener("click", function () {
-						window.Elemu.remove(thisQuestion.getWrapper());
+						window.Elemu.remove(questionObj.getWrapper());
 						window.Elemu.remove(nextButton);
 
 						that.currentQuestion++;
@@ -70,7 +75,7 @@ window.Questions = (function () {
 					that.myCallback();
 				}
 			});
-
+			// Add question to array.
 			this.questions.push(questionObj);
 		},
 
@@ -107,10 +112,19 @@ window.Questions = (function () {
 		*/
 		"reset": function () {
 			// Reset everything in the subtest and start over.
-			window.Elemu.remove(this.questions[this.currentQuestion]);
 			this.nrOfPoints = 0;
 			this.currentQuestion = 0;
-			this.displayQuestion(this.questions[this.currentQuestion]);
+
+			this.questions.forEach(function (question)  {
+				question.reset();
+			});
+
+			var that = this;
+			window.Elemu.select(that.parentNode, function (elem) {
+				elem.innerHTML = "";
+				var question = that.questions[that.currentQuestion];
+				elem.appendChild(question.getWrapper());
+			});
 		}
 	};
 

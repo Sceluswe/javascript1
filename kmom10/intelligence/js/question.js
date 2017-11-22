@@ -1,6 +1,12 @@
 window.Question = (function () {
 	"use strict";
 
+	/*
+	* Creates an eventListener for each answer to each question.
+	* @param answer, the node to receive the eventListener.
+	* @param questionObj, the object containing all the questions data.
+	* @returns void.
+	*/
 	function createEventListener(answer, questionObj) {
 		answer.addEventListener("click", function () {
 			if (!questionObj.answered) {
@@ -63,7 +69,7 @@ window.Question = (function () {
 				that.answerNodes.push(answerNode);
 			});
 
-			this.correctAnswer = answers[correctAnswer];
+			this.correctAnswer = correctAnswer;
 		},
 
 		/**
@@ -86,34 +92,27 @@ window.Question = (function () {
 			// Display the correct answer again for clarity.
 			var displayAnswer = window.Elemu.create("p", {
 				id: "correctAnswer",
-				text: "The correct answer was: \"" + this.correctAnswer + "\"",
+				text: "Det rätta svaret var: \"" + this.correctAnswer + "\"",
 				classList: ["correctAnswer", "green"]
 			});
 
-			window.Elemu.select(("#question-wrapper"), function (elem) {
-				elem.appendChild(displayAnswer);
-			});
+			this.wrapperNode.appendChild(displayAnswer);
 		},
 
 		/**
-		* Make the answers clickable again.
+		* Reset the question.
 		* @returns void.
 		*/
-		"hideAnswer": function () {
-			// Remove the highlight.
-			window.Elemu.select(("#answer"), function (elem) {
-				// Make the answers unclickable.
-				elem.classList.remove("selected");
-
-				if (elem.textContent === this.correctAnswer) {
-					elem.classList.remove("buttonGreen");
-				}
+		"reset": function () {
+			this.answerNodes.forEach( function (answer) {
+				answer.classList.remove("selected");
+				answer.classList.remove("buttonGreen");
+				answer.classList.remove("buttonRed");
 			});
 
-			window.Elemu.select(("#correctAnswer"), function (elem) {
-				window.Elemu.remove(elem);
-			});
+			this.questionNode.classList.remove("selected");
 
+			this.wrapperNode = undefined;
 			this.answered = false;
 		},
 
