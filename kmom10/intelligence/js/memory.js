@@ -62,7 +62,7 @@ window.Memory = (function(){
 		});
 
 		array.forEach(function (item, index) {
-			var listElem = undefined;
+			var listElem;
 
 			if (index === indexParam) {
 				listElem = window.Elemu.create("li", {
@@ -106,6 +106,7 @@ window.Memory = (function(){
 
 		"currentFlag": 0,
 		"nrOfPoints": 0,
+		"parentNode": undefined,
 
 		/**
 		* Returns the number of points collected.
@@ -184,16 +185,17 @@ window.Memory = (function(){
 
 				if (that.currentFlag === that.flagSelectionList.length) {
 					console.log("Test ends");
+					// Create button with the callback.
+					that.myCallback();
 				}
 			});
 		},
 
 		/**
 		* Draw FlagList, flags and blocks for the memory game.
-		* @param parentNode, id or classname of the node in the DOM to draw to.
 		* @returns void.
 		*/
-		"drawMemory": function (parentNode) {
+		"drawMemory": function () {
 			console.log("Trying to drawMemory.");
 
 			var memoryWrapper = window.Elemu.create("div", {id: "memory-game"});
@@ -206,7 +208,7 @@ window.Memory = (function(){
 			memoryWrapper.appendChild(flagWrapper);
 
 			// Add memoryWrapper to the parentNode.
-			window.Elemu.select(parentNode, function (elem) {
+			window.Elemu.select(this.parentNode, function (elem) {
 				elem.appendChild(memoryWrapper);
 			});
 
@@ -238,10 +240,9 @@ window.Memory = (function(){
 
 		/**
 		* Draw the description page, explaining the test.
-		* @param parentNode, id or classname of the node in the DOM to draw to.
 		* @returns void.
 		*/
-		"drawDescription": function (parentNode) {
+		"drawDescription": function () {
 			// Create the description page for the test.
 			var wrapper = window.Elemu.create("div", {classList: ["description"]});
 
@@ -252,11 +253,11 @@ window.Memory = (function(){
 				// Remove description.
 				window.Elemu.remove(wrapper);
 
-				that.drawMemory(parentNode);
+				that.drawMemory(that.parentNode);
 			}));
 
 			// Apply wrapper to the parentNode.
-			window.Elemu.select(parentNode, function (elem) {
+			window.Elemu.select(that.parentNode, function (elem) {
 				elem.appendChild(wrapper);
 			});
 		},
@@ -268,21 +269,14 @@ window.Memory = (function(){
 		* @returns void.
 		*/
 		"start": function (parentNode, callbackParam) {
+			this.parentNode = parentNode;
+			this.myCallback = callbackParam;
+
 			// Shuffle the arrays to make the test different everytime.
 			window.Elemu.shuffle(this.myFlags);
 			window.Elemu.shuffle(this.flagSelectionList);
 
-			this.myCallback = callbackParam;
-
-			this.drawDescription(parentNode);
-
-			// // Place all flags and blocks in the correct positions.
-			// window.onresize = function () {
-			// 	window.Elemu.select(parentNode, function (elem) {
-			// 		elem.innerHTML = "";
-			// 		that.drawMemory(parentNode);
-			// 	});
-			// };
+			this.drawDescription();
 		},
 
 		/**
@@ -294,15 +288,16 @@ window.Memory = (function(){
 			this.nrOfPoints = 0;
 			this.currentFlag = 0;
 
-			// Updaste list.
+			// // Updaste list.
 			this.updateFlagList(0);
-
 			// Show all blocks.
 			window.Elemu.select(".block", function (elem) {
 				elem.classList.remove("hidden");
 			});
+
+			this.drawMemory();
 		},
-	}
+	};
 
 	return Memory;
 })();
