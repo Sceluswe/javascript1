@@ -28,6 +28,16 @@ window.Test = (function () {
 				["1. M", "X. C", "2. D"],
 				"X. C"
 			);
+			questionTest.createQuestion(
+				"Vem var Socrates?",
+				["1. En grekisk filosof", "X. En romersk härskare", "2. En mattelärare"],
+				"1. En grekisk filosof"
+			);
+			questionTest.createQuestion(
+				"Vem skrev orginal versionen av 'Brott och Straff'",
+				["Alexander Solzjenitsyn", "X. Fyodor Dostoevsky", "2. Leo Tolstoy"],
+				"X. Fyodor Dostoevsky"
+			);
 			// Add questions to the tests array.
 			this.tests.push(questionTest);
 
