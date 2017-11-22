@@ -92,7 +92,7 @@ window.Question = (function () {
 			// Display the correct answer again for clarity.
 			var displayAnswer = window.Elemu.create("p", {
 				id: "correctAnswer",
-				text: "The correct answer was: \"" + this.correctAnswer + "\"",
+				text: "Det rätta svaret var: \"" + this.correctAnswer + "\"",
 				classList: ["correctAnswer", "green"]
 			});
 
