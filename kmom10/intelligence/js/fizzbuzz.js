@@ -67,9 +67,9 @@ window.FizzBuzz = (function() {
 
 	var FizzBuzz = {
 		// A module with a fizzbuzz question.
-		"callbackUsed": false,
 		"nrOfPoints": 0,
 		"fizzbuzzQuestion": undefined,
+		"parentNode": undefined,
 
 		/**
 		* Returns the number of points the user has acquired.
@@ -86,15 +86,13 @@ window.FizzBuzz = (function() {
 		* @returns void.
 		*/
 		"start": function (parentNode, callbackParam) {
+			this.parentNode = parentNode;
 			// Create the question.
 			this.fizzbuzzQuestion = fizzbuzzQuestion(5);
 
 			var that = this;
 			this.fizzbuzzQuestion.setCallback(function () {
-				if (!that.callbackUsed) {
-					that.callbackUsed = true;
-					callbackParam();
-				}
+				callbackParam();
 
 				if (that.fizzbuzzQuestion.answered) {
 					that.nrOfPoints += 3;
@@ -112,8 +110,13 @@ window.FizzBuzz = (function() {
 		* @returns void.
 		*/
 		"reset": function () {
-			this.fizzbuzzQuestion.hideAnswer();
+			this.fizzbuzzQuestion.reset();
 			this.nrOfPoints = 0;
+
+			var that = this;
+			window.Elemu.select(this.parentNode, function (elem) {
+				elem.appendChild(that.fizzbuzzQuestion.getWrapper());
+			});
 		}
 	};
 

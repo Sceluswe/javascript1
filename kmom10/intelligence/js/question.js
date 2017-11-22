@@ -96,33 +96,13 @@ window.Question = (function () {
 				classList: ["correctAnswer", "green"]
 			});
 
-			window.Elemu.select(("#question-wrapper"), function (elem) {
-				elem.appendChild(displayAnswer);
-			});
+			this.wrapperNode.appendChild(displayAnswer);
 		},
 
 		/**
-		* Make the answers clickable again.
+		* Reset the question.
 		* @returns void.
 		*/
-		"hideAnswer": function () {
-			// Remove the highlight.
-			window.Elemu.select(("#answer"), function (elem) {
-				// Make the answers clickable.
-				elem.classList.remove("selected");
-
-				if (elem.textContent === this.correctAnswer) {
-					elem.classList.remove("buttonGreen");
-				}
-			});
-
-			window.Elemu.select(("#correctAnswer"), function (elem) {
-				window.Elemu.remove(elem);
-			});
-
-			this.answered = false;
-		},
-
 		"reset": function () {
 			this.answerNodes.forEach( function (answer) {
 				answer.classList.remove("selected");

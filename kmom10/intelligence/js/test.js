@@ -147,6 +147,9 @@ window.Test = (function () {
 		* @returns void.
 		*/
 		"reset": function () {
+			window.Elemu.select(".content", function (content) {
+				content.innerHTML = "";
+			});
 			this.tests[this.currentTest].reset();
 		}
 	};
