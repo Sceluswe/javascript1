@@ -16,17 +16,17 @@ window.Test = (function () {
 			questionTest.createQuestion(
 				"Vad händer med ett russin om du lägger det i ett glas med Champagne?",
 				["1. Det flyter", "X. Det sjunker", "2. Det åker upp och ner"],
-				2
+				"1. Det åker upp och ner"
 			);
 			questionTest.createQuestion(
 				"Vilket land har ett skjutvapen avbildat på flaggan?",
 				["1. Mocambique", "X. Nigeria", "2. Liberia"],
-				0
+				"Liberia"
 			);
 			questionTest.createQuestion(
 				"Vad är den romerska siffran för 100?",
 				["1. M", "X. C", "2. D"],
-				1
+				"X. C"
 			);
 			// Add questions to the tests array.
 			this.tests.push(questionTest);

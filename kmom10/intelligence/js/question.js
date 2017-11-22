@@ -69,7 +69,7 @@ window.Question = (function () {
 				that.answerNodes.push(answerNode);
 			});
 
-			this.correctAnswer = answers[correctAnswer];
+			this.correctAnswer = correctAnswer;
 		},
 
 		/**
