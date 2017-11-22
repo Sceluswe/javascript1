@@ -1,6 +1,12 @@
 window.Question = (function () {
 	"use strict";
 
+	/*
+	* Creates an eventListener for each answer to each question.
+	* @param answer, the node to receive the eventListener.
+	* @param questionObj, the object containing all the questions data.
+	* @returns void.
+	*/
 	function createEventListener(answer, questionObj) {
 		answer.addEventListener("click", function () {
 			if (!questionObj.answered) {
