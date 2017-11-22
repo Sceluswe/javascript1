@@ -98,7 +98,7 @@ window.Test = (function () {
 			var fizzbuzzCallback = function () {
 				window.Elemu.select(".content", function (elem) {
 					var button = window.Elemu.create("button", {
-						text: "Go to the next test.",
+						text: "Nästa test!",
 						classList: ["startButton"]
 					});
 
@@ -120,12 +120,22 @@ window.Test = (function () {
 			var questionsCallback = function () {
 				// Remove anything remaining from the old test.
 				window.Elemu.select(".content", function (content) {
-					content.innerHTML = "";
-				});
+					var nextButton = window.Elemu.create("button", {
+						id: "next-question",
+						classList: ["startButton"],
+						text: "Nästa test!"
+					});
 
-				// Start new test.
-				that.currentTest++;
-				that.tests[that.currentTest].start(".content", fizzbuzzCallback);
+					// Remove old question and display the next one.
+					nextButton.addEventListener("click", function () {
+						content.innerHTML="";
+						// Start new test.
+						that.currentTest++;
+						that.tests[that.currentTest].start(".content", fizzbuzzCallback);
+					});
+
+					content.appendChild(nextButton);
+				});
 			};
 
 			this.tests[this.currentTest].start(".content", questionsCallback);
