@@ -148,6 +148,11 @@ window.Question = (function () {
 			return wrapper;
 		},
 
+		/**
+		* sets the answer buttons callback.
+		* @param callback, the callback to be used.
+		* @returns void.
+		*/
 		"setCallback": function (callback) {
 			this.callback = callback;
 		},

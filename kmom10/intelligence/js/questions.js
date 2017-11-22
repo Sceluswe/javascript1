@@ -21,13 +21,6 @@ window.Questions = (function () {
 			}
 		},
 
-		/*
-		* Creates the callback to be used in each question object.
-		* @returns void.
-		*/
-		"questionsCallback": function () {
-		},
-
 		/**
 		* Adds a question object to the questions array.
 		* @question string, the question to answer.
