@@ -42,7 +42,7 @@ window.FizzBuzz = (function() {
 	* Returns a fizzbuzz question. The number after the sequence is
 	* the correct answer.
 	* @param, sequenceLength, the length of the fizzbuzz sequence.
-	* @returns object, contains fizzbuzz sequence, possible answers and correctAnswer.
+	* @returns Question.js object, contains fizzbuzz sequence, possible answers and correctAnswer.
 	*/
 	function fizzbuzzQuestion(sequenceLength) {
 		// Get a random number.
