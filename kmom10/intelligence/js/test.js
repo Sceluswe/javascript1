@@ -35,7 +35,7 @@ window.Test = (function () {
 			);
 			questionTest.createQuestion(
 				"Vem skrev orginal versionen av 'Brott och Straff'",
-				["Alexander Solzjenitsyn", "X. Fyodor Dostoevsky", "2. Leo Tolstoy"],
+				["1. Alexander Solzjenitsyn", "X. Fyodor Dostoevsky", "2. Leo Tolstoy"],
 				"X. Fyodor Dostoevsky"
 			);
 			// Add questions to the tests array.
