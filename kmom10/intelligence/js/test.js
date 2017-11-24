@@ -95,7 +95,7 @@ window.Test = (function () {
 
 							var points = window.Elemu.create("h2", {
 								classList: ["center"],
-								text: "Din intelligens kvot: " + sum + " / 21"
+								text: "Din intelligens kvot: " + sum + " / 27"
 							});
 
 							elem.appendChild(points);
