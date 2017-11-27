@@ -237,8 +237,61 @@ var googleLink = createElem(”a”, {
     </section>
 
     <section id="kmom07">
-    <h2>Kmom07-10</h2>
-    <p>Här är redovisningstexten</p>
+        <h2>Kmom07-10</h2>
+        <p>Först redogör jag för tre moduler som utgör grunden till projektet.</p>
+        <h3>Elemu modulen</h3>
+        <p>Denna modul återanvänds flera gånger i koden och den innehåller ett antal funktioner som förenklar mitt arbete.Till att börja med finns en shuffle funktion. Shuffle ändrar slumpmässigt om alla element i en array. Sedan finns en select, create och en remove funktion.</p>
+        <p>Select funktionen tillåter mig att välja ett element i DOM:en med hjälp av dess klass eller id. Detta är en high-order funktion. Den tar 2 parametrar varav en är en callback funktion. Sedan hämtar den rätt nod ifrån DOM:en med hjälp av id/class och skickar in resultatet (noden eller noderna) som parameterar till callback funktionen. I mitt fall har den två parametrar och den andra är strängen som identifierar DOM elementet. Exempel på en sådan sträng är ”.content”. </p>
+<pre>
+window.Elemu.select(”.content”, function (node) {// kod som manipulerar ”node”});
+</pre>
+        <p>Create funktionen tillåter en att skapa en DOM nod med hjälp av en sträng och ett objekt. Strängen innehåller DOM nodens typ och objektet innehåller attribut var namn och innehåll används. Funktionen kan användas så här: </p>
+<pre>
+window.Elemu.create(”div”, {id: ”mydiv”, classList: [”myclass”], text: ”My content”};
+</pre>
+        <p>Remove funktionen är den enklaste. Den tar ett DOM objekt som parameter och tar bort det ifrån DOM:en. Exempel:</p>
+<pre>
+window.Elemu.remove(myNode);
+</pre>
+        <h3>Test.js modulen</h3>
+        <p>Test.js modulen sparar varje deltest i en array och håller reda på det aktiva deltestet med hjälp av en nummer variabel. Test.js består huvudsakligen av tre funktioner. En init funktion, en start funktion och reset en funktion.</p>
+        <p>Init funktionen initierar varje deltest med nödvändig data. Frågetesterna är gjorda så att man enkelt kan lägga till flera frågor om man behöver. </p>
+        <p>Start funktionen körs i när sidan laddas och den kallar på start funktionen som finns i varje deltest. I denna funktion skickar den in klassnamnet ”.content”. Detta gör så att deltesterna skriver till <div> tagen med klassen ”content”. Dessutom tilldelar Test.js varje deltest en callback funktion som kommer att köras när deltestet är slut. Därefter startar den det första testet.</p>
+        <p>Varje callback skapar och visar en knapp för användaren. När man trycker på knappen rensas innehållet i hemsidan och därefter startas nästa test i Test.js array. Jag undviker scope problem i samtliga callbacks igenom att använda ”that, this” idiomet. Man skapar alltså en variabel vid namn ”that” som innehåller ”this” i samma scope som man skapar callback funktionen. På så sätt hänvisar callbacken alltid rätt.</p>
+        <p>Reset funktionen kan användas för att starta om ett deltest ifrån början. För att använda den skriver man ”Test.reset();” i konsolen oavsett vilket deltest man står på.</p>
+        <h3>Question.js modulen</h3>
+        <p>Question.js innehåller all data som en fråga kan tänkas behöva: en fråga, X antal svarsalternativ, ett korrekt svar, en variabel som håller reda på vad spelaren svarat och de DOM noder som visar upp frågan och svarsalternativen i webbläsaren. Frågan, svaren och det rätta svaret kan initieras utifrån med hjälp av en init funktion.</p>
+        <p>Modulen skapar frågan som ett <p> element och varje svarsalternativ som ett knapp element, en <button>. Sedan omsluts de i en wrapper <div>. Denna wrapper kan skrivas ut i DOM:en och returneras ifrån funktionen getWrapper().</p>
+        <p>Man kan kolla om användaren svarade rätt igenom funktionen getUserAnswer(). Den returnerar ”True” om rätt, ”False” om fel.</p>
+        <p>Varje svarsalternativ består av en knapp som får en eventlyssnare. Den väntar på användarens input. Om man trycker på ett svarsalternativ registrerar frågeobjektet om det var rätt eller ej och sedan körs en callback funktion. Callback funktionen skickas in utifrån (av deltestet) igenom funktionen ”setCallback()”. Om ingen callback angetts körs en tom funktion. </p>
+        <p>Slutligen innehåller Question.js en reset funktion som återställer datan och DOM elementen till sitt initierade stadie.</p>
+        <h3>Deltest 1: Tipsfrågor</h3>
+        <p>Denna uppgift löstes med hjälp av 3 moduler: Elemu.js, Question.js och Questions.js. Det är tidigare nämnda funktioner i Elemu.js som återanvänds här.</p>
+        <p>Questions.js, fungerar som själva frågeställningstestet. 5 frågor skapas utifrån, i Test.js, igenom Questions.js funktion: ”createQuestion()”. CreateQuestion sparar ett initerat frågeobjekt (Question.js objekt) i Questions.js array och håller även reda på spelarens poäng.</p>
+        <p>När man kallar på start() visas den första frågan och svar inväntas. När en fråga besvarats kollar Question.js med frågeobjektet om användaren svarat rätt.  Samtidigt visas vad det rätta svaret var i grön text och med grön markering på det rätta svarets knapp. Om användaren svarade fel visas det felaktiga svaret med hjälp av en röd markering på svarsknappen. Varje rätt svar ger 3 poäng, fel svar ger 0. Questions.js sparar summan av alla svar.</p>
+        <p>Start() tar två parametrar. En sträng med ett klassnamn eller ett id till den DOM node som testet kommer att skrivas ut i. Den andra parametern är en callback. Denna callback kallas när testet är över och visar då upp en knapp som tillåter användaren att gå till nästa deltest. Deltestet är över när det inte finns flera frågor att besvara. Om det finns fler frågor att besvara används istället Question.js egna callback. Den visar upp en knapp som tar användaren till nästa fråga. </p>
+        <p>Reset() startar om testet ifrån första frågan igen. Den använder sig av Question.js reset funktion för att starta om frågorna. Test.js använder sig av Questions.js reset funktion för att starta om hela testet. Därför funkar det att skriva ”Test.reset()” i konsolen för att börja om.</p>
+        <h3>Deltest 2: Fizzbuzz</h3>
+        <p>Fizzbuzz.js fungerar på liknande sätt som Questions.js. Den använder Question.js som grund för sin fråga. När Test.js kallar Fizzbuzz.js start funktion så genereras ett frågeobjekt med en Fizzbuzz sekvens och det sista numret i den sekvensen blir det nummer som spelaren ska lista ut. Frågeobjektet sparas i Fizzbuzz.js för att man enkelt ska kunna starta om testet. </p>
+        <p>Därefter presenteras användaren med sekvensen och 4 alternativ om vad följande nummer kan vara: ett nummer, Fizz, Buzz eller Fizzbuzz. Som i föregående moment visas rätt svar i grön text och med grön bakgrund på rätt knapp. Svarar användaren fel visas det felaktiga svaret med röd bakgrund på knappen.</p>
+        <p>När spelaren svarar på frågan tilldelas 3 poäng för rätt svar och 0 poäng för fel svar. Oavsett rätt eller fel så körs en callback som skickats in som parameter i Fizzbuzz.start(). Denna callback visar en knapp som tillåter spelaren att avsluta testet och gå vidare till nästa.</p>
+        <p>Fizzbuzz.reset() funktion använder sig av frågeobjektets reset funktion samtidigt som den nollställer antalet insamlade poäng. Test.js använder sig av Fizzbuzz.reset() och därför funkar ”Test.reset()” i konsolen även här.</p>
+        <h3>Deltest 3: Minne</h3>
+        <p>Detta deltest löstes med modulerna memory.js, flag.js och Elemu.js. Flag.js innehåller flaggans namn och själva DOM noden.</p>
+        <p>Hur detta deltest fungerar förklaras i en välkomstsida innan deltestets början. När spelaren vill börja testet kan denne trycka på en knapp. Välkomstsidan skrivs ut när Fizzbuzz.js testet är klart och Fizzbuzz.js modulen anropar den callback funktion som Test.js gav den.</p>
+        <p>Memory.js skapar flagobjekt med hjälp av flag.js modulen. Därefter skapas två olika listor som skrivs ut i webbläsaren. Båda listorna innehåller de 9 olika flaggorna. En har endast namn, den andra har den grafiska flaggan. Listornas ordning ändras om med hjälp av Elemu.js shuffle funktion (den som jag redogjorde för tidigare) i början på testet. </p>
+        <p>Den första listan som innehåller flaggnamnen får det första elementet förtydligat med tjock text och en pil som pekar emot det. Denna lista indikerar vilken flagga som spelaren ska trycka på och i vilken ordning. Om spelaren trycker på fel flagga så avslutas testet. </p>
+        <p>Den andra listan med de grafiska flaggorna döljs efter 5 sekunder med hjälp av <div> element med ljus bakgrund och ett frågetecken. Dessa element har en eventListener som kollar om den flagga användaren valt stämmer överens med den flaggan som indikeras i den första listan. Om spelaren svarat rätt får den fortsätta gissa, gissar spelaren fel avslutas testet.</p>
+        <p>I konsolen kan man skriva ”Test.reset();” för att börja om ifrån början. De två listorna ändras då inte om med ”shuffle” utan förblir densamma som när testet började för första gången.</p>
+        <h2 class="innerTitle">Reflektion</h2>
+        <h3>Erfarenhet och lärdomar</h3>
+        <p>Projektet har tillåtit mig att förstärka mina kunskaper inom programmering och hur man kan bygga upp en mindre applikation på ett objektorienterat vis även i Javascript.  Det var min tanke att försöka bygga projektet ungefär som man byger ett program i C++. Det höll inte ända vägen fram då en while loop som hela tiden kör i webbläsaren går segt. Istället fick jag tänka om och göra så att allting fungerade steg för steg med hjälp av callbacks och events.</p>
+        <h3>Problem och lösningar</h3>
+        <p>Jag fick problem med scopet men löste detta igenom att använda ”that-this” idiomet. Annat än detta uppstod det inga nämnvärda problem.</p>
+        <h3>Resultat</h3>
+        <p>Resultatet är jag inte helt nöjd med då det tog lång tid för mig att få det klart. Bättre planering och riskhantering hade hjälpt mig att hålla tiden. Jag nöjde mig med att endast göra grunden av samma anledning: tiden. Dessutom snöade jag in mig på cenceptet om callbacks och kanske hade det funnits ett enklare sätt att utföra detta på. Att förstå hur programmet skulle fungera med callbacks istället för en while-loop var det svåra. Det blev många callbacks vilket gjorde att det blev krångligt att hålla reda på scopen och flödet av applikationen, men jag kom inte på en bättre lösning. Det blev lättare att arbeta med dessa efter att jag dokumenterat hur de fungerade i en flow chart. På så sätt kunde jag hålla reda på konceptet även emellan arbetspassen. Det var lätta var att återanvända den kod som jag utvecklat under kursens gång.</p>
+        <p>Projektet kändes rimligt och hjälpte en att lägga ihop alla ens kunskaper ifrån tidigare moment till en ända applikation. Kursen i stort har lärt mig hur jag kan använda javascript och vad som skiljer det ifrån andra språk (för det mesta high-order funktioner och callbacks), därför skulle jag rekommendera den till de jag känner.</p>
+        <p>Lärarna och handledningen är som vanligt utmärkt. Det är hos mig själv det brustit i tid och planering. Kursen i sig är jag helt nöjd med och jag kan inte tänka mig några förbättringsförslag.</p>
     </section>
     </article>
 </main>
