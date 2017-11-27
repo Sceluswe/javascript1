@@ -8,7 +8,7 @@ window.Memory = (function(){
 	function getDescription() {
 		// Create paragraf.
 		var p = window.Elemu.create("p", {
-			text: "I följande test testas ditt minne. Du kommer få se nio olika flaggor i fem sekunder och därefter döljs de. När de dolts får du en lista med flaggornas namn och i vilken ordning du ska klicka på flaggorna så att de återigen syns. Om du väljer rätt får du 3 poäng, väljer du fel avslutas testet."
+			text: "I följande test testas ditt minne. Du kommer få se nio olika flaggor i fem sekunder och därefter döljs de. Listan högst upp på hemsidan indikerar vilken flagga du skall trycka på och i vilken ordning. Om du väljer rätt får du 1 poäng, väljer du fel avslutas testet."
 		});
 
 		return p;
